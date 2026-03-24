@@ -1,0 +1,14 @@
+<kml>
+  <Document>
+    <Style id="green">
+      <IconStyle>
+        <color>ff00ff00</color>
+      </IconStyle>
+    </Style>
+    <Style id="red">
+      <IconStyle>
+        <color>ff0000ff</color>
+      </IconStyle>
+    </Style>
+  </Document>
+</kml>
