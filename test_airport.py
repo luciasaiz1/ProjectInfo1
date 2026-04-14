@@ -14,6 +14,7 @@ from airport import *
 airports = LoadAirports("Airports.txt")
 print("Number of airports loaded:")
 print(len(airports))
+MapAirports(airports)
 
 
 # SET SCHENGEN FOR ALL AIRPORTS
