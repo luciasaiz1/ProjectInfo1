@@ -88,9 +88,9 @@ def LoadAirports(filename):
         if lat_str[0] == 'S':
             sign = -1 # Negative for South
 
-            degrees = int(lat_str[1:3])
-            minutes = int(lat_str[3:5])
-            seconds = int(lat_str[5:7])
+        degrees = int(lat_str[1:3])
+        minutes = int(lat_str[3:5])
+        seconds = int(lat_str[5:7])
 
         lat = degrees + minutes / 60 + seconds / 3600
         lat = lat * sign
@@ -100,9 +100,9 @@ def LoadAirports(filename):
 
         if lon_str[0] == 'W':
             sign = -1 # Negative for West
-            degrees = int(lon_str[1:4])
-            minutes = int(lon_str[4:6])
-            seconds = int(lon_str[6:8])
+        degrees = int(lon_str[1:4])
+        minutes = int(lon_str[4:6])
+        seconds = int(lon_str[6:8])
 
         lon = degrees + minutes / 60 + seconds / 3600
         lon = lon * sign
@@ -110,7 +110,7 @@ def LoadAirports(filename):
         airports.append(airport)
         i = i + 1
 
-        return airports
+    return airports
 
 
 def SaveSchengenAirports(airports, filename):
@@ -136,12 +136,13 @@ def SaveSchengenAirports(airports, filename):
             F.write(str(lon) + "\n")
 
         i = i + 1
-        F.close()
+
 
         if found:
             return 0
         else:
             return -1
+    F.close()
 
 def AddAirport(airports, airport):
 
@@ -154,8 +155,8 @@ def AddAirport(airports, airport):
         else:
             i = i + 1
 
-        if not (found):
-           airports.append(airport)
+    if not (found):
+         airports.append(airport)
 
 def RemoveAirport(airports, code):
 
@@ -169,12 +170,12 @@ def RemoveAirport(airports, code):
         else:
             i = i + 1
 
-        if found:
-           del airports[i]
-           return 0
+    if found:
+        del airports[i]
+        return 0
 
-        else:
-           return -1
+    else:
+        return -1
 
 #STEP 5
 #Stacked bar
@@ -210,69 +211,265 @@ def PlotAirports(airports):
 
 def MapAirports(airports):
 
-    F = open("AirportsMap.kml", "w")
+    if len(airports) == 0:
+        print("Error: no airports")
+        return -1
 
-    F.write("<kml>\n")
+    file = open("AirportsMap.kml", "w")
 
-    F.write("  <Document>\n")
+    file.write("<kml>\n")
+    file.write("<Document>\n")
 
+    # GREEN → Schengen
 
-    # STYLES
+    file.write("<Style id='green'>\n")
+    file.write("<IconStyle>\n")
+    file.write("<color>ff00ff00</color>\n")
+    file.write("</IconStyle>\n")
+    file.write("</Style>\n")
 
-    F.write("    <Style id=\"green\">\n")
+    # RED → Non-Schengen
 
-    F.write("      <IconStyle>\n")
-
-    F.write("        <color>ff00ff00</color>\n")
-
-    F.write("      </IconStyle>\n")
-
-    F.write("    </Style>\n")
-
-
-    F.write("    <Style id=\"red\">\n")
-
-    F.write("      <IconStyle>\n")
-
-    F.write("        <color>ff0000ff</color>\n")
-
-    F.write("      </IconStyle>\n")
-
-    F.write("    </Style>\n")
-
+    file.write("<Style id='red'>\n")
+    file.write("<IconStyle>\n")
+    file.write("<color>ff0000ff</color>\n")
+    file.write("</IconStyle>\n")
+    file.write("</Style>\n")
 
     i = 0
 
     while i < len(airports):
 
-        code = airports[i].code
-        lat = airports[i].coordinates[0]
-        lon = airports[i].coordinates[1]
+        airport = airports[i]
 
-        if airports[i].schengen == True:
-            color = "ff00ff00"   # verd
+        if airport.schengen == True:
+            style = "green"
         else:
-            color = "ff0000ff"   # vermell
+            style = "red"
 
-        F.write("    <Placemark>\n")
-        F.write("      <name>" + code + "</name>\n")
-        F.write("      <Style>\n")
-        F.write("        <IconStyle>\n")
-        F.write("          <color>" + color + "</color>\n")
-        F.write("        </IconStyle>\n")
-        F.write("      </Style>\n")
-        F.write("      <Point>\n")
-        F.write("        <coordinates>")
-        F.write(str(lon) + "," + str(lat) + ",0")
-        F.write("</coordinates>\n")
-        F.write("      </Point>\n")
-        F.write("    </Placemark>\n")
+        lat = airport.coordinates[0]
+        lon = airport.coordinates[1]
+
+        file.write("<Placemark>\n")
+
+        file.write("<name>")
+        file.write(airport.code)
+        file.write("</name>\n")
+
+        file.write("<styleUrl>#")
+        file.write(style)
+        file.write("</styleUrl>\n")
+
+        file.write("<Point>\n")
+
+        file.write("<coordinates>")
+
+        file.write(str(lon))
+        file.write(",")
+
+        file.write(str(lat))
+        file.write(",0")
+
+        file.write("</coordinates>\n")
+
+        file.write("</Point>\n")
+
+        file.write("</Placemark>\n")
 
         i = i + 1
 
-    F.write("  </Document>\n")
-    F.write("</kml>\n")
+    file.write("</Document>\n")
+    file.write("</kml>\n")
 
-    F.close()
+    file.close()
 
-    print("KML file created")
+    print("AirportsMap.kml created")
+
+    return 0
+
+# PART 1
+import matplotlib.pyplot as plt
+
+
+# CLASS
+
+class Aircraft:
+
+    def __init__(self,
+                 aircraft_id="",
+                 airline="",
+                 origin="",
+                 arrival=""):
+
+        self.aircraft_id = aircraft_id
+        self.airline = airline
+        self.origin = origin
+        self.arrival = arrival
+
+
+# LOAD ARRIVALS
+
+def LoadArrivals(filename):
+
+    aircrafts = []
+
+    try:
+
+        file = open(filename, "r")
+
+    except:
+
+        print("Error")
+
+        return aircrafts
+
+    header = file.readline()
+
+    for line in file:
+
+        parts = line.split()
+
+        if len(parts) != 4:
+            continue
+
+        aircraft_id = parts[0]
+        origin = parts[1]
+        arrival = parts[2]
+        airline = parts[3]
+
+        # Validate time format
+
+        if ":" not in arrival:
+            continue
+
+        time_parts = arrival.split(":")
+
+        if len(time_parts) != 2:
+            continue
+
+        try:
+
+            hour = int(time_parts[0])
+            minute = int(time_parts[1])
+
+        except:
+
+            continue
+
+        aircraft = Aircraft(
+            aircraft_id,
+            airline,
+            origin,
+            arrival
+        )
+
+        aircrafts.append(aircraft)
+
+    file.close()
+
+    return aircrafts
+
+
+# PLOT ARRIVALS
+
+def PlotArrivals(aircrafts):
+
+    if len(aircrafts) == 0:
+
+        print("Error")
+
+        return
+
+    hours = [0] * 24
+
+    i = 0
+
+    while i < len(aircrafts):
+
+        arrival = aircrafts[i].arrival
+
+        hour = int(arrival.split(":")[0])
+
+        if hour >= 0 and hour < 24:
+
+            hours[hour] = hours[hour] + 1
+
+        i = i + 1
+
+    plt.bar(range(24), hours)
+
+    plt.title("Landing frequency per hour")
+
+    plt.xlabel("Hour")
+
+    plt.ylabel("Number of arrivals")
+
+    plt.show()
+
+
+# SAVE FLIGHTS
+
+def SaveFlights(aircrafts, filename):
+
+    if len(aircrafts) == 0:
+
+        print("Error")
+
+        return -1
+
+    file = open(filename, "w")
+
+    file.write("AIRCRAFT ORIGIN ARRIVAL AIRLINE\n")
+
+    i = 0
+
+    while i < len(aircrafts):
+
+        aircraft = aircrafts[i]
+
+        aircraft_id = aircraft.aircraft_id
+        origin = aircraft.origin
+        arrival = aircraft.arrival
+        airline = aircraft.airline
+
+        if aircraft_id == "":
+            aircraft_id = "-"
+
+        if origin == "":
+            origin = "-"
+
+        if arrival == "":
+            arrival = "-"
+
+        if airline == "":
+            airline = "-"
+
+        file.write(
+            aircraft_id + " " +
+            origin + " " +
+            arrival + " " +
+            airline + "\n"
+        )
+
+        i = i + 1
+
+    file.close()
+
+    print("Flights saved")
+
+    return 0
+
+
+# TEST SECTION
+
+if __name__ == "__main__":
+
+    aircrafts = LoadArrivals("Arrivals.txt")
+
+    print("Aircraft loaded:")
+
+    print(len(aircrafts))
+
+    PlotArrivals(aircrafts)
+
+    SaveFlights(aircrafts, "FlightsOutput.txt")
