@@ -183,3 +183,166 @@ if __name__ == "__main__":
     PlotArrivals(aircrafts)
 
     SaveFlights(aircrafts, "FlightsOutput.txt")
+
+
+def PlotAirlines(aircrafts):
+    if len(aircrafts) == 0:
+        print("Error: empty list")
+        return -1
+
+    airlines = []
+    counts = []
+
+    i = 0
+    while i < len(aircrafts):
+        airline = aircrafts[i].airline
+
+        if airline in airlines:
+            j = airlines.index(airline)
+            counts[j] = counts[j] + 1
+        else:
+            airlines.append(airline)
+            counts.append(1)
+
+        i = i + 1
+
+    plt.bar(airlines, counts)
+    plt.xlabel("Airlines")
+    plt.ylabel("Number of flights")
+    plt.title("Flights per airline")
+    plt.show()
+
+    return 0
+
+#TEST SECTION PLOT AIRLINES
+if __name__ == "__main__":
+
+    aircrafts = LoadArrivals("Arrivals.txt")
+
+    if len(aircrafts) > 0:
+        PlotAirLines(aircrafts)
+    else:
+        print("Error: arrivals could not be loaded")
+
+
+def PlotFlightsType(aircrafts):
+
+    if len(aircrafts) == 0:
+        print("Error: empty aircraft list")
+        return -1
+
+    schengen_count = 0
+    non_schengen_count = 0
+
+    i = 0
+    while i < len(aircrafts):
+        origin = aircrafts[i].origin
+
+        if airport.IsSchengenAirport(origin) == True:
+            schengen_count = schengen_count + 1
+        else:
+            non_schengen_count = non_schengen_count + 1
+
+        i = i + 1
+
+    plt.bar(["Flights"], [schengen_count], label="Schengen")
+    plt.bar(["Flights"], [non_schengen_count], bottom=[schengen_count], label="No Schengen")
+
+    plt.xlabel("Flights")
+    plt.ylabel("Number of flights")
+    plt.title("Schengen vs non-Schengen arrivals")
+    plt.legend()
+    plt.show()
+
+    return 0
+
+#TEST SECTION PLOT FLIGHT TYPES
+if __name__ == "__main__":
+
+    aircrafts = LoadArrivals("Arrivals.txt")
+
+    if len(aircrafts) > 0:
+        PlotFlightsType(aircrafts)
+    else:
+        print("Error: arrivals could not be loaded")
+
+#MAP FLIGHTS
+import webbrowser
+from airport import LoadAirports, IsSchengenAirport
+
+def MapFlights(aircrafts):
+    if len(aircrafts) == 0:
+        print("Error: no aircrafts to map")
+        return -1
+
+    airports = LoadAirports("Airports.txt")
+    if len(airports) == 0:
+        print("Error: airports could not be loaded")
+        return -1
+
+    lebl_lat = 41.297445
+    lebl_lon = 2.0832941
+
+    kml_file = open("FlightsMap.kml", "w", encoding="utf-8")
+
+    kml_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+    kml_file.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
+    kml_file.write('<Document>\n')
+
+    kml_file.write('<Style id="schengenStyle">\n')
+    kml_file.write('<LineStyle><color>ff00ff00</color><width>3</width></LineStyle>\n')
+    kml_file.write('</Style>\n')
+
+    kml_file.write('<Style id="nonSchengenStyle">\n')
+    kml_file.write('<LineStyle><color>ff0000ff</color><width>3</width></LineStyle>\n')
+    kml_file.write('</Style>\n')
+
+    i = 0
+    while i < len(aircrafts):
+        origin_code = aircrafts[i].origin
+        found = False
+        j = 0
+
+        while j < len(airports) and not found:
+            if airports[j].code == origin_code:
+                found = True
+                origin_lat = airports[j].lat
+                origin_lon = airports[j].lon
+            else:
+                j = j + 1
+
+        if found:
+            if IsSchengenAirport(origin_code):
+                style = "#schengenStyle"
+            else:
+                style = "#nonSchengenStyle"
+
+            kml_file.write('<Placemark>\n')
+            kml_file.write('<name>' + aircrafts[i].id + ': ' + origin_code + ' - LEBL</name>\n')
+            kml_file.write('<styleUrl>' + style + '</styleUrl>\n')
+            kml_file.write('<LineString>\n')
+            kml_file.write('<tessellate>1</tessellate>\n')
+            kml_file.write('<coordinates>\n')
+            kml_file.write(str(origin_lon) + ',' + str(origin_lat) + ',0 ')
+            kml_file.write(str(lebl_lon) + ',' + str(lebl_lat) + ',0\n')
+            kml_file.write('</coordinates>\n')
+            kml_file.write('</LineString>\n')
+            kml_file.write('</Placemark>\n')
+
+        i = i + 1
+
+    kml_file.write('</Document>\n')
+    kml_file.write('</kml>\n')
+    kml_file.close()
+
+    webbrowser.open("FlightsMap.kml")
+    return 0
+
+#TEST SECTION MAP FLIGHT
+if __name__ == "__main__":
+    aircrafts = LoadArrivals("Arrivals.txt")
+
+    if len(aircrafts) > 0:
+        MapFlights(aircrafts)
+    else:
+        print("Error: arrivals could not be loaded")
