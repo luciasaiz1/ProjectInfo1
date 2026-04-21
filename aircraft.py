@@ -274,9 +274,7 @@ def PlotFlightsType(aircrafts):
     plt.show()
 
 
-# =====================================================
 # MAP FLIGHTS
-# =====================================================
 
 def MapFlights(aircrafts, airports):
 
@@ -410,9 +408,8 @@ def MapFlights(aircrafts, airports):
     return 0
 
 
-# =====================================================
-# TEST SECTION (SOLO UNO)
-# =====================================================
+
+# TEST SECTION
 
 if __name__ == "__main__":
 
