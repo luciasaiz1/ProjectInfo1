@@ -72,46 +72,46 @@ def LoadAirports(filename):
     lineas = F.readlines()
     F.close()
 
-    i = 1  # Skips the first line
+    i = 1  # skip header
     while i < len(lineas):
 
-        linea = lineas[i]
-        datos = linea.split(" ")
+        linea = lineas[i].strip()
+        datos = linea.split()
+
         code = datos[0]
         lat_str = datos[1]
         lon_str = datos[2]
 
-        # CONVERT the format of LATITUDE
-
+        # LATITUDE
         sign = 1
-
         if lat_str[0] == 'S':
-            sign = -1 # Negative for South
+            sign = -1
 
         degrees = int(lat_str[1:3])
         minutes = int(lat_str[3:5])
         seconds = int(lat_str[5:7])
 
-        lat= degrees + minutes / 60 + seconds / 3600
+        lat = degrees + minutes / 60 + seconds / 3600
         lat = lat * sign
 
-        # CONVERT the format of LONGITUDE
+        # LONGITUDE
         sign = 1
-
         if lon_str[0] == 'W':
-            sign = -1 # Negative for West
+            sign = -1
+
         degrees = int(lon_str[1:4])
         minutes = int(lon_str[4:6])
         seconds = int(lon_str[6:8])
 
         lon = degrees + minutes / 60 + seconds / 3600
         lon = lon * sign
+
         airport = Airport(code, lat, lon)
         airports.append(airport)
+
         i = i + 1
 
-        return airports
-
+    return airports
 
 def SaveSchengenAirports(airports, filename):
 
