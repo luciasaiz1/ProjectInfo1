@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox, filedialog
 import os
 from airport import *
-
+from aircraft import *
 # GLOBAL LISTS
 airports = []
 aircrafts = []
@@ -216,6 +216,8 @@ def PlotFlightsTypeButton():
 
 
 def MapFlightsButton():
+    global airports
+
     if not _v2_backend_ready():
         messagebox.showerror("Error", "Version 2 flight functions are not implemented in the project yet")
         return
@@ -224,10 +226,23 @@ def MapFlightsButton():
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
 
-    MapFlights(aircrafts)
+    if len(airports) == 0:
+        airports = LoadAirports("Airports.txt")
+        if len(airports) == 0:
+            messagebox.showerror("Error", "Airports could not be loaded")
+            return
+
+        i = 0
+        while i < len(airports):
+            SetSchengen(airports[i])
+            i = i + 1
+
+    MapFlights(aircrafts, airports)
 
 
 def MapLongDistanceButton():
+    global airports
+
     if not _v2_backend_ready():
         messagebox.showerror("Error", "Version 2 flight functions are not implemented in the project yet")
         return
@@ -235,6 +250,17 @@ def MapLongDistanceButton():
     if len(aircrafts) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
+
+    if len(airports) == 0:
+        airports = LoadAirports("Airports.txt")
+        if len(airports) == 0:
+            messagebox.showerror("Error", "Airports could not be loaded")
+            return
+
+        i = 0
+        while i < len(airports):
+            SetSchengen(airports[i])
+            i = i + 1
 
     long_distance = LongDistanceArrivals(aircrafts)
 
@@ -242,8 +268,7 @@ def MapLongDistanceButton():
         messagebox.showinfo("Info", "No long-distance arrivals found")
         return
 
-    MapFlights(long_distance)
-
+    MapFlights(long_distance, airports)
 
 # =========================
 # WINDOW

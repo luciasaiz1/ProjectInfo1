@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import webbrowser
+import math
 from airport import IsSchengenAirport, LoadAirports
-
 
 # CLASS AIRCRAFT
 
@@ -407,7 +407,70 @@ def MapFlights(aircrafts, airports):
 
     return 0
 
+def SearchAirportByCode(airports, code):
+    i = 0
+    while i < len(airports):
+        if airports[i].code == code:
+            return airports[i]
+        i += 1
+    return None
 
+
+def Haversine(lat1, lon1, lat2, lon2):
+    R = 6371.0
+
+    lat1 = math.radians(lat1)
+    lon1 = math.radians(lon1)
+    lat2 = math.radians(lat2)
+    lon2 = math.radians(lon2)
+
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    return R * c
+
+
+def LongDistanceArrivals(aircrafts):
+    result = []
+
+    if len(aircrafts) == 0:
+        return result
+
+    airports = LoadAirports("Airports.txt")
+    if len(airports) == 0:
+        print("Error: Airports.txt could not be loaded")
+        return result
+
+    lebl = SearchAirportByCode(airports, "LEBL")
+
+    if lebl is None:
+        lebl_lat = 41.297445
+        lebl_lon = 2.0832941
+    else:
+        lebl_lat = lebl.coordinates[0]
+        lebl_lon = lebl.coordinates[1]
+
+    i = 0
+    while i < len(aircrafts):
+        origin_airport = SearchAirportByCode(airports, aircrafts[i].origin)
+
+        if origin_airport is not None:
+            dist = Haversine(
+                origin_airport.coordinates[0],
+                origin_airport.coordinates[1],
+                lebl_lat,
+                lebl_lon
+            )
+
+            if dist > 2000:
+                result.append(aircrafts[i])
+
+        i += 1
+
+    return result
 
 # TEST SECTION
 
