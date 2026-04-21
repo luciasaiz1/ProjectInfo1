@@ -70,3 +70,27 @@ while i < len(airports):
 
 PlotAirports(airports)
 MapAirports(airports)
+
+print("========================================")
+print("TEST HAVERSINE")
+print("Distance LEBL-JFK should be clearly > 2000 km")
+
+d = Haversine(41.297445, 2.0832941, 40.6413, -73.7781)
+print("LEBL -> JFK distance:", d, "km")
+
+print("========================================")
+print("TEST LONG DISTANCE ARRIVALS")
+
+aircrafts = LoadArrivals("Arrivals.txt")
+print("Loaded arrivals:", len(aircrafts))
+
+long_distance = LongDistanceArrivals(aircrafts)
+print("Long-distance arrivals:", len(long_distance))
+
+i = 0
+while i < len(long_distance) and i < 10:
+    print(long_distance[i].id, long_distance[i].origin, long_distance[i].arrival)
+    i += 1
+
+# Optional:
+# MapFlights(long_distance)
