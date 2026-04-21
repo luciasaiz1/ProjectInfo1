@@ -1,5 +1,5 @@
 # STEP 1
-
+import math
 # We create the class
 class Airport:
 
@@ -92,7 +92,7 @@ def LoadAirports(filename):
         minutes = int(lat_str[3:5])
         seconds = int(lat_str[5:7])
 
-        lat = degrees + minutes / 60 + seconds / 3600
+        lat= degrees + minutes / 60 + seconds / 3600
         lat = lat * sign
 
         # CONVERT the format of LONGITUDE
@@ -100,7 +100,6 @@ def LoadAirports(filename):
 
         if lon_str[0] == 'W':
             sign = -1 # Negative for West
-
         degrees = int(lon_str[1:4])
         minutes = int(lon_str[4:6])
         seconds = int(lon_str[6:8])
@@ -277,3 +276,97 @@ def MapAirports(airports):
     F.close()
 
     print("KML file created")
+
+# =========================================================
+# Haversine + LongDistanceArrivals
+# =========================================================
+
+def SearchAirportByCode(airports, code):
+    """
+    Returns the airport with the given ICAO code.
+    If not found, returns None.
+    """
+    i = 0
+    while i < len(airports):
+        if airports[i].code == code:
+            return airports[i]
+        i += 1
+    return None
+
+
+def Haversine(lat1, lon1, lat2, lon2):
+    """
+    Returns distance in km between two coordinates in decimal degrees.
+    """
+    R = 6371.0  # Earth radius in km
+
+    lat1 = math.radians(lat1)
+    lon1 = math.radians(lon1)
+    lat2 = math.radians(lat2)
+    lon2 = math.radians(lon2)
+
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    return R * c
+
+
+def LongDistanceArrivals(aircrafts):
+    """
+    Returns a list with aircrafts arriving to LEBL from airports
+    more than 2000 km away.
+    """
+    result = []
+
+    if len(aircrafts) == 0:
+        return result
+
+    airports = LoadAirports("Airports.txt")
+    if len(airports) == 0:
+        print("Error: Airports.txt could not be loaded")
+        return result
+
+    lebl = SearchAirportByCode(airports, "LEBL")
+
+    # Fallback per si LEBL no surt al fitxer
+    if lebl is None:
+        lebl_lat = 41.297445
+        lebl_lon = 2.0832941
+    else:
+        lebl_lat = lebl.latitude
+        lebl_lon = lebl.longitude
+
+    i = 0
+    while i < len(aircrafts):
+        origin_airport = SearchAirportByCode(airports, aircrafts[i].origin)
+
+        if origin_airport is not None:
+            dist = Haversine(
+                origin_airport.latitude,
+                origin_airport.longitude,
+                lebl_lat,
+                lebl_lon
+            )
+
+            if dist > 2000:
+                result.append(aircrafts[i])
+
+        i += 1
+
+    return result
+
+
+def MapLongDistanceFlights(aircrafts):
+    """
+    Optional helper: shows only long-distance arrivals on the map.
+    """
+    long_distance = LongDistanceArrivals(aircrafts)
+
+    if len(long_distance) == 0:
+        print("No long-distance arrivals found")
+        return
+
+    MapFlights(long_distance)
