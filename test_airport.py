@@ -7,8 +7,6 @@ PrintAirport(airport)
 
 # STEP 4
 
-from airport import *
-
 # LOAD AIRPORTS FROM FILE
 
 airports = LoadAirports("Airports.txt")
@@ -61,7 +59,6 @@ SaveSchengenAirports(airports, "SchengenAirports.txt")
 
 # STEP 5
 
-from airport import *
 airports = LoadAirports("Airports.txt")
 i = 0
 while i < len(airports):
