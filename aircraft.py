@@ -280,13 +280,13 @@ def MapFlights(aircrafts, airports):
 
     if len(aircrafts) == 0:
 
-        print("Erro")
+        print("Error: no aircrafts")
 
         return -1
 
     if len(airports) == 0:
 
-        print("Error")
+        print("Error: no airports")
 
         return -1
 
