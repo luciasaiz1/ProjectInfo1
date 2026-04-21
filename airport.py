@@ -88,9 +88,9 @@ def LoadAirports(filename):
         if lat_str[0] == 'S':
             sign = -1 # Negative for South
 
-            degrees = int(lat_str[1:3])
-            minutes = int(lat_str[3:5])
-            seconds = int(lat_str[5:7])
+        degrees = int(lat_str[1:3])
+        minutes = int(lat_str[3:5])
+        seconds = int(lat_str[5:7])
 
         lat = degrees + minutes / 60 + seconds / 3600
         lat = lat * sign
@@ -100,9 +100,10 @@ def LoadAirports(filename):
 
         if lon_str[0] == 'W':
             sign = -1 # Negative for West
-            degrees = int(lon_str[1:4])
-            minutes = int(lon_str[4:6])
-            seconds = int(lon_str[6:8])
+
+        degrees = int(lon_str[1:4])
+        minutes = int(lon_str[4:6])
+        seconds = int(lon_str[6:8])
 
         lon = degrees + minutes / 60 + seconds / 3600
         lon = lon * sign
