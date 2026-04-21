@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox, filedialog
+import os
 from airport import *
 
 # GLOBAL LISTS
@@ -99,9 +100,12 @@ def map_airports():
         messagebox.showwarning("Warning", "Load airports first")
         return
 
-    MapAirports(airports)
-    messagebox.showinfo("OK", "KML file created")
+    kml_path = MapAirports(airports)
 
+    try:
+        os.startfile(kml_path)
+    except:
+        messagebox.showinfo("OK", "KML created at:\n" + kml_path)
 
 def save_schengen():
     if len(airports) == 0:

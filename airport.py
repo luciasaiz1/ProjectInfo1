@@ -1,5 +1,7 @@
 # STEP 1
 import math
+import os
+
 # We create the class
 class Airport:
 
@@ -208,41 +210,28 @@ def PlotAirports(airports):
 
 #Mapa Aeroports KML
 
-def MapAirports(airports):
+def MapAirports(airports, filename="AirportsMap.kml"):
 
-    F = open("AirportsMap.kml", "w")
+    filepath = os.path.abspath(filename)
+    F = open(filepath, "w")
 
     F.write("<kml>\n")
-
     F.write("  <Document>\n")
 
-
     # STYLES
-
     F.write("    <Style id=\"green\">\n")
-
     F.write("      <IconStyle>\n")
-
     F.write("        <color>ff00ff00</color>\n")
-
     F.write("      </IconStyle>\n")
-
     F.write("    </Style>\n")
-
 
     F.write("    <Style id=\"red\">\n")
-
     F.write("      <IconStyle>\n")
-
     F.write("        <color>ff0000ff</color>\n")
-
     F.write("      </IconStyle>\n")
-
     F.write("    </Style>\n")
 
-
     i = 0
-
     while i < len(airports):
 
         code = airports[i].code
@@ -250,9 +239,9 @@ def MapAirports(airports):
         lon = airports[i].coordinates[1]
 
         if airports[i].schengen == True:
-            color = "ff00ff00"   # verd
+            color = "ff00ff00"
         else:
-            color = "ff0000ff"   # vermell
+            color = "ff0000ff"
 
         F.write("    <Placemark>\n")
         F.write("      <name>" + code + "</name>\n")
@@ -272,10 +261,11 @@ def MapAirports(airports):
 
     F.write("  </Document>\n")
     F.write("</kml>\n")
-
     F.close()
 
     print("KML file created")
+    return filepath
+
 
 # =========================================================
 # Haversine + LongDistanceArrivals
