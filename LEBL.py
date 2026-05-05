@@ -40,27 +40,6 @@ class Gate:
         self.occupied = False
         self.aircraft_id = ""
 
-# TEST 1
-if __name__ == "__main__":
-
-    airport = BarcelonaAP("LEBL")
-
-    t1 = Terminal("T1")
-
-    ba1 = BoardingArea("T1BAa", "Schengen")
-
-    g1 = Gate("T1BAaG1")
-
-    ba1.gates.append(g1)
-
-    t1.boarding_areas.append(ba1)
-
-    airport.terminals.append(t1)
-
-    print("Airport:", airport.code)
-    print("Terminal:", airport.terminals[0].name)
-    print("Boarding Area:", airport.terminals[0].boarding_areas[0].name)
-    print("Gate:", airport.terminals[0].boarding_areas[0].gates[0].name)
 
 # SET GATES
 
@@ -116,22 +95,44 @@ def LoadAirportStructure(filename):
         return -1
 
     bcn = BarcelonaAP("LEBL")
+    current_terminal = None
+    line = file.readline()
 
-    # EJEMPLO SIMPLE (puedes adaptarlo a tu fichero real)
+    while line != "":
 
-    t1 = Terminal("T1")
+        line = line.strip()
 
-    ba1 = BoardingArea("T1BAa", "Schengen")
-    ba2 = BoardingArea("T1BAb", "Non-Schengen")
+        if line != "":
 
-    SetGates(ba1, 1, 5, "T1BAaG")
-    SetGates(ba2, 1, 5, "T1BAbG")
+            parts = line.split()
 
-    t1.boarding_areas.append(ba1)
-    t1.boarding_areas.append(ba2)
+            # CASE 1: TERMINAL
+            if len(parts) == 1:
 
-    LoadAirlines(t1, "T1")
-    bcn.terminals.append(t1)
+                terminal_name = parts[0]
+                terminal = Terminal(terminal_name)
+                LoadAirlines(terminal, terminal_name)
+                bcn.terminals.append(terminal)
+                current_terminal = terminal
+
+            # CASE 2: BOARDING AREA
+            elif len(parts) == 4:
+
+                name = parts[0]
+                area_type = parts[1]
+                init_gate = int(parts[2])
+                end_gate = int(parts[3])
+
+                area = BoardingArea(name, area_type)
+
+                prefix = name + "G"
+
+                SetGates(area, init_gate, end_gate, prefix)
+
+                if current_terminal != None:
+                    current_terminal.boarding_areas.append(area)
+
+        line = file.readline()
 
     file.close()
 
