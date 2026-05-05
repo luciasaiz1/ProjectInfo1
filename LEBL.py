@@ -40,7 +40,7 @@ class Gate:
         self.occupied = False
         self.aircraft_id = ""
 
-# TEST
+# TEST 1
 if __name__ == "__main__":
 
     airport = BarcelonaAP("LEBL")
@@ -70,14 +70,11 @@ if __name__ == "__main__":
             return -1
 
         area.gates = []
-
         i = init_gate
 
         while i <= end_gate:
             name = prefix + str(i)
-
             gate = Gate(name)
-
             area.gates.append(gate)
 
             i = i + 1
@@ -134,7 +131,6 @@ def LoadAirportStructure(filename):
     t1.boarding_areas.append(ba2)
 
     LoadAirlines(t1, "T1")
-
     bcn.terminals.append(t1)
 
     file.close()
@@ -146,19 +142,16 @@ def LoadAirportStructure(filename):
 def GateOccupancy(bcn):
 
     result = []
-
     t = 0
 
     while t < len(bcn.terminals):
 
         terminal = bcn.terminals[t]
-
         b = 0
 
         while b < len(terminal.boarding_areas):
 
             area = terminal.boarding_areas[b]
-
             g = 0
 
             while g < len(area.gates):
@@ -175,9 +168,7 @@ def GateOccupancy(bcn):
                 result.append([gate.name, status, aircraft])
 
                 g = g + 1
-
             b = b + 1
-
         t = t + 1
 
     return result
@@ -264,9 +255,7 @@ def AssignGate(bcn, aircraft):
                             return 0
 
                         g = g + 1
-
                 b = b + 1
-
         t = t + 1
 
     return -1
@@ -278,7 +267,6 @@ if __name__ == "__main__":
     from aircraft import LoadArrivals
 
     bcn = LoadAirportStructure("LEBL.txt")
-
     aircrafts = LoadArrivals("Arrivals.txt")
 
     i = 0
