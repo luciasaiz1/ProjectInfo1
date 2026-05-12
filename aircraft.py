@@ -14,12 +14,16 @@ class Aircraft:
                  aircraft_id="",
                  airline="",
                  origin="",
-                 arrival=""):
+                 arrival="",
+                 destination="",                 #Afegim els camps de destination i departure time
+                 departure_time=""):
 
         self.aircraft_id = aircraft_id
         self.airline = airline
         self.origin = origin
         self.arrival = arrival
+        self.destination = destination
+        self.departure_time = departure_time
 
 
 # LOAD ARRIVALS
@@ -396,3 +400,5 @@ def LongDistanceArrivals(aircrafts):
         i += 1
 
     return result
+
+def LoadDepartures (Departures.txt)
