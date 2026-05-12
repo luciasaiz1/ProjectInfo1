@@ -401,4 +401,3 @@ def LongDistanceArrivals(aircrafts):
 
     return result
 
-def LoadDepartures (Departures.txt)
