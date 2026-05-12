@@ -469,3 +469,80 @@ Button(frame_v3, text="Gate Occupancy", width=28, command=ShowGateOccupancyButto
 Button(window, text="Exit", width=28, command=exit_program).pack(pady=10)
 
 window.mainloop()
+
+def SimulateDayButton():
+
+    #Simula tot el dia l'aeroport a totes hores.
+    #Mostra com evolucionen les gates ocupades.
+
+    global bcn
+    global aircrafts
+
+    if not _v3_backend_ready():
+        messagebox.showerror("Error", "Backend V3/V4 no disponible")
+        return
+
+    if bcn is None or len(aircrafts) == 0:
+        messagebox.showwarning("Warning", "Carga estructura y vuelos primero")
+        return
+
+    # reconstruïm estat inicial (inicii del dia)
+    bcn = LoadAirportStructure("LEBL.txt")
+
+    if bcn == -1:
+        messagebox.showerror("Error", "No se pudo cargar LEBL")
+        return
+
+    # guardem evolució
+    hours = []
+    occupancy = []
+    rejected = []
+
+    h = 0
+    while h < 24:
+
+        time = str(h).zfill(2) + ":00"
+
+        not_assigned = AssignGatesAtTime(bcn, aircrafts, time)
+
+        # contar gates ocupades
+        count = 0
+
+        i = 0
+        while i < len(bcn.terminals):
+
+            t = bcn.terminals[i]
+
+            j = 0
+            while j < len(t.boarding_areas):
+
+                a = t.boarding_areas[j]
+
+                k = 0
+                while k < len(a.gates):
+
+                    if a.gates[k].occupied:
+                        count += 1
+
+                    k += 1
+                j += 1
+            i += 1
+
+        hours.append(h)
+        occupancy.append(count)
+        rejected.append(not_assigned)
+
+        h += 1
+
+    # gràfic final
+    import matplotlib.pyplot as plt
+
+    plt.plot(hours, occupancy, label="Gates ocupadas")
+    plt.plot(hours, rejected, label="No asignados")
+
+    plt.title("Simulación diaria del aeropuerto")
+    plt.xlabel("Hora")
+    plt.ylabel("Número")
+    plt.legend()
+    plt.grid()
+    plt.show()

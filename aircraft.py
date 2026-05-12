@@ -14,12 +14,27 @@ class Aircraft:
                  aircraft_id="",
                  airline="",
                  origin="",
-                 arrival=""):
+                 arrival="",
+                 destination="",
+                 departure=""):
 
+        # identificador avió
         self.aircraft_id = aircraft_id
+
+        # companyia aeria
         self.airline = airline
+
+        # aeroport d'origen (ICAO)
         self.origin = origin
+
+        # hora d'arribada (hh:mm)
         self.arrival = arrival
+
+        # aeroport destí (ICAO)
+        self.destination = destination
+
+        # hora de sortida (hh:mm)
+        self.departure = departure
 
 
 # LOAD ARRIVALS
@@ -394,5 +409,124 @@ def LongDistanceArrivals(aircrafts):
                 result.append(aircrafts[i])
 
         i += 1
+
+    return result
+
+
+# V4 - NOVES FUNCIONALITATS (DEPARTURES + MERGE + NIGHT)
+
+# LOAD DEPARTURES
+
+def LoadDepartures(filename):
+
+    #Aquesta funció carrega els vols de sortida (departures)
+    # des d'un fitxer i retorna una llista d'objectes Aircraft.
+
+    aircrafts = []
+
+    try:
+        file = open(filename, "r")
+    except:
+        print("Error: no s'ha pogut obrir el fitxer de departures")
+        return aircrafts
+
+    # Saltem la capçalera
+    header = file.readline()
+
+    for line in file:
+
+        parts = line.split()
+
+        # Format esperat: ID DESTINATION DEPARTURE AIRLINE
+        if len(parts) != 4:
+            continue
+
+        aircraft_id = parts[0]
+        destination = parts[1]
+        departure = parts[2]
+        airline = parts[3]
+
+        # Validació format hora hh:mm
+        if ":" not in departure:
+            continue
+
+        try:
+            hour = int(departure.split(":")[0])
+            minute = int(departure.split(":")[1])
+        except:
+            continue
+
+        if hour < 0 or hour > 23:
+            continue
+
+        if minute < 0 or minute > 59:
+            continue
+
+        # Creem objecte Aircraft només amb dades de sortida
+        aircraft = Aircraft(
+            aircraft_id=aircraft_id,
+            airline=airline,
+            origin="",
+            arrival="",
+            destination=destination,
+            departure=departure
+        )
+
+        aircrafts.append(aircraft)
+
+    file.close()
+    return aircrafts
+
+
+# MERGE MOVEMENTS (ARRIVALS + DEPARTURES)
+
+def MergeMovements(arrivals, departures):
+    """
+    Aquesta funció combina arribades i sortides en una sola llista.
+    Si un avió té arrival i departure, es fusionen en el mateix objecte.
+    """
+
+    if len(arrivals) == 0 and len(departures) == 0:
+        return []
+
+    merged = {}
+
+    # Primer afegim les arribades
+    for a in arrivals:
+        merged[a.aircraft_id] = a
+
+    # Després afegim o actualitzem amb departures
+    for d in departures:
+
+        # Si ja existeix, completem la informació
+        if d.aircraft_id in merged:
+
+            a = merged[d.aircraft_id]
+
+            a.destination = d.destination
+            a.departure = d.departure
+
+        else:
+            merged[d.aircraft_id] = d
+
+    return list(merged.values())
+
+
+# NIGHT AIRCRAFT
+
+def NightAircraft(aircrafts):
+
+    #Aquesta funció retorna els avions que només tenen sortida (no tenen arribada durant el dia).
+
+    if len(aircrafts) == 0:
+        return -1
+
+    result = []
+
+    for a in aircrafts:
+
+        # Avió nocturn: només departure
+        if a.arrival == "" and a.departure != "":
+            result.append(a)
 
     return result
