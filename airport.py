@@ -1,91 +1,131 @@
-# STEP 1
+# airport.py
+
 import math
 import os
+import matplotlib.pyplot as pyplot
 
-# We create the class
+
+# CLASS AIRPORT
+# Aquesta classe guarda la informació bàsica d'un aeroport:
+# - Codi ICAO
+# - Coordenades
+# - Si és Schengen o no
+
 class Airport:
 
-   def __init__(self, code, lat, lon):
+    def __init__(self, code, lat, lon):
 
-       if len(code) == 4:
-           self.code = code           # ICAO code, it must have 4 characters
-       else:
-           print("Error: ICAO code must have 4 characters")
+        # Comprovem que el codi ICAO tingui 4 caràcters
+        if len(code) == 4:
+            self.code = code.upper()
+        else:
+            raise ValueError("ICAO code must have 4 characters")
 
-       self.coordinates = [lat, lon]  # Coordinates
-       self.schengen = False          # Schengen
+        # Coordenades en graus decimals
+        self.coordinates = [lat, lon]
+
+        # Inicialment l'aeroport no està marcat com Schengen
+        self.schengen = False
 
 
-# Check if the airport is in a Schengen country
+# IS SCHENGEN AIRPORT
+# Aquesta funció comprova si un aeroport pertany a un país Schengen
+# mirant els dos primers caràcters del codi ICAO
+
 def IsSchengenAirport(code):
 
-   #  If the input parameter is empty then False is returned
-   if code == "":
-       return False
+    # Si el codi és buit retornem False
+    if code == "":
+        return False
 
-   schengen_codes = [
-       'LO','EB','LK','LC','EK','EE','EF','LF','ED','LG',
-       'EH','LH','BI','LI','EV','EY','EL','LM','EN','EP',
-       'LP','LZ','LJ','LE','ES','LS']
+    # Prefixos ICAO de països Schengen
+    schengen_codes = [
+        'LO', 'EB', 'LK', 'LC', 'EK', 'EE', 'EF', 'LF', 'ED',
+        'LG', 'EH', 'LH', 'BI', 'LI', 'EV', 'EY', 'EL', 'LM',
+        'EN', 'EP', 'LP', 'LZ', 'LJ', 'LE', 'ES', 'LS'
+    ]
 
-   i = 0
-   found = False
+    # Guardem els dos primers caràcters
+    prefix = code[0:2].upper()
+
+    i = 0
+
+    # Busquem si el prefix està dins la llista
+    while i < len(schengen_codes):
+
+        if prefix == schengen_codes[i]:
+            return True
+
+        i += 1
+
+    return False
 
 
-   # Search if the first two characters of the ICAO are in the list
-   while (i < len(schengen_codes)) and not(found):
+# SET SCHENGEN
+# Aquesta funció calcula i guarda si un aeroport és Schengen
 
-
-       # Check if code starts with that country code
-
-       if code[0] == schengen_codes[i][0]:
-           if code[1] == schengen_codes[i][1]:
-               found = True
-
-       if not(found):
-           i=i+1
-
-   if found:
-       return True
-   else:
-       return False
-
-# Writes the information of the airports that are Schengen into a file whose name is in filename.
 def SetSchengen(airport):
-   airport.schengen = IsSchengenAirport(airport.code)
+
+    airport.schengen = IsSchengenAirport(airport.code)
+
+
+# PRINT AIRPORT
+# Aquesta funció mostra tota la informació d'un aeroport
 
 def PrintAirport(airport):
 
-   print("Code:", airport.code)
-   print("Latitude:", airport.coordinates[0])
-   print("Longitude:", airport.coordinates[1])
-   print("Schengen:", airport.schengen)
+    print("Code:", airport.code)
+    print("Latitude:", airport.coordinates[0])
+    print("Longitude:", airport.coordinates[1])
+    print("Schengen:", airport.schengen)
 
-# STEP 3
+
+# LOAD AIRPORTS
+# Aquesta funció carrega aeroports des d'un fitxer de text
 
 def LoadAirports(filename):
 
     airports = []
+
+    # Intentem obrir el fitxer
     try:
         F = open(filename, "r")
     except:
+        print("Error: file could not be opened")
         return airports
 
-    lineas = F.readlines()
+    lines = F.readlines()
+
     F.close()
 
-    i = 1  # skip header
-    while i < len(lineas):
+    # Comencem a la línia 1 perquè la primera és la capçalera
+    i = 1
 
-        linea = lineas[i].strip()
-        datos = linea.split()
+    while i < len(lines):
 
-        code = datos[0]
-        lat_str = datos[1]
-        lon_str = datos[2]
+        line = lines[i].strip()
 
-        # LATITUDE
+        # Ignorem línies buides
+        if line == "":
+            i += 1
+            continue
+
+        data = line.split()
+
+        # Comprovem que hi hagi prou dades
+        if len(data) < 3:
+            i += 1
+            continue
+
+        code = data[0]
+        lat_str = data[1]
+        lon_str = data[2]
+
+        # LATITUD
+
         sign = 1
+
+        # Si comença per S és negativa
         if lat_str[0] == 'S':
             sign = -1
 
@@ -93,11 +133,16 @@ def LoadAirports(filename):
         minutes = int(lat_str[3:5])
         seconds = int(lat_str[5:7])
 
+        # Convertim DMS a graus decimals
         lat = degrees + minutes / 60 + seconds / 3600
+
         lat = lat * sign
 
-        # LONGITUDE
+        # LONGITUD
+
         sign = 1
+
+        # Si comença per W és negativa
         if lon_str[0] == 'W':
             sign = -1
 
@@ -105,258 +150,254 @@ def LoadAirports(filename):
         minutes = int(lon_str[4:6])
         seconds = int(lon_str[6:8])
 
+        # Convertim DMS a graus decimals
         lon = degrees + minutes / 60 + seconds / 3600
+
         lon = lon * sign
 
+        # Creem l'aeroport i l'afegim a la llista
         airport = Airport(code, lat, lon)
+
         airports.append(airport)
 
-        i = i + 1
+        i += 1
 
     return airports
 
+
+# SAVE SCHENGEN AIRPORTS
+# Aquesta funció desa en un fitxer només els aeroports Schengen
+
 def SaveSchengenAirports(airports, filename):
 
+    # Si la llista és buida retornem error
     if len(airports) == 0:
         return -1
 
-    F = open(filename, "w")
+    # Intentem crear el fitxer
+    try:
+        F = open(filename, "w")
+    except:
+        return -1
+
+    # Escrivim la capçalera
     F.write("CODE LAT LON\n")
 
-    i = 0
     found = False
+
+    i = 0
 
     while i < len(airports):
 
-        if airports[i].schengen == True:
+        airport = airports[i]
+
+        # Només guardem aeroports Schengen
+        if airport.schengen:
+
             found = True
-            code = airports[i].code
-            lat = airports[i].coordinates[0]
-            lon = airports[i].coordinates[1]
-            F.write(code + " ")
-            F.write(str(lat) + " ")
-            F.write(str(lon) + "\n")
 
-        i = i + 1
-        F.close()
+            F.write(
+                airport.code + " " +
+                str(airport.coordinates[0]) + " " +
+                str(airport.coordinates[1]) + "\n"
+            )
 
-        if found:
-            return 0
-        else:
-            return -1
+        i += 1
+
+    F.close()
+
+    # Si hem trobat almenys un aeroport Schengen retornem OK
+    if found:
+        return 0
+    else:
+        return -1
+
+
+# ADD AIRPORT
+# Aquesta funció afegeix un aeroport a la llista
+# només si el codi ICAO no existeix ja
 
 def AddAirport(airports, airport):
 
     i = 0
-    found = False
-    while (i < len(airports)) and not (found):
 
+    while i < len(airports):
+
+        # Si el codi ja existeix retornem error
         if airports[i].code == airport.code:
-            found = True
-        else:
-            i = i + 1
+            return -1
 
-        if not (found):
-           airports.append(airport)
+        i += 1
+
+    airports.append(airport)
+
+    return 0
+
+
+# REMOVE AIRPORT
+# Aquesta funció elimina un aeroport segons el codi ICAO
 
 def RemoveAirport(airports, code):
 
     i = 0
-    found = False
 
-    while (i < len(airports)) and not (found):
+    while i < len(airports):
 
+        # Si trobem l'aeroport l'eliminem
         if airports[i].code == code:
-            found = True
-        else:
-            i = i + 1
 
-        if found:
-           del airports[i]
-           return 0
+            del airports[i]
 
-        else:
-           return -1
+            return 0
 
-#STEP 5
-#Stacked bar
-import matplotlib.pyplot as pyplot
+        i += 1
+
+    # Si no existeix retornem error
+    return -1
+
+
+# PLOT AIRPORTS
+# Aquesta funció mostra un gràfic d'aeroports
+# Schengen i non-Schengen
 
 def PlotAirports(airports):
+
+    # Comprovem que la llista no sigui buida
     if len(airports) == 0:
+
         print("Error: empty airport list")
+
         return -1
 
     schengen_count = 0
-    no_schengen_count = 0
+    non_schengen_count = 0
 
     i = 0
+
+    # Comptem aeroports Schengen i no Schengen
     while i < len(airports):
+
         if airports[i].schengen:
             schengen_count += 1
         else:
-            no_schengen_count += 1
+            non_schengen_count += 1
+
         i += 1
 
-    pyplot.bar(["Airports"], [schengen_count], label="Schengen")
-    pyplot.bar(["Airports"], [no_schengen_count], bottom=[schengen_count], label="No Schengen")
+    pyplot.figure(figsize=(6, 6))
+
+    pyplot.bar(
+        ["Airports"],
+        [schengen_count],
+        label="Schengen"
+    )
+
+    pyplot.bar(
+        ["Airports"],
+        [non_schengen_count],
+        bottom=[schengen_count],
+        label="Non-Schengen"
+    )
+
     pyplot.ylabel("Count")
     pyplot.xlabel("Airports")
-    pyplot.title("Schengen and non-Schengen airports")
+
+    pyplot.title("Schengen vs Non-Schengen Airports")
+
     pyplot.legend()
-    pyplot.grid()
+
+    pyplot.grid(axis="y")
+
     pyplot.show()
 
+    return 0
 
-#Mapa Aeroports KML
+
+# MAP AIRPORTS
+# Aquesta funció crea un fitxer KML amb tots els aeroports
+# per poder-los veure a Google Earth
 
 def MapAirports(airports, filename="AirportsMap.kml"):
 
+    # Comprovem que la llista no sigui buida
+    if len(airports) == 0:
+
+        print("Error: empty airport list")
+
+        return -1
+
     filepath = os.path.abspath(filename)
-    F = open(filepath, "w")
 
-    F.write("<kml>\n")
-    F.write("  <Document>\n")
+    # Intentem crear el fitxer
+    try:
+        F = open(filepath, "w", encoding="utf-8")
+    except:
+        print("Error: file could not be created")
+        return -1
 
-    # STYLES
-    F.write("    <Style id=\"green\">\n")
-    F.write("      <IconStyle>\n")
-    F.write("        <color>ff00ff00</color>\n")
-    F.write("      </IconStyle>\n")
-    F.write("    </Style>\n")
+    # Capçalera KML
 
-    F.write("    <Style id=\"red\">\n")
-    F.write("      <IconStyle>\n")
-    F.write("        <color>ff0000ff</color>\n")
-    F.write("      </IconStyle>\n")
-    F.write("    </Style>\n")
+    F.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+
+    F.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
+
+    F.write("<Document>\n")
 
     i = 0
+
+    # Recorrem tots els aeroports
     while i < len(airports):
 
-        code = airports[i].code
-        lat = airports[i].coordinates[0]
-        lon = airports[i].coordinates[1]
+        airport = airports[i]
 
-        if airports[i].schengen == True:
+        code = airport.code
+        lat = airport.coordinates[0]
+        lon = airport.coordinates[1]
+
+        # Verd = Schengen
+        # Vermell = non-Schengen
+
+        if airport.schengen:
             color = "ff00ff00"
         else:
             color = "ff0000ff"
 
-        F.write("    <Placemark>\n")
-        F.write("      <name>" + code + "</name>\n")
-        F.write("      <Style>\n")
-        F.write("        <IconStyle>\n")
-        F.write("          <color>" + color + "</color>\n")
-        F.write("        </IconStyle>\n")
-        F.write("      </Style>\n")
-        F.write("      <Point>\n")
-        F.write("        <coordinates>")
+        F.write("<Placemark>\n")
+
+        F.write("<name>" + code + "</name>\n")
+
+        F.write("<Style>\n")
+
+        F.write("<IconStyle>\n")
+
+        F.write("<color>" + color + "</color>\n")
+
+        F.write("</IconStyle>\n")
+
+        F.write("</Style>\n")
+
+        F.write("<Point>\n")
+
+        F.write("<coordinates>")
+
         F.write(str(lon) + "," + str(lat) + ",0")
+
         F.write("</coordinates>\n")
-        F.write("      </Point>\n")
-        F.write("    </Placemark>\n")
 
-        i = i + 1
+        F.write("</Point>\n")
 
-    F.write("  </Document>\n")
+        F.write("</Placemark>\n")
+
+        i += 1
+
+    # Final del fitxer KML
+
+    F.write("</Document>\n")
+
     F.write("</kml>\n")
+
     F.close()
 
     print("KML file created")
+
     return filepath
-
-
-# =========================================================
-# Haversine + LongDistanceArrivals
-# =========================================================
-
-def SearchAirportByCode(airports, code):
-    """
-    Returns the airport with the given ICAO code.
-    If not found, returns None.
-    """
-    i = 0
-    while i < len(airports):
-        if airports[i].code == code:
-            return airports[i]
-        i += 1
-    return None
-
-
-def Haversine(lat1, lon1, lat2, lon2):
-    """
-    Returns distance in km between two coordinates in decimal degrees.
-    """
-    R = 6371.0  # Earth radius in km
-
-    lat1 = math.radians(lat1)
-    lon1 = math.radians(lon1)
-    lat2 = math.radians(lat2)
-    lon2 = math.radians(lon2)
-
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-
-    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-
-    return R * c
-
-
-def LongDistanceArrivals(aircrafts):
-    """
-    Returns a list with aircrafts arriving to LEBL from airports
-    more than 2000 km away.
-    """
-    result = []
-
-    if len(aircrafts) == 0:
-        return result
-
-    airports = LoadAirports("Airports.txt")
-    if len(airports) == 0:
-        print("Error: Airports.txt could not be loaded")
-        return result
-
-    lebl = SearchAirportByCode(airports, "LEBL")
-
-    # Fallback per si LEBL no surt al fitxer
-    if lebl is None:
-        lebl_lat = 41.297445
-        lebl_lon = 2.0832941
-    else:
-        lebl_lat = lebl.latitude
-        lebl_lon = lebl.longitude
-
-    i = 0
-    while i < len(aircrafts):
-        origin_airport = SearchAirportByCode(airports, aircrafts[i].origin)
-
-        if origin_airport is not None:
-            dist = Haversine(
-                origin_airport.latitude,
-                origin_airport.longitude,
-                lebl_lat,
-                lebl_lon
-            )
-
-            if dist > 2000:
-                result.append(aircrafts[i])
-
-        i += 1
-
-    return result
-
-
-def MapLongDistanceFlights(aircrafts):
-    """
-    Optional helper: shows only long-distance arrivals on the map.
-    """
-    long_distance = LongDistanceArrivals(aircrafts)
-
-    if len(long_distance) == 0:
-        print("No long-distance arrivals found")
-        return
-
-    MapFlights(long_distance)
