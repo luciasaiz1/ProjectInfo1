@@ -472,6 +472,54 @@ def LongDistanceArrivals(aircrafts):
 
     return result
 
+def TreuArrivalsMenys1000(aircrafts, airports):
+    #La funcio rep la llista arrivals i la llista aeroports i torna un a nova llista
+    # només amb els vols triats i els vols de menys de 1000 km queden eliminats de la nova llista.
+
+    aircrafts_restants = []
+
+    # Si no hi ha arribades no podem filtrar res
+    if len(aircrafts) == 0:
+        print("No hi ha arribades")
+        return aircrafts_restants
+
+    # Si no hi ha aeroports no hi ha distancies
+    if len(airports) == 0:
+        print("Cap aeroport reconegut")
+        return aircrafts_restants
+
+    # Fem servir les coordenades de lebl per calcular distancies
+    lebl_lat = 41.2969
+    lebl_lon = 2.07833
+
+
+    # Recorrem totes les arribades una per una
+    i = 0
+    while i < len(aircrafts):
+
+        # Busquem l'aeroport d'origen d'aquest avió
+        origin_airport = SearchAirportByCode(airports, aircrafts[i].origin)
+
+        # Si trobem l'aeroport d'origen podem calcular la distància
+        if origin_airport is not None:
+
+            distance = Haversine(
+                origin_airport.coordinates[0],
+                origin_airport.coordinates[1],
+                lebl_lat,
+                lebl_lon
+            )
+
+            # Només ens quedem els vols que venen de 1000 km o més
+            if distance >= 1000:
+                aircrafts_restants.append(aircrafts[i])
+
+        #Següent avió
+        i = i + 1
+
+    return aircrafts_restants
+
+
 # TEST SECTION
 
 if __name__ == "__main__":
