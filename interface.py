@@ -3,10 +3,11 @@ from tkinter import messagebox, filedialog
 from tkinter import *
 from tkinter import messagebox, filedialog
 import os
+
 from airport import *
 from aircraft import *
 from LEBL import *
-import math
+
 # GLOBALS
 
 # Aquí guardem la llista d'aeroports que fa servir la part de V1 i V2.
@@ -30,8 +31,7 @@ def _v2_backend_ready():
         "PlotAirlines",
         "PlotFlightsType",
         "MapFlights",
-        "LongDistanceArrivals",
-        "TreuArrivalsMenys1000"
+        "LongDistanceArrivals"
     ]
 
     i = 0
@@ -316,50 +316,6 @@ def MapLongDistanceButton():
 
     MapFlights(long_distance, airports)
 
-def TreureShortDistanceButton():
-    # Aquesta funció elimina de la llista d'arribades vols -1000km i després surt a google earth només les arribades que queden.
-
-    global aircrafts
-    global airports
-
-    # Si encara no hem carregat arribades no es pot eliminar res
-    if len(aircrafts) == 0:
-        messagebox.showwarning("Warning", "Load arrivals first")
-        return
-
-    # Si encara no hem carregat aeroports els carreguem i ara necessitem arrivals perque es calcuulen amb coordenades
-    if len(airports) == 0:
-        airports = LoadAirports("Airports.txt")
-
-        if len(airports) == 0:
-            messagebox.showerror("Error", "Airports could not be loaded")
-            return
-
-        # Marquem cada aeroport com schengen o no chengen.
-        i = 0
-        while i < len(airports):
-            SetSchengen(airports[i])
-            i = i + 1
-
-    # Guardem quants vols hi havia abans de filtrar
-    numero_abans = len(aircrafts)
-
-    # La linia de codi substitueix la llista per una nova llista filtrada
-    aircrafts = TreuArrivalsMenys1000(aircrafts, airports)
-
-    # Calculem quants vols s'han eliminat
-    removed = numero_abans - len(aircrafts)
-
-
-    # A google earth només les arribades que queden
-    MapFlights(aircrafts, airports)
-
-    #Missatge per saber que ha funcionat
-    messagebox.showinfo(
-        "OK",
-        "Removed arrivals closer than 1000 km: " + str(removed) +
-        "\nRemaining arrivals: " + str(len(aircrafts))
-    )
 
 # VERSION 3 FUNCTIONS
 
@@ -487,7 +443,7 @@ def exit_program():
 # Aquí creem la finestra principal del programa.
 window = Tk()
 window.title("Airport Manager")
-window.geometry("520x620")
+window.geometry("620x760")
 
 
 # INPUTS DE V1
@@ -536,7 +492,7 @@ Button(frame_v2, text="Plot Flights / Airline", width=28, command=PlotAirlinesBu
 Button(frame_v2, text="Plot Schengen / Non-Schengen", width=28, command=PlotFlightsTypeButton).grid(row=2, column=0, padx=5, pady=5)
 Button(frame_v2, text="Map All Flights", width=28, command=MapFlightsButton).grid(row=2, column=1, padx=5, pady=5)
 Button(frame_v2, text="Map Long-Distance Flights", width=28, command=MapLongDistanceButton).grid(row=3, column=0, columnspan=2, padx=5, pady=5)
-Button(frame_v2, text="Remove <1000 km and Map", width=28, command=TreureShortDistanceButton).grid(row=4, column=0, columnspan=2, padx=5, pady=5)
+
 
 # VERSION 3 BUTTONS
 

@@ -1,77 +1,73 @@
-# Fem servir la funció de V1/V2 per saber si un vol és Schengen
+# fem servir la funció de V1/V2 per saber si un vol és schengen
 from airport import IsSchengenAirport
 
-# A la test section carregarem arribades de V2
+# importem la funció per carregar vols (V2)
 from aircraft import LoadArrivals
 
-
-# BARCELONA AP
-# Això guarda el codi de l'aeroport i la llista de terminals
+# CLASSE BARCELONA AP
+# representa l’aeroport de barcelona i conté els terminals
 
 class BarcelonaAP:
 
     def __init__(self, code=""):
-        self.code = code
-        self.terminals = []   # cada element serà un Terminal
+        self.code = code              # codi de l’aeroport (ex: LEBL)
+        self.terminals = []           # llista de terminals
 
 
-# TERMINAL
-# Guarda el nom del terminal, les seves boarding areas i la llista d'airlines que operen en aquest terminal
+# CLASSE TERMINAL
+# cada terminal té boarding areas i companyies associades
 
 class Terminal:
 
     def __init__(self, name=""):
         self.name = name
-        self.boarding_areas = []   # cada element serà un BoardingArea
-        self.airlines = []         # codis ICAO de companyies, ex: VLG, RYR
+        self.boarding_areas = []      # àrees d’embarcament
+        self.airlines = []            # companyies que operen aquí
 
-
-# BOARDING AREA
-# Guarda el nom de l'àrea, el tipus (Schengen o non-Schengen) i les Gates que conté
+# CLASSE BOARDING AREA
+# representa una zona schengen o no schengen dins del terminal
 
 class BoardingArea:
 
     def __init__(self, name="", area_type=""):
         self.name = name
-        self.area_type = area_type   # "Schengen" o "non-Schengen"
-        self.gates = []              # cada element serà un Gate
+        self.area_type = area_type    # "Schengen" o "non-Schengen"
+        self.gates = []               # gates dins d’aquesta àrea
 
 
-# GATE
-# Guarda el nom de la porta, si està ocupada o no i quin avió hi ha aparcat si està ocupada
+# CLASSE GATE
+# representa una porta d’embarcament
 
 class Gate:
 
     def __init__(self, name="", occupied=False, aircraft_id=""):
         self.name = name
-        self.occupied = occupied
-        self.aircraft_id = aircraft_id
+        self.occupied = occupied      # indica si està ocupada
+        self.aircraft_id = aircraft_id  # avió assignat
 
 
 # SET GATES
-# Crea la llista de gates d'una boarding area
+# crea les gates d’una boarding àrea segons un rang numèric
 
 def SetGates(area, init_gate, end_gate, prefix):
 
-    # Si el rang és incorrecte, retornem error
+    # si el rang és incorrecte, retornem error
     if end_gate <= init_gate:
         return -1
 
-    # Esborrem qualsevol llista anterior de Gates
+    # reiniciem la llista de gates
     area.gates = []
 
-    # Recorrem tots els números de Gate del rang
     gate_num = init_gate
+
+    # creem totes les gates dins del rang
     while gate_num <= end_gate:
 
-        # Construïm el nom del Gate amb prefix + número
-        # Exemple: T1A_G1, T1A_G2, ...
         gate_name = prefix + str(gate_num)
 
-        # Creem la Gate lliure
+        # cada gate comença lliure
         gate = Gate(gate_name, False, "")
 
-        # L'afegim a la boarding area
         area.gates.append(gate)
 
         gate_num += 1
@@ -79,14 +75,13 @@ def SetGates(area, init_gate, end_gate, prefix):
     return 0
 
 
-# LoadAirlines(terminal, t_name)
-# Carrega les companyies que operen en un terminal llegint T1_Airlines.txt o T2_Airlines.txt
+# LOAD AIRLINES
+# carrega les companyies que operen en un terminal
 
 def LoadAirlines(terminal, t_name):
 
     filename = t_name + "_Airlines.txt"
 
-    # Obrim el fitxer; si no existeix, error i no toquem el terminal
     try:
         F = open(filename, "r")
     except:
@@ -95,7 +90,6 @@ def LoadAirlines(terminal, t_name):
     lines = F.readlines()
     F.close()
 
-    # Llista temporal: només si tot va bé la copiem al terminal
     airlines_temp = []
 
     i = 0
@@ -103,28 +97,25 @@ def LoadAirlines(terminal, t_name):
 
         line = lines[i].strip()
 
-        # Si la línia no és buida, la processem
         if line != "":
 
-            # Els fitxers tenen: NomCompanyia \t CodiICAO
-            # Exemple: Vueling   VLG
-            # Fem split() i ens quedem amb l'últim camp
             parts = line.split()
 
             if len(parts) >= 2:
+                # agafem el codi ICAO de la companyia
                 icao = parts[len(parts) - 1]
                 airlines_temp.append(icao)
 
         i += 1
 
-    # Si hem arribat aquí, la càrrega ha anat bé
+    # assignem la llista al terminal
     terminal.airlines = airlines_temp
 
     return 0
 
 
-# LOAD AIRPORTS STRUCTURE
-# Llegeix l'estructura de LEBL des del fitxer V3 i crea l'objecte BarcelonaAP complet
+# LOAD AIRPORT STRUCTURE
+# llegeix el fitxer LEBL.txt i crea tota l’estructura
 
 def LoadAirportStructure(filename):
 
@@ -139,10 +130,7 @@ def LoadAirportStructure(filename):
     if len(lines) == 0:
         return -1
 
-
-    # Primera línia esperada, segons l'enunciat:
-    # LEBL 2 terminals
-
+    # primera línia: codi aeroport i nombre de terminals
     first = lines[0].split()
 
     if len(first) < 2:
@@ -151,19 +139,14 @@ def LoadAirportStructure(filename):
     airport_code = first[0]
     num_terminals = int(first[1])
 
-    # Creem l'aeroport
+    # creem l’objecte principal de l’aeroport
     bcn = BarcelonaAP(airport_code)
 
-    # Índex de línia actual
     i = 1
-
     terminals_loaded = 0
 
-    # Anem carregant terminals
+    # carreguem cada terminal
     while i < len(lines) and terminals_loaded < num_terminals:
-
-        # Línia esperada:
-        # Terminal T1 5 boarding areas
 
         parts = lines[i].split()
 
@@ -178,7 +161,7 @@ def LoadAirportStructure(filename):
 
         terminal = Terminal(terminal_name)
 
-        # Carreguem les companyies d'aquest terminal
+        # carreguem companyies del terminal
         err = LoadAirlines(terminal, terminal_name)
         if err == -1:
             return -1
@@ -186,13 +169,8 @@ def LoadAirportStructure(filename):
         i += 1
         areas_loaded = 0
 
-        # Carreguem les boarding areas del terminal
+        # carreguem boarding areas del terminal
         while i < len(lines) and areas_loaded < num_areas:
-
-
-            # Línies esperades:
-            # Area A Schengen Gates 1 - 11
-            # Area D non-Schengen Gates 1 - 11
 
             parts = lines[i].split()
 
@@ -204,13 +182,14 @@ def LoadAirportStructure(filename):
 
             area_name = parts[1]
             area_type = parts[2]
+
             init_gate = int(parts[4])
             end_gate = int(parts[6])
 
+            # creem boarding area
             area = BoardingArea(area_name, area_type)
 
-            # Prefix perquè el nom del Gate sigui únic i fàcil de localitzar
-            # Exemple: T1A_G1, T1B_G15, T2M_G7...
+            # prefix per identificar gates fàcilment
             prefix = terminal_name + area_name + "_G"
 
             err = SetGates(area, init_gate, end_gate, prefix)
@@ -227,9 +206,9 @@ def LoadAirportStructure(filename):
 
     return bcn
 
+# GATE OCCUPANCY
+# retorna l’estat de totes les gates de l’aeroport
 
-# GATEOCCUPANCY)
-# Retorna una llista amb informació de totes les gates
 def GateOccupancy(bcn):
 
     occupancy = []
@@ -248,6 +227,7 @@ def GateOccupancy(bcn):
             while k < len(area.gates):
 
                 gate = area.gates[k]
+
                 occupancy.append([
                     terminal.name,
                     area.name,
@@ -264,7 +244,8 @@ def GateOccupancy(bcn):
 
 
 # IS AIRLINE IN TERMINAL
-# Busca si una companyia pertany a aquest terminal
+# comprova si una companyia opera en un terminal
+
 def IsAirlineInTerminal(terminal, name):
 
     if name == "":
@@ -274,7 +255,6 @@ def IsAirlineInTerminal(terminal, name):
     i = 0
     found = False
 
-    # Fem una cerca amb found
     while i < len(terminal.airlines) and not found:
 
         if terminal.airlines[i] == name:
@@ -284,9 +264,9 @@ def IsAirlineInTerminal(terminal, name):
 
     return found
 
-
 # SEARCH TERMINAL
-# Retorna el nom del terminal on opera una companyia
+# retorna en quin terminal opera una companyia
+
 def SearchTerminal(bcn, name):
 
     i = 0
@@ -304,18 +284,19 @@ def SearchTerminal(bcn, name):
     return terminal_name
 
 
+
 # ASSIGN GATE
-# Assigna la primera gate lliure del tipus correcte
+# assigna una gate lliure segons terminal i tipus de vol
 
 def AssignGate(bcn, aircraft):
 
-    # 1) Busquem el terminal correcte segons la companyia
+    # busquem terminal segons companyia
     terminal_name = SearchTerminal(bcn, aircraft.airline)
 
     if terminal_name == "":
         return -1
 
-    # 2) Determinem si el vol és Schengen segons l'origen
+    # determinem si el vol és schengen
     flight_is_schengen = IsSchengenAirport(aircraft.origin)
 
     i = 0
@@ -323,7 +304,6 @@ def AssignGate(bcn, aircraft):
 
         terminal = bcn.terminals[i]
 
-        # Només ens interessa el terminal correcte
         if terminal.name == terminal_name:
 
             j = 0
@@ -331,16 +311,15 @@ def AssignGate(bcn, aircraft):
 
                 area = terminal.boarding_areas[j]
 
-                # 3) Comprovem si aquesta boarding area és del tipus correcte
                 correct_area = False
 
+                # seleccionem àrea correcta segons tipus de vol
                 if flight_is_schengen and area.area_type.lower() == "schengen":
                     correct_area = True
 
                 if (not flight_is_schengen) and area.area_type.lower() != "schengen":
                     correct_area = True
 
-                # 4) Si l'àrea és correcta, busquem la primera gate lliure
                 if correct_area:
 
                     k = 0
@@ -348,24 +327,24 @@ def AssignGate(bcn, aircraft):
 
                         gate = area.gates[k]
 
+                        # primera gate lliure que trobem
                         if not gate.occupied:
-                            # Assignem la gate a aquest avió
+
                             gate.occupied = True
                             gate.aircraft_id = aircraft.aircraft_id
 
-                            # Retornem el nom del Gate assignat
                             return gate.name
 
                         k += 1
                 j += 1
         i += 1
 
-    # Si arribem aquí, no hi havia Gate lliure correcta
     return -1
 
 
+
 # TEST SECTION
-# Aquí comprovem que la V3 funciona de veritat
+# proves manuals per comprovar que la V3 funciona
 
 if __name__ == "__main__":
 
@@ -379,13 +358,6 @@ if __name__ == "__main__":
         print("Airport code:", bcn.code)
         print("Number of terminals:", len(bcn.terminals))
 
-        i = 0
-        while i < len(bcn.terminals):
-            print("Terminal:", bcn.terminals[i].name)
-            print("  Boarding areas:", len(bcn.terminals[i].boarding_areas))
-            print("  Airlines:", len(bcn.terminals[i].airlines))
-            i += 1
-
     print("TEST LOAD ARRIVALS + ASSIGN GATES")
 
     aircrafts = LoadArrivals("Arrivals.txt")
@@ -393,34 +365,24 @@ if __name__ == "__main__":
 
     if bcn != -1 and len(aircrafts) > 0:
 
-        # Assignem Gates als primers 10 vols per provar
         i = 0
         while i < len(aircrafts) and i < 10:
 
             gate_name = AssignGate(bcn, aircrafts[i])
 
             if gate_name == -1:
-                print(
-                    "Aircraft",
-                    aircrafts[i].aircraft_id,
-                    "could not be assigned"
-                )
+                print("Aircraft", aircrafts[i].aircraft_id, "not assigned")
             else:
-                print(
-                    "Aircraft",
-                    aircrafts[i].aircraft_id,
-                    "assigned to",
-                    gate_name
-                )
+                print("Aircraft", aircrafts[i].aircraft_id, "assigned to", gate_name)
 
             i += 1
 
     print("TEST GATE OCCUPANCY")
 
     if bcn != -1:
+
         occ = GateOccupancy(bcn)
 
-        # Ensenya les primeres 20 files per provar
         i = 0
         while i < len(occ) and i < 20:
             print(occ[i])
