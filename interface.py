@@ -299,19 +299,19 @@ def MapLongDistanceButton():
 
 def BuildLEBLStructureButton():
 
-    global bcn
+    global bcn         # fem servir bcn, que està fora de la funció
 
-    if not _v3_backend_ready():
+    if not _v3_backend_ready():       # si no esta preparada la versio 3, avisa de l'error
         messagebox.showerror("Error", "Version 3 backend is not ready")
         return
 
-    bcn = LoadAirportStructure("LEBL.txt")
+    bcn = LoadAirportStructure("LEBL.txt")   #llegim el fitxer i guardem la informació
 
-    if bcn == -1:
+    if bcn == -1:               # si NO s'ha pogut carregar bé, mostra error
         messagebox.showerror("Error", "LEBL structure could not be loaded")
         return
 
-    messagebox.showinfo(
+    messagebox.showinfo(        # si SI s'ha pogut, mostra OK i quantes termianls te l'aeroport
         "OK",
         "LEBL structure loaded with " + str(len(bcn.terminals)) + " terminals"
     )
@@ -322,18 +322,18 @@ def AssignGatesButton():
     global bcn
     global aircrafts
 
-    if len(aircrafts) == 0:
+    if len(aircrafts) == 0:             # si NO hi ha cap avió carregat, avisa
         messagebox.showwarning("Warning", "Load arrivals first")
         return
 
-    bcn = LoadAirportStructure("LEBL.txt")
+    bcn = LoadAirportStructure("LEBL.txt")          # guardem informació carregada
 
-    if bcn == -1:
+    if bcn == -1:                                   # si NO tenim res carregat, avisa error
         messagebox.showerror("Error", "LEBL structure could not be loaded")
         return
 
-    assigned = 0
-    failed = 0
+    assigned = 0            # comptador d'aviosna assignats
+    failed = 0              # comptador avons que no s'han pogut assignar
 
     i = 0
     while i < len(aircrafts):
