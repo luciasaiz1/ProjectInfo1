@@ -413,31 +413,30 @@ def LongDistanceArrivals(aircrafts):
     return result
 
 
-# V4 - NOVES FUNCIONALITATS (DEPARTURES + MERGE + NIGHT)
+# V4
 
 # LOAD DEPARTURES
 
 def LoadDepartures(filename):
 
-    #Aquesta funció carrega els vols de sortida (departures)
-    # des d'un fitxer i retorna una llista d'objectes Aircraft.
+    #Carrega vols de sortida des d'un fitxer i actualitza només
+    #els camps relacionats amb la sortida.
+
 
     aircrafts = []
 
     try:
         file = open(filename, "r")
     except:
-        print("Error: no s'ha pogut obrir el fitxer de departures")
+        # si el fitxer no existeix retornem llista buida
         return aircrafts
 
-    # Saltem la capçalera
     header = file.readline()
 
     for line in file:
 
         parts = line.split()
 
-        # Format esperat: ID DESTINATION DEPARTURE AIRLINE
         if len(parts) != 4:
             continue
 
@@ -446,13 +445,18 @@ def LoadDepartures(filename):
         departure = parts[2]
         airline = parts[3]
 
-        # Validació format hora hh:mm
+        # validació de format hora hh:mm
         if ":" not in departure:
             continue
 
+        t = departure.split(":")
+
+        if len(t) != 2:
+            continue
+
         try:
-            hour = int(departure.split(":")[0])
-            minute = int(departure.split(":")[1])
+            hour = int(t[0])
+            minute = int(t[1])
         except:
             continue
 
@@ -462,12 +466,10 @@ def LoadDepartures(filename):
         if minute < 0 or minute > 59:
             continue
 
-        # Creem objecte Aircraft només amb dades de sortida
+        # creem objecte amb camps de sortida
         aircraft = Aircraft(
             aircraft_id=aircraft_id,
             airline=airline,
-            origin="",
-            arrival="",
             destination=destination,
             departure=departure
         )

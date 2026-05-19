@@ -442,91 +442,88 @@ def AssignNightGates(bcn, aircrafts):
     return 0
 
 def AssignGatesAtTime(bcn, aircrafts, time):
-    """
-    Simula una hora del día:
 
-    1) libera gates de vuelos que salen
-    2) asigna gates a vuelos que llegan en esa hora
-    3) devuelve cuántos no pudieron ser asignados
-    """
+    #assigna gates només als vols que aterren en la franja d'1 hora
+    #i allibera gates dels vols que ja han marxat
 
-    if len(aircrafts) == 0:
-        return -1
 
+    # 1) alliberar gates dels avions que ja han sortit
+    for terminal in bcn.terminals:
+        for area in terminal.boarding_areas:
+            for gate in area.gates:
+
+                for a in aircrafts:
+                    if gate.aircraft_id == a.aircraft_id:
+
+                        if a.departure != "":
+                            dep_hour = int(a.departure.split(":")[0])
+                            current_hour = int(time.split(":")[0])
+
+                            if dep_hour <= current_hour:
+                                gate.occupied = False
+                                gate.aircraft_id = ""
+
+    # 2) assignar gates als avions que aterren en aquesta hora
     not_assigned = 0
 
-
-    # 1) Alliberar gates (departures)
-
     for a in aircrafts:
 
-        if a.departure != "" and a.departure.startswith(time[:2]):
-            FreeGate(bcn, a.aircraft_id)
+        if a.arrival == "":
+            continue
 
-    # 2) assignar arrivals d'aquella hora
+        arr_hour = int(a.arrival.split(":")[0])
+        current_hour = int(time.split(":")[0])
 
-    for a in aircrafts:
+        if arr_hour == current_hour:
 
-        if a.arrival != "" and a.arrival.startswith(time[:2]):
+            gate_name = AssignGate(bcn, a)
 
-            result = AssignGate(bcn, a)
-
-            if result == -1:
+            if gate_name == -1:
                 not_assigned += 1
 
     return not_assigned
 
-import matplotlib.pyplot as plt
-
 
 def PlotDayOccupancy(bcn, aircrafts):
 
-    # Mostra ocupació de gates per hora del dia.
+    import matplotlib.pyplot as plt
 
-
-    hours = [0] * 24
-    rejected = [0] * 24
+    hours = []
+    assigned = []
+    not_assigned = []
 
     h = 0
+
     while h < 24:
 
         time = str(h).zfill(2) + ":00"
 
-        rejected[h] = AssignGatesAtTime(bcn, aircrafts, time)
+        # creem còpia conceptual de l’estat
+        result = AssignGatesAtTime(bcn, aircrafts, time)
 
-        # contar gates ocupades
+        hours.append(h)
+        not_assigned.append(result)
+
+        # comptem gates ocupades
         count = 0
 
-        i = 0
-        while i < len(bcn.terminals):
-
-            t = bcn.terminals[i]
-
-            j = 0
-            while j < len(t.boarding_areas):
-
-                a = t.boarding_areas[j]
-
-                k = 0
-                while k < len(a.gates):
-
-                    if a.gates[k].occupied:
+        for t in bcn.terminals:
+            for a in t.boarding_areas:
+                for g in a.gates:
+                    if g.occupied:
                         count += 1
 
-                    k += 1
-                j += 1
-            i += 1
-
-        hours[h] = count
+        assigned.append(count)
 
         h += 1
 
-    plt.plot(range(24), hours, label="Gates ocupadas")
-    plt.plot(range(24), rejected, label="No asignados")
+    plt.plot(hours, assigned, label="Gates ocupades")
+    plt.plot(hours, not_assigned, label="No assignats")
 
-    plt.xlabel("Hora")
-    plt.ylabel("Cantidad")
-    plt.title("Ocupación diaria del aeropuerto")
+    plt.xlabel("Hora del dia")
+    plt.ylabel("Nombre")
+    plt.title("Ocupació de gates durant el dia")
     plt.legend()
     plt.grid()
+
     plt.show()

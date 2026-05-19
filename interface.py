@@ -5,7 +5,7 @@ import os
 from airport import *
 from aircraft import *
 from LEBL import *
-
+from LEBL import AssignGatesAtTime, PlotDayOccupancy
 
 # VARIABLES GLOBALS
 # airports: llista d’aeroports carregats (V1 i V2)
@@ -507,6 +507,49 @@ def SimulateDayButton():
     plt.grid()
     plt.show()
 
+def SimulateDayOccupancyButton():
+
+    global bcn
+    global aircrafts
+
+    # comprobar backend V3/V4
+    if bcn is None:
+        messagebox.showerror("Error", "Load LEBL structure first")
+        return
+
+    if len(aircrafts) == 0:
+        messagebox.showwarning("Warning", "Load arrivals first")
+        return
+
+    # reconstruir estructura para empezar el día limpio
+    bcn = LoadAirportStructure("LEBL.txt")
+
+    if bcn == -1:
+        messagebox.showerror("Error", "LEBL structure could not be loaded")
+        return
+
+    # simular las 24 horas del día
+    h = 0
+    total_not_assigned = 0
+
+    while h < 24:
+
+        time = str(h).zfill(2) + ":00"
+
+        not_assigned = AssignGatesAtTime(bcn, aircrafts, time)
+
+        total_not_assigned += not_assigned
+
+        h += 1
+
+    messagebox.showinfo(
+        "Day Simulation",
+        "Simulation completed\nNot assigned flights: " + str(total_not_assigned)
+    )
+
+    # mostrar gráfico final
+    PlotDayOccupancy(bcn, aircrafts)
+
 # FRAME V1
 frame_v1 = Frame(window)
 frame_v1.pack(pady=10)
@@ -541,9 +584,56 @@ Button(frame_v3, text="Assign Gates", width=28, command=AssignGatesButton).grid(
 Button(frame_v3, text="Gate Occupancy", width=28, command=ShowGateOccupancyButton).grid(row=1, column=0, columnspan=2)
 
 # FRAME V4
-Button(frame_v3, text="Simulate Day (V4)", width=28, command=SimulateDayButton).grid(
+Button(frame_v3, text="Simulate Day", width=28, command=SimulateDayButton).grid(
     row=2, column=0, columnspan=2, padx=5, pady=5
 )
+
+
+def SimulateFullDayButton():
+
+    global bcn
+    global aircrafts
+
+    if not _v3_backend_ready():
+        messagebox.showerror("Error", "Backend V3/V4 not ready")
+        return
+
+    if len(aircrafts) == 0:
+        messagebox.showwarning("Warning", "Load aircrafts first")
+        return
+
+    if bcn is None:
+        messagebox.showwarning("Warning", "Load LEBL structure first")
+        return
+
+    # reiniciar estructura (día nuevo)
+    bcn = LoadAirportStructure("LEBL.txt")
+
+    if bcn == -1:
+        messagebox.showerror("Error", "LEBL structure could not be loaded")
+        return
+
+    total_not_assigned = 0
+    hourly_not_assigned = []
+
+    h = 0
+    while h < 24:
+
+        time = str(h).zfill(2) + ":00"
+
+        not_assigned = AssignGatesAtTime(bcn, aircrafts, time)
+
+        hourly_not_assigned.append(not_assigned)
+        total_not_assigned += not_assigned
+
+        h += 1
+
+    messagebox.showinfo(
+        "V4 Simulation Completed",
+        "Total not assigned: " + str(total_not_assigned)
+    )
+
+    PlotDayOccupancy(bcn, aircrafts)
 
 
 # EXIT
