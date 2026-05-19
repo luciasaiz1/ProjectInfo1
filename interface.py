@@ -336,18 +336,18 @@ def AssignGatesButton():
     failed = 0              # comptador avons que no s'han pogut assignar
 
     i = 0
-    while i < len(aircrafts):
+    while i < len(aircrafts):           # recorrem aircrafts
 
-        gate_name = AssignGate(bcn, aircrafts[i])
+        gate_name = AssignGate(bcn, aircrafts[i])       # intentem assignar gate a l'avió que tractem
 
-        if gate_name == -1:
+        if gate_name == -1:                     # si NO es pot, comptem com a failed
             failed += 1
-        else:
+        else:                                   # si SI es pot, comptem com a assignat
             assigned += 1
 
         i += 1
 
-    messagebox.showinfo(
+    messagebox.showinfo(            # mostrem resultat final dels comptadors
         "Gate Assignment",
         "Assigned: " + str(assigned) +
         "\nNot assigned: " + str(failed)
@@ -358,49 +358,49 @@ def ShowGateOccupancyButton():
 
     global bcn
 
-    if bcn is None or bcn == -1:
+    if bcn is None or bcn == -1:                # si NO em carregat l'estructura, avisa
         messagebox.showwarning("Warning", "Build LEBL structure first")
         return
 
-    occupancy = GateOccupancy(bcn)
+    occupancy = GateOccupancy(bcn)          # mirem ocupacio de portes de l'aeroport
 
-    if len(occupancy) == 0:
+    if len(occupancy) == 0:                 # si la llsita esta buida, avisem que no tenim dades que mostrar
         messagebox.showinfo("Info", "No gate occupancy data available")
         return
 
-    text = ""
+    text = ""           # obrim un text buit on guardar la informació
 
     i = 0
-    while i < len(occupancy):
+    while i < len(occupancy):           # recorrem
 
-        terminal = occupancy[i][0]
+        terminal = occupancy[i][0]      # asignem variables als trossos que volem
         area = occupancy[i][1]
         gate = occupancy[i][2]
         occupied = occupancy[i][3]
         aircraft_id = occupancy[i][4]
 
-        if occupied:
+        if occupied:                            # si esta ocupat, tractem
             status = "Occupied by " + aircraft_id
         else:
             status = "Free"
-
+        # afegim linia a la notra llista
         text += terminal + " | " + area + " | " + gate + " | " + status + "\n"
 
         i += 1
 
-    occ_window = Toplevel(window)
+    occ_window = Toplevel(window)       # creem una nova finestra, amb titol i mida
     occ_window.title("Gate Occupancy")
     occ_window.geometry("800x500")
 
-    scrollbar = Scrollbar(occ_window)
+    scrollbar = Scrollbar(occ_window)  # afegim una barra per a poder pujar i baixar, a la dreta
     scrollbar.pack(side=RIGHT, fill=Y)
-
+    # creem caixa on tinguem la informació i connectada amb la barra
     txt = Text(occ_window, wrap="none", yscrollcommand=scrollbar.set)
     txt.pack(fill=BOTH, expand=True)
 
-    scrollbar.config(command=txt.yview)
+    scrollbar.config(command=txt.yview)  # que la barra recorri tant adalt com abaix
 
-    txt.insert("1.0", text)
+    txt.insert("1.0", text)  # posem dins la caixa el text guardat
 
 
 # SORTIDA DEL PROGRAMA
