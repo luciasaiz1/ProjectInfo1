@@ -481,10 +481,10 @@ def LoadDepartures(filename):
 # MERGE MOVEMENTS (ARRIVALS + DEPARTURES)
 
 def MergeMovements(arrivals, departures):
-    """
-    Aquesta funció combina arribades i sortides en una sola llista.
-    Si un avió té arrival i departure, es fusionen en el mateix objecte.
-    """
+
+    #Aquesta funció combina arribades i sortides en una sola llista.
+    #Si un avió té arrival i departure, es fusionen en el mateix objecte.
+
 
     if len(arrivals) == 0 and len(departures) == 0:
         return []

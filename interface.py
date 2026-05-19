@@ -430,46 +430,6 @@ Label(window, text="Longitude").pack()
 entry_lon = Entry(window)
 entry_lon.pack()
 
-
-# FRAME V1
-frame_v1 = Frame(window)
-frame_v1.pack(pady=10)
-
-Button(frame_v1, text="Load Airports", width=28, command=load_airports).grid(row=0, column=0)
-Button(frame_v1, text="Add Airport", width=28, command=add_airport).grid(row=0, column=1)
-Button(frame_v1, text="Remove Airport", width=28, command=remove_airport).grid(row=1, column=0)
-Button(frame_v1, text="Plot Airports", width=28, command=plot_airports).grid(row=1, column=1)
-Button(frame_v1, text="Map Airports", width=28, command=map_airports).grid(row=2, column=0)
-Button(frame_v1, text="Save Schengen", width=28, command=save_schengen).grid(row=2, column=1)
-
-
-# FRAME V2
-frame_v2 = Frame(window)
-frame_v2.pack(pady=10)
-
-Button(frame_v2, text="Load Arrivals", width=28, command=LoadArrivalsButton).grid(row=0, column=0)
-Button(frame_v2, text="Save Flights", width=28, command=SaveFlightsButton).grid(row=0, column=1)
-Button(frame_v2, text="Plot Arrivals", width=28, command=PlotArrivalsButton).grid(row=1, column=0)
-Button(frame_v2, text="Plot Airlines", width=28, command=PlotAirlinesButton).grid(row=1, column=1)
-Button(frame_v2, text="Plot Type", width=28, command=PlotFlightsTypeButton).grid(row=2, column=0)
-Button(frame_v2, text="Map Flights", width=28, command=MapFlightsButton).grid(row=2, column=1)
-Button(frame_v2, text="Long Distance", width=28, command=MapLongDistanceButton).grid(row=3, column=0, columnspan=2)
-
-
-# FRAME V3
-frame_v3 = Frame(window)
-frame_v3.pack(pady=10)
-
-Button(frame_v3, text="Build LEBL", width=28, command=BuildLEBLStructureButton).grid(row=0, column=0)
-Button(frame_v3, text="Assign Gates", width=28, command=AssignGatesButton).grid(row=0, column=1)
-Button(frame_v3, text="Gate Occupancy", width=28, command=ShowGateOccupancyButton).grid(row=1, column=0, columnspan=2)
-
-
-# EXIT
-Button(window, text="Exit", width=28, command=exit_program).pack(pady=10)
-
-window.mainloop()
-
 def SimulateDayButton():
 
     #Simula tot el dia l'aeroport a totes hores.
@@ -546,3 +506,48 @@ def SimulateDayButton():
     plt.legend()
     plt.grid()
     plt.show()
+
+# FRAME V1
+frame_v1 = Frame(window)
+frame_v1.pack(pady=10)
+
+Button(frame_v1, text="Load Airports", width=28, command=load_airports).grid(row=0, column=0)
+Button(frame_v1, text="Add Airport", width=28, command=add_airport).grid(row=0, column=1)
+Button(frame_v1, text="Remove Airport", width=28, command=remove_airport).grid(row=1, column=0)
+Button(frame_v1, text="Plot Airports", width=28, command=plot_airports).grid(row=1, column=1)
+Button(frame_v1, text="Map Airports", width=28, command=map_airports).grid(row=2, column=0)
+Button(frame_v1, text="Save Schengen", width=28, command=save_schengen).grid(row=2, column=1)
+
+
+# FRAME V2
+frame_v2 = Frame(window)
+frame_v2.pack(pady=10)
+
+Button(frame_v2, text="Load Arrivals", width=28, command=LoadArrivalsButton).grid(row=0, column=0)
+Button(frame_v2, text="Save Flights", width=28, command=SaveFlightsButton).grid(row=0, column=1)
+Button(frame_v2, text="Plot Arrivals", width=28, command=PlotArrivalsButton).grid(row=1, column=0)
+Button(frame_v2, text="Plot Airlines", width=28, command=PlotAirlinesButton).grid(row=1, column=1)
+Button(frame_v2, text="Plot Type", width=28, command=PlotFlightsTypeButton).grid(row=2, column=0)
+Button(frame_v2, text="Map Flights", width=28, command=MapFlightsButton).grid(row=2, column=1)
+Button(frame_v2, text="Long Distance", width=28, command=MapLongDistanceButton).grid(row=3, column=0, columnspan=2)
+
+
+# FRAME V3
+frame_v3 = Frame(window)
+frame_v3.pack(pady=10)
+
+Button(frame_v3, text="Build LEBL", width=28, command=BuildLEBLStructureButton).grid(row=0, column=0)
+Button(frame_v3, text="Assign Gates", width=28, command=AssignGatesButton).grid(row=0, column=1)
+Button(frame_v3, text="Gate Occupancy", width=28, command=ShowGateOccupancyButton).grid(row=1, column=0, columnspan=2)
+
+# FRAME V4
+Button(frame_v3, text="Simulate Day (V4)", width=28, command=SimulateDayButton).grid(
+    row=2, column=0, columnspan=2, padx=5, pady=5
+)
+
+
+# EXIT
+Button(window, text="Exit", width=28, command=exit_program).pack(pady=10)
+
+window.mainloop()
+
