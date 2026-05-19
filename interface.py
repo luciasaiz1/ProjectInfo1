@@ -1,30 +1,29 @@
 from tkinter import *
 from tkinter import messagebox, filedialog
+from tkinter import *
+from tkinter import messagebox, filedialog
 import os
 
 from airport import *
 from aircraft import *
 from LEBL import *
 
+# GLOBALS
 
-# VARIABLES GLOBALS
-# airports: llista d’aeroports carregats (V1 i V2)
-# aircrafts: llista de vols carregats (V2)
-# bcn: estructura de l’aeroport de Barcelona (V3)
-
+# Aquí guardem la llista d'aeroports que fa servir la part de V1 i V2.
 airports = []
+
+# Aquí guardem la llista de vols d'arribada que carrega la V2.
 aircrafts = []
+
+# Aquí guardarem l'estructura de l'aeroport de Barcelona per la V3.
 bcn = None
 
 
-
-# FUNCIONS D’AJUDA (BACKEND CHECK)
-# Comproven si les funcions necessàries de cada versió
-# estan disponibles abans d’executar funcionalitats.
-
+# HELPER FUNCTIONS
 
 def _v2_backend_ready():
-
+    # Aquesta funció comprova si les funcions principals de la V2 existeixen.
     required = [
         "LoadArrivals",
         "SaveFlights",
@@ -45,7 +44,7 @@ def _v2_backend_ready():
 
 
 def _v3_backend_ready():
-
+    # Aquesta funció comprova si les funcions principals de la V3 existeixen.
     required = [
         "LoadAirportStructure",
         "AssignGate",
@@ -63,9 +62,10 @@ def _v3_backend_ready():
     return True
 
 
-# V1 - AEROPORTS
+# VERSION 1 FUNCTIONS
 
 def load_airports():
+    # Aquesta funció carrega el fitxer Airports.txt i calcula si cada aeroport és Schengen o no.
     global airports
 
     airports = LoadAirports("Airports.txt")
@@ -83,7 +83,7 @@ def load_airports():
 
 
 def add_airport():
-
+    # Aquesta funció afegeix un aeroport nou amb el codi i les coordenades escrites a la interfície.
     global airports
 
     code = entry_code.get().strip().upper()
@@ -107,7 +107,7 @@ def add_airport():
 
 
 def remove_airport():
-
+    # Aquesta funció elimina un aeroport de la llista a partir del codi ICAO escrit.
     global airports
 
     code = entry_code.get().strip().upper()
@@ -125,7 +125,7 @@ def remove_airport():
 
 
 def plot_airports():
-
+    # Aquesta funció mostra el gràfic d'aeroports Schengen i no Schengen.
     if len(airports) == 0:
         messagebox.showwarning("Warning", "Load airports first")
         return
@@ -134,7 +134,7 @@ def plot_airports():
 
 
 def map_airports():
-
+    # Aquesta funció crea el KML dels aeroports i intenta obrir-lo automàticament.
     if len(airports) == 0:
         messagebox.showwarning("Warning", "Load airports first")
         return
@@ -148,7 +148,7 @@ def map_airports():
 
 
 def save_schengen():
-
+    # Aquesta funció desa en un fitxer només els aeroports que són Schengen.
     if len(airports) == 0:
         messagebox.showwarning("Warning", "Load airports first")
         return
@@ -161,10 +161,10 @@ def save_schengen():
         messagebox.showinfo("OK", "SchengenAirports.txt saved")
 
 
-# V2 - ARRIBADES I VOLS
+# VERSION 2 FUNCTIONS
 
 def LoadArrivalsButton():
-
+    # Aquesta funció deixa triar un fitxer d'arribades i el carrega a la llista de vols.
     global aircrafts
 
     if not _v2_backend_ready():
@@ -188,7 +188,7 @@ def LoadArrivalsButton():
 
 
 def SaveFlightsButton():
-
+    # Aquesta funció desa la llista de vols carregada en un fitxer triat per l'usuari.
     global aircrafts
 
     if not _v2_backend_ready():
@@ -217,6 +217,10 @@ def SaveFlightsButton():
 
 
 def PlotArrivalsButton():
+    # Aquesta funció mostra el gràfic del nombre d'arribades per hora.
+    if not _v2_backend_ready():
+        messagebox.showerror("Error", "Version 2 backend is not ready")
+        return
 
     if len(aircrafts) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
@@ -226,6 +230,10 @@ def PlotArrivalsButton():
 
 
 def PlotAirlinesButton():
+    # Aquesta funció mostra el gràfic del nombre de vols per companyia.
+    if not _v2_backend_ready():
+        messagebox.showerror("Error", "Version 2 backend is not ready")
+        return
 
     if len(aircrafts) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
@@ -235,6 +243,10 @@ def PlotAirlinesButton():
 
 
 def PlotFlightsTypeButton():
+    # Aquesta funció mostra el gràfic de vols Schengen i no Schengen.
+    if not _v2_backend_ready():
+        messagebox.showerror("Error", "Version 2 backend is not ready")
+        return
 
     if len(aircrafts) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
@@ -244,13 +256,18 @@ def PlotFlightsTypeButton():
 
 
 def MapFlightsButton():
-
+    # Aquesta funció crea el mapa KML de totes les trajectòries dels vols carregats.
     global airports
+
+    if not _v2_backend_ready():
+        messagebox.showerror("Error", "Version 2 backend is not ready")
+        return
 
     if len(aircrafts) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
 
+    # Si encara no hem carregat aeroports, els carreguem ara perquè el mapa els necessita.
     if len(airports) == 0:
         airports = LoadAirports("Airports.txt")
 
@@ -267,13 +284,18 @@ def MapFlightsButton():
 
 
 def MapLongDistanceButton():
-
+    # Aquesta funció crea el mapa només dels vols que venen de més de 2000 km.
     global airports
+
+    if not _v2_backend_ready():
+        messagebox.showerror("Error", "Version 2 backend is not ready")
+        return
 
     if len(aircrafts) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
 
+    # Si encara no hem carregat aeroports, els carreguem ara perquè el mapa els necessita.
     if len(airports) == 0:
         airports = LoadAirports("Airports.txt")
 
@@ -295,10 +317,10 @@ def MapLongDistanceButton():
     MapFlights(long_distance, airports)
 
 
-# V3 - GESTIÓ DE GATES
+# VERSION 3 FUNCTIONS
 
 def BuildLEBLStructureButton():
-
+    # Aquesta funció carrega des de LEBL.txt l'estructura de terminals, àrees i gates.
     global bcn
 
     if not _v3_backend_ready():
@@ -318,14 +340,19 @@ def BuildLEBLStructureButton():
 
 
 def AssignGatesButton():
-
+    # Aquesta funció assigna una gate a cada vol carregat segons les regles de la V3.
     global bcn
     global aircrafts
+
+    if not _v3_backend_ready():
+        messagebox.showerror("Error", "Version 3 backend is not ready")
+        return
 
     if len(aircrafts) == 0:
         messagebox.showwarning("Warning", "Load arrivals first")
         return
 
+    # Reconstruïm LEBL abans d'assignar per evitar que es dupliquin ocupacions si premem dues vegades.
     bcn = LoadAirportStructure("LEBL.txt")
 
     if bcn == -1:
@@ -337,7 +364,6 @@ def AssignGatesButton():
 
     i = 0
     while i < len(aircrafts):
-
         gate_name = AssignGate(bcn, aircrafts[i])
 
         if gate_name == -1:
@@ -349,14 +375,17 @@ def AssignGatesButton():
 
     messagebox.showinfo(
         "Gate Assignment",
-        "Assigned: " + str(assigned) +
-        "\nNot assigned: " + str(failed)
+        "Assigned: " + str(assigned) + "\nNot assigned: " + str(failed)
     )
 
 
 def ShowGateOccupancyButton():
-
+    # Aquesta funció obre una finestra nova i mostra l'estat de totes les gates.
     global bcn
+
+    if not _v3_backend_ready():
+        messagebox.showerror("Error", "Version 3 backend is not ready")
+        return
 
     if bcn is None or bcn == -1:
         messagebox.showwarning("Warning", "Build LEBL structure first")
@@ -368,11 +397,11 @@ def ShowGateOccupancyButton():
         messagebox.showinfo("Info", "No gate occupancy data available")
         return
 
+    # Aquí construïm el text que veurem a la finestra d'ocupació.
     text = ""
 
     i = 0
     while i < len(occupancy):
-
         terminal = occupancy[i][0]
         area = occupancy[i][1]
         gate = occupancy[i][2]
@@ -384,8 +413,7 @@ def ShowGateOccupancyButton():
         else:
             status = "Free"
 
-        text += terminal + " | " + area + " | " + gate + " | " + status + "\n"
-
+        text = text + terminal + " | " + area + " | " + gate + " | " + status + "\n"
         i += 1
 
     occ_window = Toplevel(window)
@@ -403,69 +431,84 @@ def ShowGateOccupancyButton():
     txt.insert("1.0", text)
 
 
-# SORTIDA DEL PROGRAMA
+# EXIT
 
 def exit_program():
+    # Aquesta funció tanca la finestra principal del programa.
     window.destroy()
 
 
-# INTERFÍCIE GRÀFICA
+# WINDOW
 
+# Aquí creem la finestra principal del programa.
 window = Tk()
 window.title("Airport Manager")
 window.geometry("620x760")
 
 
-# INPUTS V1
+# INPUTS DE V1
 
-Label(window, text="ICAO Code").pack()
+# Aquests Entry serveixen per afegir aeroports manualment a la V1.
+label1 = Label(window, text="ICAO Code")
+label1.pack()
 entry_code = Entry(window)
 entry_code.pack()
 
-Label(window, text="Latitude").pack()
+label2 = Label(window, text="Latitude")
+label2.pack()
 entry_lat = Entry(window)
 entry_lat.pack()
 
-Label(window, text="Longitude").pack()
+label3 = Label(window, text="Longitude")
+label3.pack()
 entry_lon = Entry(window)
 entry_lon.pack()
 
 
-# FRAME V1
+# VERSION 1 BUTTONS
+
+# Aquest frame agrupa els botons de la part d'aeroports de la V1.
 frame_v1 = Frame(window)
 frame_v1.pack(pady=10)
 
-Button(frame_v1, text="Load Airports", width=28, command=load_airports).grid(row=0, column=0)
-Button(frame_v1, text="Add Airport", width=28, command=add_airport).grid(row=0, column=1)
-Button(frame_v1, text="Remove Airport", width=28, command=remove_airport).grid(row=1, column=0)
-Button(frame_v1, text="Plot Airports", width=28, command=plot_airports).grid(row=1, column=1)
-Button(frame_v1, text="Map Airports", width=28, command=map_airports).grid(row=2, column=0)
-Button(frame_v1, text="Save Schengen", width=28, command=save_schengen).grid(row=2, column=1)
+Button(frame_v1, text="Load Airports", width=28, command=load_airports).grid(row=0, column=0, padx=5, pady=5)
+Button(frame_v1, text="Add Airport", width=28, command=add_airport).grid(row=0, column=1, padx=5, pady=5)
+Button(frame_v1, text="Remove Airport", width=28, command=remove_airport).grid(row=1, column=0, padx=5, pady=5)
+Button(frame_v1, text="Plot Airports", width=28, command=plot_airports).grid(row=1, column=1, padx=5, pady=5)
+Button(frame_v1, text="Map Airports", width=28, command=map_airports).grid(row=2, column=0, padx=5, pady=5)
+Button(frame_v1, text="Save Schengen Airports", width=28, command=save_schengen).grid(row=2, column=1, padx=5, pady=5)
 
 
-# FRAME V2
+# VERSION 2 BUTTONS
+
+# Aquest frame agrupa els botons de la part de vols i arribades de la V2.
 frame_v2 = Frame(window)
 frame_v2.pack(pady=10)
 
-Button(frame_v2, text="Load Arrivals", width=28, command=LoadArrivalsButton).grid(row=0, column=0)
-Button(frame_v2, text="Save Flights", width=28, command=SaveFlightsButton).grid(row=0, column=1)
-Button(frame_v2, text="Plot Arrivals", width=28, command=PlotArrivalsButton).grid(row=1, column=0)
-Button(frame_v2, text="Plot Airlines", width=28, command=PlotAirlinesButton).grid(row=1, column=1)
-Button(frame_v2, text="Plot Type", width=28, command=PlotFlightsTypeButton).grid(row=2, column=0)
-Button(frame_v2, text="Map Flights", width=28, command=MapFlightsButton).grid(row=2, column=1)
-Button(frame_v2, text="Long Distance", width=28, command=MapLongDistanceButton).grid(row=3, column=0, columnspan=2)
+Button(frame_v2, text="Load Arrivals", width=28, command=LoadArrivalsButton).grid(row=0, column=0, padx=5, pady=5)
+Button(frame_v2, text="Save Flights", width=28, command=SaveFlightsButton).grid(row=0, column=1, padx=5, pady=5)
+Button(frame_v2, text="Plot Arrivals / Hour", width=28, command=PlotArrivalsButton).grid(row=1, column=0, padx=5, pady=5)
+Button(frame_v2, text="Plot Flights / Airline", width=28, command=PlotAirlinesButton).grid(row=1, column=1, padx=5, pady=5)
+Button(frame_v2, text="Plot Schengen / Non-Schengen", width=28, command=PlotFlightsTypeButton).grid(row=2, column=0, padx=5, pady=5)
+Button(frame_v2, text="Map All Flights", width=28, command=MapFlightsButton).grid(row=2, column=1, padx=5, pady=5)
+Button(frame_v2, text="Map Long-Distance Flights", width=28, command=MapLongDistanceButton).grid(row=3, column=0, columnspan=2, padx=5, pady=5)
 
 
-# FRAME V3
+# VERSION 3 BUTTONS
+
+# Aquest frame agrupa els botons nous de la V3 per gestionar gates.
 frame_v3 = Frame(window)
 frame_v3.pack(pady=10)
 
-Button(frame_v3, text="Build LEBL", width=28, command=BuildLEBLStructureButton).grid(row=0, column=0)
-Button(frame_v3, text="Assign Gates", width=28, command=AssignGatesButton).grid(row=0, column=1)
-Button(frame_v3, text="Gate Occupancy", width=28, command=ShowGateOccupancyButton).grid(row=1, column=0, columnspan=2)
+Button(frame_v3, text="Build LEBL Structure", width=28, command=BuildLEBLStructureButton).grid(row=0, column=0, padx=5, pady=5)
+Button(frame_v3, text="Assign Gates", width=28, command=AssignGatesButton).grid(row=0, column=1, padx=5, pady=5)
+Button(frame_v3, text="Show Gate Occupancy", width=28, command=ShowGateOccupancyButton).grid(row=1, column=0, columnspan=2, padx=5, pady=5)
 
 
-# EXIT
-Button(window, text="Exit", width=28, command=exit_program).pack(pady=10)
+# EXIT BUTTON
+
+# Aquest botó tanca el programa.
+button_exit = Button(window, text="Exit", width=28, command=exit_program)
+button_exit.pack(pady=10)
 
 window.mainloop()
