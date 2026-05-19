@@ -301,17 +301,17 @@ def BuildLEBLStructureButton():
 
     global bcn
 
-    if not _v3_backend_ready():
+    if not _v3_backend_ready():                   # Mirem si tot el necessari de la versió 3 està preparat
         messagebox.showerror("Error", "Version 3 backend is not ready")
         return
 
-    bcn = LoadAirportStructure("LEBL.txt")
+    bcn = LoadAirportStructure("LEBL.txt")          # Llegim el fitxer LEBL.txt i guardem la informació dins de bcn
 
-    if bcn == -1:
+    if bcn == -1:                                   # Si NO s'ha pogut carregar
         messagebox.showerror("Error", "LEBL structure could not be loaded")
         return
 
-    messagebox.showinfo(
+    messagebox.showinfo(                   #Si SI s'ha pogut carregar, mostrem que sí i mostra terminals
         "OK",
         "LEBL structure loaded with " + str(len(bcn.terminals)) + " terminals"
     )
@@ -320,34 +320,34 @@ def BuildLEBLStructureButton():
 def AssignGatesButton():
 
     global bcn
-    global aircrafts
+    global aircrafts                            # Fem servir les variables que estan fora de la funció
 
-    if len(aircrafts) == 0:
+    if len(aircrafts) == 0:                 # Si NO tenim res carregat, avisem
         messagebox.showwarning("Warning", "Load arrivals first")
         return
 
-    bcn = LoadAirportStructure("LEBL.txt")
+    bcn = LoadAirportStructure("LEBL.txt")                 #Si SI, guardem info del fitxer a la variable
 
-    if bcn == -1:
+    if bcn == -1:               #Si NO s'ha pogut carregar, avisa de l'error
         messagebox.showerror("Error", "LEBL structure could not be loaded")
         return
 
-    assigned = 0
-    failed = 0
+    assigned = 0            #Comptador d'avions que sí han pogut tenir gate
+    failed = 0              # Comptador dels que no
 
     i = 0
-    while i < len(aircrafts):
+    while i < len(aircrafts):               # Recorrem llista avions
 
-        gate_name = AssignGate(bcn, aircrafts[i])
+        gate_name = AssignGate(bcn, aircrafts[i])      #Intentem assignar una porta a l'avió que analitzem
 
-        if gate_name == -1:
+        if gate_name == -1:                 # si NO podem, contem com a failed
             failed += 1
-        else:
+        else:                               # si SI podem, contem com a assigned
             assigned += 1
 
         i += 1
 
-    messagebox.showinfo(
+    messagebox.showinfo(                    # Mostrem el resultat de assignats i no assignats
         "Gate Assignment",
         "Assigned: " + str(assigned) +
         "\nNot assigned: " + str(failed)
@@ -358,48 +358,50 @@ def ShowGateOccupancyButton():
 
     global bcn
 
-    if bcn is None or bcn == -1:
+    if bcn is None or bcn == -1:                   # si bcn no existeix o no s'ha carregat bé, avisa
         messagebox.showwarning("Warning", "Build LEBL structure first")
         return
 
-    occupancy = GateOccupancy(bcn)
+    occupancy = GateOccupancy(bcn)          # mirem ocupació de les portes
 
-    if len(occupancy) == 0:
+    if len(occupancy) == 0:                 # si NO tenim llista, avisem que no tenim informació a mostrar
         messagebox.showinfo("Info", "No gate occupancy data available")
         return
 
-    text = ""
+    text = ""               # creem text buit on guardarem la informació de les portes
 
     i = 0
-    while i < len(occupancy):
+    while i < len(occupancy):           # recorrem ocupació de les portes
 
-        terminal = occupancy[i][0]
+        terminal = occupancy[i][0]         #trosejem  i asignem trosos a variables que volem
         area = occupancy[i][1]
         gate = occupancy[i][2]
         occupied = occupancy[i][3]
         aircraft_id = occupancy[i][4]
 
-        if occupied:
+        if occupied:                        #  si SI està ocupada
             status = "Occupied by " + aircraft_id
         else:
             status = "Free"
-
+        # afegim una linia al text amb tota la informació
         text += terminal + " | " + area + " | " + gate + " | " + status + "\n"
 
         i += 1
 
-    occ_window = Toplevel(window)
+    occ_window = Toplevel(window)  # Creem finestra nova a sobre de la principal, i li posem titol i tamany
     occ_window.title("Gate Occupancy")
     occ_window.geometry("800x500")
 
-    scrollbar = Scrollbar(occ_window)
+    scrollbar = Scrollbar(occ_window)  #Afegim una barra per a pujar i baixar, a la dreta
     scrollbar.pack(side=RIGHT, fill=Y)
 
+    # Creem una caixa de text connectada amb la barra de desplaçament, que guarda el contingut del text
     txt = Text(occ_window, wrap="none", yscrollcommand=scrollbar.set)
     txt.pack(fill=BOTH, expand=True)
 
-    scrollbar.config(command=txt.yview)
+    scrollbar.config(command=txt.yview) # Barra es mogui la vista del text amunt i avall
 
+    # Posem dins la caixa de text el contingut guardat a la variable text
     txt.insert("1.0", text)
 
 
@@ -457,11 +459,13 @@ Button(frame_v2, text="Long Distance", width=28, command=MapLongDistanceButton).
 
 
 # FRAME V3
-frame_v3 = Frame(window)
-frame_v3.pack(pady=10)
-
+frame_v3 = Frame(window) # Creem espai per posar els botons de la versió 3
+frame_v3.pack(pady=10)   # espai amb separació vertical
+# carregar l'estructura de l'aeroport LEBL
 Button(frame_v3, text="Build LEBL", width=28, command=BuildLEBLStructureButton).grid(row=0, column=0)
+#assignar portes als avions
 Button(frame_v3, text="Assign Gates", width=28, command=AssignGatesButton).grid(row=0, column=1)
+#quines portes estan ocupades i quines estan lliures
 Button(frame_v3, text="Gate Occupancy", width=28, command=ShowGateOccupancyButton).grid(row=1, column=0, columnspan=2)
 
 
