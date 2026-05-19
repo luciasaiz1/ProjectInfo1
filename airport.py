@@ -1,6 +1,3 @@
-# airport.py
-
-import math
 import os
 import matplotlib.pyplot as pyplot
 
@@ -235,7 +232,7 @@ def AddAirport(airports, airport):
 
 
 # REMOVE AIRPORT
-# Aquesta funció elimina un aeroport segons el codi ICAO
+# Elimina un aeroport segons el codi ICAO
 
 def RemoveAirport(airports, code):
 
@@ -252,7 +249,6 @@ def RemoveAirport(airports, code):
 
         i += 1
 
-    # Si no existeix retornem error
     return -1
 
 
@@ -277,25 +273,29 @@ def PlotAirports(airports):
     # Comptem aeroports Schengen i no Schengen
     while i < len(airports):
 
-        if airports[i].schengen:
+        if airports[i].schengen:   # si l'aeroport és schengen, incrementem el comptador corresponent
+
             schengen_count += 1
         else:
-            non_schengen_count += 1
+            non_schengen_count += 1 # si no ho és, incrementem el de non schengen
 
         i += 1
 
+    # creem una figura per al gràfic
     pyplot.figure(figsize=(6, 6))
 
+    # dibuixem la barra dels aeroports schengen
     pyplot.bar(
-        ["Airports"],
-        [schengen_count],
-        label="Schengen"
+        ["Airports"],           # etiqueta de l'eix x
+        [schengen_count],   # valor schengen
+        label="Schengen"           # llegenda
     )
 
+    # dibuixem la barra dels aeroports no schengen (apilada sobre la schengen)
     pyplot.bar(
         ["Airports"],
         [non_schengen_count],
-        bottom=[schengen_count],
+        bottom=[schengen_count],     # se situa a sobre de la barra schengen
         label="Non-Schengen"
     )
 
@@ -328,7 +328,7 @@ def MapAirports(airports, filename="AirportsMap.kml"):
 
     filepath = os.path.abspath(filename)
 
-    # Intentem crear el fitxer
+    # Creem el fitxer
     try:
         F = open(filepath, "w", encoding="utf-8")
     except:
