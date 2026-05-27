@@ -4,8 +4,11 @@ from airport import IsSchengenAirport
 # importem la funció per carregar vols (V2)
 from aircraft import LoadArrivals
 
+
+# CLASSES PRINCIPALS
+
 # CLASSE BARCELONA AP
-# representa l’aeroport de barcelona i conté els terminals
+# representa l’aeroport de Barcelona i conté els terminals
 
 class BarcelonaAP:
 
@@ -23,6 +26,7 @@ class Terminal:
         self.name = name
         self.boarding_areas = []      # àrees d’embarcament
         self.airlines = []            # companyies que operen aquí
+
 
 # CLASSE BOARDING AREA
 # representa una zona schengen o no schengen dins del terminal
@@ -47,12 +51,11 @@ class Gate:
 
 
 # SET GATES
-# crea les gates d’una boarding àrea segons un rang numèric
 
 def SetGates(area, init_gate, end_gate, prefix):
 
     # si el rang és incorrecte, retornem error
-    if end_gate <= init_gate:
+    if end_gate < init_gate:
         return -1
 
     # reiniciem la llista de gates
@@ -76,7 +79,6 @@ def SetGates(area, init_gate, end_gate, prefix):
 
 
 # LOAD AIRLINES
-# carrega les companyies que operen en un terminal
 
 def LoadAirlines(terminal, t_name):
 
@@ -92,30 +94,23 @@ def LoadAirlines(terminal, t_name):
 
     airlines_temp = []
 
-    i = 0
-    while i < len(lines):
+    for line in lines:
 
-        line = lines[i].strip()
+        line = line.strip()
 
         if line != "":
-
             parts = line.split()
 
-            if len(parts) >= 2:
-                # agafem el codi ICAO de la companyia
-                icao = parts[len(parts) - 1]
-                airlines_temp.append(icao)
+            # últim element = codi ICAO
+            icao = parts[-1]
+            airlines_temp.append(icao)
 
-        i += 1
-
-    # assignem la llista al terminal
     terminal.airlines = airlines_temp
 
     return 0
 
 
 # LOAD AIRPORT STRUCTURE
-# llegeix el fitxer LEBL.txt i crea tota l’estructura
 
 def LoadAirportStructure(filename):
 
@@ -133,31 +128,29 @@ def LoadAirportStructure(filename):
     # primera línia: codi aeroport i nombre de terminals
     first = lines[0].split()
 
-    if len(first) < 2:
+    if len(first) < 3:
         return -1
 
     airport_code = first[0]
-    num_terminals = int(first[1])
+    num_terminals = int(first[1])  # "LEBL 2 terminals"
 
-    # creem l’objecte principal de l’aeroport
     bcn = BarcelonaAP(airport_code)
 
     i = 1
     terminals_loaded = 0
 
-    # carreguem cada terminal
     while i < len(lines) and terminals_loaded < num_terminals:
 
         parts = lines[i].split()
 
-        if len(parts) < 3:
+        if len(parts) < 4:
             return -1
 
         if parts[0] != "Terminal":
             return -1
 
         terminal_name = parts[1]
-        num_areas = int(parts[2])
+        num_areas = int(parts[2])  # "5 boarding areas"
 
         terminal = Terminal(terminal_name)
 
@@ -169,7 +162,7 @@ def LoadAirportStructure(filename):
         i += 1
         areas_loaded = 0
 
-        # carreguem boarding areas del terminal
+        # carreguem boarding areas
         while i < len(lines) and areas_loaded < num_areas:
 
             parts = lines[i].split()
@@ -181,15 +174,14 @@ def LoadAirportStructure(filename):
                 return -1
 
             area_name = parts[1]
-            area_type = parts[2]
+            area_type = parts[2]  # Schengen / non-Schengen
 
+            # format: Gates 1 - 11
             init_gate = int(parts[4])
             end_gate = int(parts[6])
 
-            # creem boarding area
             area = BoardingArea(area_name, area_type)
 
-            # prefix per identificar gates fàcilment
             prefix = terminal_name + area_name + "_G"
 
             err = SetGates(area, init_gate, end_gate, prefix)
@@ -206,27 +198,16 @@ def LoadAirportStructure(filename):
 
     return bcn
 
+
 # GATE OCCUPANCY
-# retorna l’estat de totes les gates de l’aeroport
 
 def GateOccupancy(bcn):
 
     occupancy = []
 
-    i = 0
-    while i < len(bcn.terminals):
-
-        terminal = bcn.terminals[i]
-
-        j = 0
-        while j < len(terminal.boarding_areas):
-
-            area = terminal.boarding_areas[j]
-
-            k = 0
-            while k < len(area.gates):
-
-                gate = area.gates[k]
+    for terminal in bcn.terminals:
+        for area in terminal.boarding_areas:
+            for gate in area.gates:
 
                 occupancy.append([
                     terminal.name,
@@ -236,98 +217,64 @@ def GateOccupancy(bcn):
                     gate.aircraft_id
                 ])
 
-                k += 1
-            j += 1
-        i += 1
-
     return occupancy
 
 
+
 # IS AIRLINE IN TERMINAL
-# comprova si una companyia opera en un terminal
 
 def IsAirlineInTerminal(terminal, name):
 
     if name == "":
-        print("Error: empty airline name")
         return False
 
-    i = 0
-    found = False
+    return name in terminal.airlines
 
-    while i < len(terminal.airlines) and not found:
 
-        if terminal.airlines[i] == name:
-            found = True
-        else:
-            i += 1
-
-    return found
 
 # SEARCH TERMINAL
-# retorna en quin terminal opera una companyia
+
 
 def SearchTerminal(bcn, name):
 
-    i = 0
-    found = False
-    terminal_name = ""
+    for terminal in bcn.terminals:
+        if IsAirlineInTerminal(terminal, name):
+            return terminal.name
 
-    while i < len(bcn.terminals) and not found:
-
-        if IsAirlineInTerminal(bcn.terminals[i], name):
-            found = True
-            terminal_name = bcn.terminals[i].name
-        else:
-            i += 1
-
-    return terminal_name
+    return ""
 
 
 
 # ASSIGN GATE
-# assigna una gate lliure segons terminal i tipus de vol
+
 
 def AssignGate(bcn, aircraft):
 
-    # busquem terminal segons companyia
     terminal_name = SearchTerminal(bcn, aircraft.airline)
 
     if terminal_name == "":
         return -1
 
-    # determinem si el vol és schengen
     flight_is_schengen = IsSchengenAirport(aircraft.origin)
 
-    i = 0
-    while i < len(bcn.terminals):
-
-        terminal = bcn.terminals[i]
+    for terminal in bcn.terminals:
 
         if terminal.name == terminal_name:
 
-            j = 0
-            while j < len(terminal.boarding_areas):
+            for area in terminal.boarding_areas:
 
-                area = terminal.boarding_areas[j]
-
-                correct_area = False
-
-                # seleccionem àrea correcta segons tipus de vol
+                # àrea correcta segons tipus de vol
                 if flight_is_schengen and area.area_type.lower() == "schengen":
                     correct_area = True
-
-                if (not flight_is_schengen) and area.area_type.lower() != "schengen":
+                elif (not flight_is_schengen) and area.area_type.lower() != "schengen":
                     correct_area = True
+                else:
+                    correct_area = False
 
                 if correct_area:
 
-                    k = 0
-                    while k < len(area.gates):
+                    for gate in area.gates:
 
-                        gate = area.gates[k]
-
-                        # primera gate lliure que trobem
                         if not gate.occupied:
 
                             gate.occupied = True
@@ -335,153 +282,75 @@ def AssignGate(bcn, aircraft):
 
                             return gate.name
 
-                        k += 1
-                j += 1
-        i += 1
-
     return -1
 
 
 
-# TEST SECTION
-# proves manuals per comprovar que la V3 funciona
-
-if __name__ == "__main__":
-
-    print("TEST LOAD AIRPORT STRUCTURE")
-
-    bcn = LoadAirportStructure("LEBL.txt")
-
-    if bcn == -1:
-        print("Error: airport structure could not be loaded")
-    else:
-        print("Airport code:", bcn.code)
-        print("Number of terminals:", len(bcn.terminals))
-
-    print("TEST LOAD ARRIVALS + ASSIGN GATES")
-
-    aircrafts = LoadArrivals("Arrivals.txt")
-    print("Arrivals loaded:", len(aircrafts))
-
-    if bcn != -1 and len(aircrafts) > 0:
-
-        i = 0
-        while i < len(aircrafts) and i < 10:
-
-            gate_name = AssignGate(bcn, aircrafts[i])
-
-            if gate_name == -1:
-                print("Aircraft", aircrafts[i].aircraft_id, "not assigned")
-            else:
-                print("Aircraft", aircrafts[i].aircraft_id, "assigned to", gate_name)
-
-            i += 1
-
-    print("TEST GATE OCCUPANCY")
-
-    if bcn != -1:
-
-        occ = GateOccupancy(bcn)
-
-        i = 0
-        while i < len(occ) and i < 20:
-            print(occ[i])
-            i += 1
+# FREE GATE
 
 def FreeGate(bcn, aircraft_id):
 
-    #Libera la gate ocupada per un avió quan surt de l'aeroport
-
-    i = 0
-    while i < len(bcn.terminals):
-
-        terminal = bcn.terminals[i]
-
-        j = 0
-        while j < len(terminal.boarding_areas):
-
-            area = terminal.boarding_areas[j]
-
-            k = 0
-            while k < len(area.gates):
-
-                gate = area.gates[k]
+    for terminal in bcn.terminals:
+        for area in terminal.boarding_areas:
+            for gate in area.gates:
 
                 if gate.aircraft_id == aircraft_id:
                     gate.occupied = False
                     gate.aircraft_id = ""
                     return 0
 
-                k += 1
-
-            j += 1
-
-        i += 1
-
     return -1
+
+
+
+# ASSIGN NIGHT GATES
 
 def AssignNightGates(bcn, aircrafts):
 
-    #Assigna gates als avions nocturns (només departure, sense arrival).
+    for a in aircrafts:
 
-    if len(aircrafts) == 0:
-        return -1
-
-    i = 0
-    while i < len(aircrafts):
-
-        a = aircrafts[i]
-
-        # només vols nocturns (sense arrival)
         if a.arrival == "" and a.departure != "":
-
             AssignGate(bcn, a)
-
-        i += 1
 
     return 0
 
+
+
+# ASSIGN GATES AT TIME
+
 def AssignGatesAtTime(bcn, aircrafts, time):
 
-    #assigna gates només als vols que aterren en la franja d'1 hora
-    #i allibera gates dels vols que ja han marxat
+    current_hour = int(time.split(":")[0])
 
+    # 1) alliberar gates dels avions que ja han marxat
+    for a in aircrafts:
 
-    # 1) alliberar gates dels avions que ja han sortit
-    for terminal in bcn.terminals:
-        for area in terminal.boarding_areas:
-            for gate in area.gates:
+        if a.departure != "":
+            dep_hour = int(a.departure.split(":")[0])
 
-                for a in aircrafts:
-                    if gate.aircraft_id == a.aircraft_id:
+            if dep_hour <= current_hour:
+                FreeGate(bcn, a.aircraft_id)
 
-                        if a.departure != "":
-                            dep_hour = int(a.departure.split(":")[0])
-                            current_hour = int(time.split(":")[0])
-
-                            if dep_hour <= current_hour:
-                                gate.occupied = False
-                                gate.aircraft_id = ""
-
-    # 2) assignar gates als avions que aterren en aquesta hora
+    # 2) assignar gates als avions que arriben ara
     not_assigned = 0
 
     for a in aircrafts:
 
-        if a.arrival == "":
-            continue
+        if a.arrival != "":
+            arr_hour = int(a.arrival.split(":")[0])
 
-        arr_hour = int(a.arrival.split(":")[0])
-        current_hour = int(time.split(":")[0])
+            if arr_hour == current_hour:
 
-        if arr_hour == current_hour:
+                gate_name = AssignGate(bcn, a)
 
-            gate_name = AssignGate(bcn, a)
-
-            if gate_name == -1:
-                not_assigned += 1
+                if gate_name == -1:
+                    not_assigned += 1
 
     return not_assigned
+
+
+
+# PLOT DAY OCCUPANCY
 
 
 def PlotDayOccupancy(bcn, aircrafts):
@@ -492,30 +361,28 @@ def PlotDayOccupancy(bcn, aircrafts):
     assigned = []
     not_assigned = []
 
-    h = 0
+    # fem una còpia de l’aeroport per no modificar l’original
+    import copy
+    bcn_copy = copy.deepcopy(bcn)
 
-    while h < 24:
+    for h in range(24):
 
         time = str(h).zfill(2) + ":00"
 
-        # creem còpia conceptual de l’estat
-        result = AssignGatesAtTime(bcn, aircrafts, time)
+        na = AssignGatesAtTime(bcn_copy, aircrafts, time)
 
         hours.append(h)
-        not_assigned.append(result)
+        not_assigned.append(na)
 
         # comptem gates ocupades
         count = 0
-
-        for t in bcn.terminals:
+        for t in bcn_copy.terminals:
             for a in t.boarding_areas:
                 for g in a.gates:
                     if g.occupied:
                         count += 1
 
         assigned.append(count)
-
-        h += 1
 
     plt.plot(hours, assigned, label="Gates ocupades")
     plt.plot(hours, not_assigned, label="No assignats")

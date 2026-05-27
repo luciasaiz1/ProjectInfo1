@@ -1,6 +1,5 @@
 # airport.py
 
-import math
 import os
 import matplotlib.pyplot as pyplot
 
@@ -174,6 +173,24 @@ def SaveSchengenAirports(airports, filename):
     if len(airports) == 0:
         return -1
 
+    # Funció auxiliar per convertir graus decimals a format DMS (N452805)
+    def decimal_to_dms(value, is_latitude):
+        # Determinem si és Nord/Sud o Est/Oest
+        if is_latitude:
+            direction = 'N' if value >= 0 else 'S'
+            value = abs(value)
+            degrees = int(value)
+            minutes = int((value - degrees) * 60)
+            seconds = int((((value - degrees) * 60) - minutes) * 60)
+            return f"{direction}{degrees:02d}{minutes:02d}{seconds:02d}"
+        else:
+            direction = 'E' if value >= 0 else 'W'
+            value = abs(value)
+            degrees = int(value)
+            minutes = int((value - degrees) * 60)
+            seconds = int((((value - degrees) * 60) - minutes) * 60)
+            return f"{direction}{degrees:03d}{minutes:02d}{seconds:02d}"
+
     # Intentem crear el fitxer
     try:
         F = open(filename, "w")
@@ -185,24 +202,21 @@ def SaveSchengenAirports(airports, filename):
 
     found = False
 
-    i = 0
-
-    while i < len(airports):
-
-        airport = airports[i]
+    for airport in airports:
 
         # Només guardem aeroports Schengen
         if airport.schengen:
 
             found = True
 
-            F.write(
-                airport.code + " " +
-                str(airport.coordinates[0]) + " " +
-                str(airport.coordinates[1]) + "\n"
-            )
+            lat = airport.coordinates[0]
+            lon = airport.coordinates[1]
 
-        i += 1
+            # Convertim a format DMS
+            lat_dms = decimal_to_dms(lat, True)
+            lon_dms = decimal_to_dms(lon, False)
+
+            F.write(f"{airport.code} {lat_dms} {lon_dms}\n")
 
     F.close()
 
@@ -211,7 +225,6 @@ def SaveSchengenAirports(airports, filename):
         return 0
     else:
         return -1
-
 
 # ADD AIRPORT
 # Aquesta funció afegeix un aeroport a la llista

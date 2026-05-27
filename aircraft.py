@@ -4,9 +4,9 @@ import math
 from airport import IsSchengenAirport, LoadAirports
 
 # CLASSE AIRCRAFT
-# Representa un vol d’arribada a l’aeroport.
+# Representa un vol d’arribada/sortida a l’aeroport.
 # Guarda informació bàsica com l’identificador de l’avió,
-# la companyia, l’origen i l’hora d’arribada.
+# la companyia, l’origen, el destí i les hores d’arribada i sortida.
 
 class Aircraft:
 
@@ -21,7 +21,7 @@ class Aircraft:
         # identificador avió
         self.aircraft_id = aircraft_id
 
-        # companyia aeria
+        # companyia aeria (ICAO 3 lletres)
         self.airline = airline
 
         # aeroport d'origen (ICAO)
@@ -35,6 +35,25 @@ class Aircraft:
 
         # hora de sortida (hh:mm)
         self.departure = departure
+
+
+# --------- FUNCIONS AUXILIARS TEMPS ---------
+
+def _parse_time(t):
+    """Converteix una hora 'hh:mm' a minuts des de mitjanit. Retorna None si és invàlida."""
+    if t == "" or ":" not in t:
+        return None
+    parts = t.split(":")
+    if len(parts) != 2:
+        return None
+    try:
+        h = int(parts[0])
+        m = int(parts[1])
+    except:
+        return None
+    if h < 0 or h > 23 or m < 0 or m > 59:
+        return None
+    return h * 60 + m
 
 
 # LOAD ARRIVALS
@@ -66,24 +85,7 @@ def LoadArrivals(filename):
         airline = parts[3]
 
         # Validació del format d’hora
-        if ":" not in arrival:
-            continue
-
-        time_parts = arrival.split(":")
-
-        if len(time_parts) != 2:
-            continue
-
-        try:
-            hour = int(time_parts[0])
-            minute = int(time_parts[1])
-        except:
-            continue
-
-        if hour < 0 or hour > 23:
-            continue
-
-        if minute < 0 or minute > 59:
+        if _parse_time(arrival) is None:
             continue
 
         aircraft = Aircraft(
@@ -101,7 +103,6 @@ def LoadArrivals(filename):
 
 
 # PLOT ARRIVALS
-
 # Mostra un gràfic amb el nombre de vols per hora del dia.
 
 def PlotArrivals(aircrafts):
@@ -116,9 +117,11 @@ def PlotArrivals(aircrafts):
     while i < len(aircrafts):
 
         arrival = aircrafts[i].arrival
-        hour = int(arrival.split(":")[0])
+        h = _parse_time(arrival)
+        if h is not None:
+            hour = h // 60
+            hours[hour] += 1
 
-        hours[hour] += 1
         i += 1
 
     plt.bar(range(24), hours)
@@ -129,9 +132,8 @@ def PlotArrivals(aircrafts):
 
 
 # SAVE FLIGHTS
-
 # Desa la llista de vols en un fitxer de text.
-
+# Ara inclou també destí i hora de sortida (V4).
 
 def SaveFlights(aircrafts, filename):
 
@@ -141,32 +143,27 @@ def SaveFlights(aircrafts, filename):
 
     file = open(filename, "w")
 
-    file.write("AIRCRAFT ORIGIN ARRIVAL AIRLINE\n")
+    # Capçalera ampliada per incloure destí i sortida
+    file.write("AIRCRAFT ORIGIN ARRIVAL DESTINATION DEPARTURE AIRLINE\n")
 
     i = 0
     while i < len(aircrafts):
 
         aircraft = aircrafts[i]
 
-        aircraft_id = aircraft.aircraft_id
-        origin = aircraft.origin
-        arrival = aircraft.arrival
-        airline = aircraft.airline
-
-        # Substitució de camps buits
-        if aircraft_id == "":
-            aircraft_id = "-"
-        if origin == "":
-            origin = "-"
-        if arrival == "":
-            arrival = "-"
-        if airline == "":
-            airline = "-"
+        aircraft_id = aircraft.aircraft_id or "-"
+        origin = aircraft.origin or "-"
+        arrival = aircraft.arrival or "-"
+        destination = aircraft.destination or "-"
+        departure = aircraft.departure or "-"
+        airline = aircraft.airline or "-"
 
         file.write(
             aircraft_id + " " +
             origin + " " +
             arrival + " " +
+            destination + " " +
+            departure + " " +
             airline + "\n"
         )
 
@@ -180,7 +177,6 @@ def SaveFlights(aircrafts, filename):
 
 # PLOT AIRLINES
 # Mostra quants vols té cada companyia.
-
 
 def PlotAirlines(aircrafts):
 
@@ -250,6 +246,7 @@ def PlotFlightsType(aircrafts):
 
 # MAP FLIGHTS
 # Genera un fitxer KML amb les rutes dels vols cap a LEBL.
+# Versió V4: només rep aircrafts i carrega Airports.txt internament.
 
 def MapFlights(aircrafts, airports):
 
@@ -261,15 +258,29 @@ def MapFlights(aircrafts, airports):
         print("Error: no airports")
         return -1
 
-    lebl_lat = 41.297445
-    lebl_lon = 2.0832941
+    # Buscar LEBL en la llista d'aeroports
+    lebl = None
+    for ap in airports:
+        if ap.code == "LEBL":
+            lebl = ap
+            break
 
+    # Si no es troba, usar coordenades per defecte
+    if lebl is None:
+        lebl_lat = 41.297445
+        lebl_lon = 2.0832941
+    else:
+        lebl_lat = lebl.coordinates[0]
+        lebl_lon = lebl.coordinates[1]
+
+    # Crear fitxer KML
     file = open("FlightsMap.kml", "w", encoding="utf-8")
 
     file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
     file.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
     file.write("<Document>\n")
 
+    # Estils
     file.write('<Style id="schengen">\n')
     file.write('<LineStyle><color>ff00ff00</color><width>3</width></LineStyle>\n')
     file.write("</Style>\n")
@@ -278,47 +289,43 @@ def MapFlights(aircrafts, airports):
     file.write('<LineStyle><color>ff0000ff</color><width>3</width></LineStyle>\n')
     file.write("</Style>\n")
 
-    i = 0
-    while i < len(aircrafts):
+    # Escriure cada trajectòria
+    for a in aircrafts:
 
-        origin_code = aircrafts[i].origin
-        found = False
-        j = 0
+        # Buscar aeroport d'origen
+        origin_airport = None
+        for ap in airports:
+            if ap.code == a.origin:
+                origin_airport = ap
+                break
 
-        while j < len(airports) and not found:
+        if origin_airport is None:
+            continue
 
-            if airports[j].code == origin_code:
+        origin_lat = origin_airport.coordinates[0]
+        origin_lon = origin_airport.coordinates[1]
 
-                found = True
-                origin_lat = airports[j].coordinates[0]
-                origin_lon = airports[j].coordinates[1]
+        # Color segons Schengen
+        if IsSchengenAirport(a.origin):
+            style = "#schengen"
+        else:
+            style = "#nonschengen"
 
-            else:
-                j += 1
+        # Placemark
+        file.write("<Placemark>\n")
+        file.write("<name>" + a.aircraft_id + ": " +
+                   a.origin + " - LEBL</name>\n")
+        file.write("<styleUrl>" + style + "</styleUrl>\n")
+        file.write("<LineString>\n")
+        file.write("<tessellate>1</tessellate>\n")
+        file.write("<coordinates>\n")
 
-        if found:
+        file.write(f"{origin_lon},{origin_lat},0 ")
+        file.write(f"{lebl_lon},{lebl_lat},0\n")
 
-            if IsSchengenAirport(origin_code):
-                style = "#schengen"
-            else:
-                style = "#nonschengen"
-
-            file.write("<Placemark>\n")
-            file.write("<name>" + aircrafts[i].aircraft_id +
-                       ": " + origin_code + " - LEBL</name>\n")
-            file.write("<styleUrl>" + style + "</styleUrl>\n")
-            file.write("<LineString>\n")
-            file.write("<tessellate>1</tessellate>\n")
-            file.write("<coordinates>\n")
-
-            file.write(str(origin_lon) + "," + str(origin_lat) + ",0 ")
-            file.write(str(lebl_lon) + "," + str(lebl_lat) + ",0\n")
-
-            file.write("</coordinates>\n")
-            file.write("</LineString>\n")
-            file.write("</Placemark>\n")
-
-        i += 1
+        file.write("</coordinates>\n")
+        file.write("</LineString>\n")
+        file.write("</Placemark>\n")
 
     file.write("</Document>\n")
     file.write("</kml>\n")
@@ -328,7 +335,6 @@ def MapFlights(aircrafts, airports):
     webbrowser.open("FlightsMap.kml")
 
     return 0
-
 
 # SEARCH AIRPORT
 # Busca un aeroport pel seu codi ICAO.
@@ -346,7 +352,6 @@ def SearchAirportByCode(airports, code):
 # HAVERSINE
 # Calcula la distància entre dues coordenades geogràfiques.
 
-
 def Haversine(lat1, lon1, lat2, lon2):
 
     R = 6371.0
@@ -363,7 +368,6 @@ def Haversine(lat1, lon1, lat2, lon2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
     return R * c
-
 
 
 # LONG DISTANCE ARRIVALS
@@ -413,23 +417,22 @@ def LongDistanceArrivals(aircrafts):
     return result
 
 
-# V4
+# --------- VERSIÓ 4 ---------
 
 # LOAD DEPARTURES
+# Carrega vols de sortida des d'un fitxer i actualitza només
+# els camps relacionats amb la sortida.
+# Si el fitxer no existeix, retorna llista buida i codi d'error.
 
 def LoadDepartures(filename):
-
-    #Carrega vols de sortida des d'un fitxer i actualitza només
-    #els camps relacionats amb la sortida.
-
 
     aircrafts = []
 
     try:
         file = open(filename, "r")
     except:
-        # si el fitxer no existeix retornem llista buida
-        return aircrafts
+        print("Error: file not found")
+        return [], -1
 
     header = file.readline()
 
@@ -446,24 +449,7 @@ def LoadDepartures(filename):
         airline = parts[3]
 
         # validació de format hora hh:mm
-        if ":" not in departure:
-            continue
-
-        t = departure.split(":")
-
-        if len(t) != 2:
-            continue
-
-        try:
-            hour = int(t[0])
-            minute = int(t[1])
-        except:
-            continue
-
-        if hour < 0 or hour > 23:
-            continue
-
-        if minute < 0 or minute > 59:
+        if _parse_time(departure) is None:
             continue
 
         # creem objecte amb camps de sortida
@@ -477,16 +463,14 @@ def LoadDepartures(filename):
         aircrafts.append(aircraft)
 
     file.close()
-    return aircrafts
+    return aircrafts, 0
 
 
 # MERGE MOVEMENTS (ARRIVALS + DEPARTURES)
+# Combina arribades i sortides en una sola llista.
+# Només es fusionen si els temps són compatibles (arrival < departure).
 
 def MergeMovements(arrivals, departures):
-
-    #Aquesta funció combina arribades i sortides en una sola llista.
-    #Si un avió té arrival i departure, es fusionen en el mateix objecte.
-
 
     if len(arrivals) == 0 and len(departures) == 0:
         return []
@@ -500,13 +484,18 @@ def MergeMovements(arrivals, departures):
     # Després afegim o actualitzem amb departures
     for d in departures:
 
-        # Si ja existeix, completem la informació
         if d.aircraft_id in merged:
 
             a = merged[d.aircraft_id]
 
-            a.destination = d.destination
-            a.departure = d.departure
+            t_arr = _parse_time(a.arrival)
+            t_dep = _parse_time(d.departure)
+
+            # Només fusionem si els temps són compatibles
+            if t_arr is not None and t_dep is not None and t_arr < t_dep:
+                a.destination = d.destination
+                a.departure = d.departure
+            # Si no són compatibles, ignorem la fusió (no modifiquem l'arribada)
 
         else:
             merged[d.aircraft_id] = d
@@ -515,15 +504,14 @@ def MergeMovements(arrivals, departures):
 
 
 # NIGHT AIRCRAFT
+# Retorna els avions que només tenen sortida (no tenen arribada durant el dia).
 
 def NightAircraft(aircrafts):
 
-    #Aquesta funció retorna els avions que només tenen sortida (no tenen arribada durant el dia).
+    result = []
 
     if len(aircrafts) == 0:
-        return -1
-
-    result = []
+        return result
 
     for a in aircrafts:
 
@@ -532,3 +520,10 @@ def NightAircraft(aircrafts):
             result.append(a)
 
     return result
+
+
+# TEST SECTION
+if __name__ == "__main__":
+    # Exemple bàsic de prova
+    arr = LoadArrivals("Arrivals.txt")
+    print("Arrivals loaded:", len(arr))

@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import messagebox, filedialog
+from tkinter import ttk, messagebox, filedialog
 import os
 
 from airport import *
@@ -7,24 +7,120 @@ from aircraft import *
 from LEBL import *
 from LEBL import AssignGatesAtTime, PlotDayOccupancy
 
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+from PIL import Image, ImageTk
+import io
+
+
+# ============================================================
 # VARIABLES GLOBALS
-# airports: llista d’aeroports carregats (V1 i V2)
-# aircrafts: llista de vols carregats (V2)
-# bcn: estructura de l’aeroport de Barcelona (V3)
+# ============================================================
 
 airports = []
-aircrafts = []
+arrivals = []
+departures = []
+merged = []
 bcn = None
 
+# ============================================================
+# FUNCIÓ PER CREAR BOTONS MODERNS
+# ============================================================
 
+def create_button(parent, text, command):
+    return ttk.Button(
+        parent,
+        text=text,
+        command=command,
+        style="Modern.TButton"
+    )
 
-# FUNCIONS D’AJUDA (BACKEND CHECK)
-# Comproven si les funcions necessàries de cada versió
-# estan disponibles abans d’executar funcionalitats.
+# ============================================================
+# CONFIGURACIÓ DE L'ESTIL MODERN
+# ============================================================
 
+def setup_style():
+
+    style = ttk.Style()
+    style.theme_use("clam")
+
+    # Colors principals
+    primary = "#1E88E5"
+    primary_dark = "#1565C0"
+    bg = "#F5F7FA"
+    text = "#263238"
+
+    # Fons general
+    window.configure(bg=bg)
+
+    # Estil de botons
+    style.configure(
+        "Modern.TButton",
+        font=("Segoe UI", 11, "bold"),
+        padding=10,
+        foreground="white",
+        background=primary,
+        borderwidth=0
+    )
+
+    style.map(
+        "Modern.TButton",
+        background=[("active", primary_dark)]
+    )
+
+    # Estil de labels
+    style.configure(
+        "Title.TLabel",
+        font=("Segoe UI", 16, "bold"),
+        background=bg,
+        foreground=text,
+        padding=10
+    )
+
+    style.configure(
+        "Section.TLabel",
+        font=("Segoe UI", 13, "bold"),
+        background=bg,
+        foreground=primary,
+        padding=5
+    )
+
+    style.configure(
+        "Text.TLabel",
+        font=("Segoe UI", 10),
+        background=bg,
+        foreground=text
+    )
+
+def show_plot_in_panel(fig):
+    global visual_canvas, visual_panel
+
+    # Convertir figura a imagen
+    buf = io.BytesIO()
+    fig.savefig(buf, format='png', dpi=120)
+    buf.seek(0)
+
+    img = Image.open(buf)
+    img_tk = ImageTk.PhotoImage(img)
+
+    # Limpiar panel
+    visual_canvas.delete("all")
+
+    # Guardar referencia para evitar que Python borre la imagen
+    visual_canvas.image = img_tk
+
+    # Mostrar imagen centrada
+    visual_canvas.create_image(
+        visual_canvas.winfo_width() // 2,
+        visual_canvas.winfo_height() // 2,
+        image=img_tk,
+        anchor="center"
+    )
+
+# ============================================================
+# FUNCIONS BACKEND CHECK
+# ============================================================
 
 def _v2_backend_ready():
-
     required = [
         "LoadArrivals",
         "SaveFlights",
@@ -34,18 +130,10 @@ def _v2_backend_ready():
         "MapFlights",
         "LongDistanceArrivals"
     ]
-
-    i = 0
-    while i < len(required):
-        if required[i] not in globals():
-            return False
-        i += 1
-
-    return True
+    return all(r in globals() for r in required)
 
 
 def _v3_backend_ready():
-
     required = [
         "LoadAirportStructure",
         "AssignGate",
@@ -53,17 +141,12 @@ def _v3_backend_ready():
         "SearchTerminal",
         "IsAirlineInTerminal"
     ]
-
-    i = 0
-    while i < len(required):
-        if required[i] not in globals():
-            return False
-        i += 1
-
-    return True
+    return all(r in globals() for r in required)
 
 
+# ============================================================
 # V1 - AEROPORTS
+# ============================================================
 
 def load_airports():
     global airports
@@ -74,16 +157,13 @@ def load_airports():
         messagebox.showerror("Error", "Airports could not be loaded")
         return
 
-    i = 0
-    while i < len(airports):
-        SetSchengen(airports[i])
-        i += 1
+    for ap in airports:
+        SetSchengen(ap)
 
-    messagebox.showinfo("OK", "Loaded " + str(len(airports)) + " airports")
+    messagebox.showinfo("OK", f"Loaded {len(airports)} airports")
 
 
 def add_airport():
-
     global airports
 
     code = entry_code.get().strip().upper()
@@ -107,7 +187,6 @@ def add_airport():
 
 
 def remove_airport():
-
     global airports
 
     code = entry_code.get().strip().upper()
@@ -125,16 +204,13 @@ def remove_airport():
 
 
 def plot_airports():
-
     if len(airports) == 0:
         messagebox.showwarning("Warning", "Load airports first")
         return
-
     PlotAirports(airports)
 
 
 def map_airports():
-
     if len(airports) == 0:
         messagebox.showwarning("Warning", "Load airports first")
         return
@@ -144,11 +220,10 @@ def map_airports():
     try:
         os.startfile(kml_path)
     except:
-        messagebox.showinfo("OK", "KML created at:\n" + kml_path)
+        messagebox.showinfo("OK", f"KML created at:\n{kml_path}")
 
 
 def save_schengen():
-
     if len(airports) == 0:
         messagebox.showwarning("Warning", "Load airports first")
         return
@@ -161,15 +236,12 @@ def save_schengen():
         messagebox.showinfo("OK", "SchengenAirports.txt saved")
 
 
-# V2 - ARRIBADES I VOLS
+# ============================================================
+# V2 - ARRIVALS I VOLS
+# ============================================================
 
 def LoadArrivalsButton():
-
-    global aircrafts
-
-    if not _v2_backend_ready():
-        messagebox.showerror("Error", "Version 2 backend is not ready")
-        return
+    global arrivals
 
     filename = filedialog.askopenfilename(
         title="Select arrivals file",
@@ -179,24 +251,78 @@ def LoadArrivalsButton():
     if filename == "":
         return
 
-    aircrafts = LoadArrivals(filename)
+    arrivals = LoadArrivals(filename)
 
-    if len(aircrafts) == 0:
+    if len(arrivals) == 0:
         messagebox.showerror("Error", "No arrivals loaded")
     else:
-        messagebox.showinfo("OK", "Loaded " + str(len(aircrafts)) + " arrivals")
+        messagebox.showinfo("OK", f"Loaded {len(arrivals)} arrivals")
+
+
+def LoadDeparturesButton():
+    global departures
+
+    filename = filedialog.askopenfilename(
+        title="Select departures file",
+        filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
+    )
+
+    if filename == "":
+        return
+
+    departures, err = LoadDepartures(filename)
+
+    if err == -1:
+        messagebox.showerror("Error", "Departures file could not be loaded")
+    else:
+        messagebox.showinfo("OK", f"Loaded {len(departures)} departures")
+
+
+def MergeMovementsButton():
+    global merged
+
+    if len(arrivals) == 0:
+        messagebox.showwarning("Warning", "Load arrivals first")
+        return
+
+    if len(departures) == 0:
+        messagebox.showwarning("Warning", "Load departures first")
+        return
+
+    merged = MergeMovements(arrivals, departures)
+
+    messagebox.showinfo("OK", f"Merged movements: {len(merged)}")
+
+
+def ShowMovementsButton():
+    global merged
+
+    if len(merged) == 0:
+        messagebox.showwarning("Warning", "No merged movements")
+        return
+
+    win = Toplevel(window)
+    win.title("Merged Movements")
+    win.geometry("700x500")
+
+    scrollbar = Scrollbar(win)
+    scrollbar.pack(side=RIGHT, fill=Y)
+
+    text = Text(win, wrap="none", yscrollcommand=scrollbar.set)
+    text.pack(fill=BOTH, expand=True)
+
+    scrollbar.config(command=text.yview)
+
+    for a in merged:
+        line = f"{a.aircraft_id} | ORIG: {a.origin} | ARR: {a.arrival} | DEST: {a.destination} | DEP: {a.departure} | {a.airline}\n"
+        text.insert(END, line)
 
 
 def SaveFlightsButton():
+    global merged
 
-    global aircrafts
-
-    if not _v2_backend_ready():
-        messagebox.showerror("Error", "Version 2 backend is not ready")
-        return
-
-    if len(aircrafts) == 0:
-        messagebox.showwarning("Warning", "No arrivals loaded")
+    if len(merged) == 0:
+        messagebox.showwarning("Warning", "No merged movements to save")
         return
 
     filename = filedialog.asksaveasfilename(
@@ -208,7 +334,7 @@ def SaveFlightsButton():
     if filename == "":
         return
 
-    err = SaveFlights(aircrafts, filename)
+    err = SaveFlights(merged, filename)
 
     if err == -1:
         messagebox.showerror("Error", "Flights could not be saved")
@@ -217,76 +343,54 @@ def SaveFlightsButton():
 
 
 def PlotArrivalsButton():
-
-    if len(aircrafts) == 0:
+    if len(arrivals) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
-
-    PlotArrivals(aircrafts)
+    PlotArrivals(arrivals)
 
 
 def PlotAirlinesButton():
-
-    if len(aircrafts) == 0:
+    if len(arrivals) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
-
-    PlotAirlines(aircrafts)
+    PlotAirlines(arrivals)
 
 
 def PlotFlightsTypeButton():
-
-    if len(aircrafts) == 0:
+    if len(arrivals) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
-
-    PlotFlightsType(aircrafts)
+    PlotFlightsType(arrivals)
 
 
 def MapFlightsButton():
-
     global airports
 
-    if len(aircrafts) == 0:
+    if len(arrivals) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
 
     if len(airports) == 0:
         airports = LoadAirports("Airports.txt")
+        for ap in airports:
+            SetSchengen(ap)
 
-        if len(airports) == 0:
-            messagebox.showerror("Error", "Airports could not be loaded")
-            return
-
-        i = 0
-        while i < len(airports):
-            SetSchengen(airports[i])
-            i += 1
-
-    MapFlights(aircrafts, airports)
+    MapFlights(arrivals, airports)
 
 
 def MapLongDistanceButton():
-
     global airports
 
-    if len(aircrafts) == 0:
+    if len(arrivals) == 0:
         messagebox.showwarning("Warning", "No arrivals loaded")
         return
 
     if len(airports) == 0:
         airports = LoadAirports("Airports.txt")
+        for ap in airports:
+            SetSchengen(ap)
 
-        if len(airports) == 0:
-            messagebox.showerror("Error", "Airports could not be loaded")
-            return
-
-        i = 0
-        while i < len(airports):
-            SetSchengen(airports[i])
-            i += 1
-
-    long_distance = LongDistanceArrivals(aircrafts)
+    long_distance = LongDistanceArrivals(arrivals)
 
     if len(long_distance) == 0:
         messagebox.showinfo("Info", "No long-distance arrivals found")
@@ -295,15 +399,12 @@ def MapLongDistanceButton():
     MapFlights(long_distance, airports)
 
 
+# ============================================================
 # V3 - GESTIÓ DE GATES
+# ============================================================
 
 def BuildLEBLStructureButton():
-
     global bcn
-
-    if not _v3_backend_ready():
-        messagebox.showerror("Error", "Version 3 backend is not ready")
-        return
 
     bcn = LoadAirportStructure("LEBL.txt")
 
@@ -311,51 +412,36 @@ def BuildLEBLStructureButton():
         messagebox.showerror("Error", "LEBL structure could not be loaded")
         return
 
-    messagebox.showinfo(
-        "OK",
-        "LEBL structure loaded with " + str(len(bcn.terminals)) + " terminals"
-    )
+    messagebox.showinfo("OK", f"LEBL structure loaded with {len(bcn.terminals)} terminals")
 
 
 def AssignGatesButton():
-
     global bcn
-    global aircrafts
+    global merged
 
-    if len(aircrafts) == 0:
-        messagebox.showwarning("Warning", "Load arrivals first")
+    if len(merged) == 0:
+        messagebox.showwarning("Warning", "Load and merge movements first")
         return
 
     bcn = LoadAirportStructure("LEBL.txt")
-
-    if bcn == -1:
-        messagebox.showerror("Error", "LEBL structure could not be loaded")
-        return
 
     assigned = 0
     failed = 0
 
-    i = 0
-    while i < len(aircrafts):
-
-        gate_name = AssignGate(bcn, aircrafts[i])
-
+    for a in merged:
+        gate_name = AssignGate(bcn, a)
         if gate_name == -1:
             failed += 1
         else:
             assigned += 1
 
-        i += 1
-
     messagebox.showinfo(
         "Gate Assignment",
-        "Assigned: " + str(assigned) +
-        "\nNot assigned: " + str(failed)
+        f"Assigned: {assigned}\nNot assigned: {failed}"
     )
 
 
 def ShowGateOccupancyButton():
-
     global bcn
 
     if bcn is None or bcn == -1:
@@ -364,280 +450,224 @@ def ShowGateOccupancyButton():
 
     occupancy = GateOccupancy(bcn)
 
-    if len(occupancy) == 0:
-        messagebox.showinfo("Info", "No gate occupancy data available")
-        return
+    win = Toplevel(window)
+    win.title("Gate Occupancy")
+    win.geometry("800x500")
 
-    text = ""
-
-    i = 0
-    while i < len(occupancy):
-
-        terminal = occupancy[i][0]
-        area = occupancy[i][1]
-        gate = occupancy[i][2]
-        occupied = occupancy[i][3]
-        aircraft_id = occupancy[i][4]
-
-        if occupied:
-            status = "Occupied by " + aircraft_id
-        else:
-            status = "Free"
-
-        text += terminal + " | " + area + " | " + gate + " | " + status + "\n"
-
-        i += 1
-
-    occ_window = Toplevel(window)
-    occ_window.title("Gate Occupancy")
-    occ_window.geometry("800x500")
-
-    scrollbar = Scrollbar(occ_window)
+    scrollbar = Scrollbar(win)
     scrollbar.pack(side=RIGHT, fill=Y)
 
-    txt = Text(occ_window, wrap="none", yscrollcommand=scrollbar.set)
+    txt = Text(win, wrap="none", yscrollcommand=scrollbar.set)
     txt.pack(fill=BOTH, expand=True)
 
     scrollbar.config(command=txt.yview)
 
-    txt.insert("1.0", text)
+    for t, a, g, occ, ac_id in occupancy:
+        status = f"Occupied by {ac_id}" if occ else "Free"
+        txt.insert(END, f"{t} | {a} | {g} | {status}\n")
 
 
-# SORTIDA DEL PROGRAMA
-
-def exit_program():
-    window.destroy()
-
-
-# INTERFÍCIE GRÀFICA
-
-window = Tk()
-window.title("Airport Manager")
-window.geometry("620x760")
-
-
-# INPUTS V1
-
-Label(window, text="ICAO Code").pack()
-entry_code = Entry(window)
-entry_code.pack()
-
-Label(window, text="Latitude").pack()
-entry_lat = Entry(window)
-entry_lat.pack()
-
-Label(window, text="Longitude").pack()
-entry_lon = Entry(window)
-entry_lon.pack()
+# ============================================================
+# V4 - SIMULACIÓ DEL DIA
+# ============================================================
 
 def SimulateDayButton():
-
-    #Simula tot el dia l'aeroport a totes hores.
-    #Mostra com evolucionen les gates ocupades.
-
     global bcn
-    global aircrafts
+    global merged
 
-    if not _v3_backend_ready():
-        messagebox.showerror("Error", "Backend V3/V4 no disponible")
+    if bcn is None:
+        messagebox.showerror("Error", "Load LEBL structure first")
         return
 
-    if bcn is None or len(aircrafts) == 0:
-        messagebox.showwarning("Warning", "Carga estructura y vuelos primero")
+    if len(merged) == 0:
+        messagebox.showwarning("Warning", "Load and merge movements first")
         return
 
-    # reconstruïm estat inicial (inicii del dia)
     bcn = LoadAirportStructure("LEBL.txt")
 
-    if bcn == -1:
-        messagebox.showerror("Error", "No se pudo cargar LEBL")
-        return
-
-    # guardem evolució
     hours = []
     occupancy = []
     rejected = []
 
-    h = 0
-    while h < 24:
+    for h in range(24):
+        time = f"{h:02d}:00"
+        not_assigned = AssignGatesAtTime(bcn, merged, time)
 
-        time = str(h).zfill(2) + ":00"
-
-        not_assigned = AssignGatesAtTime(bcn, aircrafts, time)
-
-        # contar gates ocupades
-        count = 0
-
-        i = 0
-        while i < len(bcn.terminals):
-
-            t = bcn.terminals[i]
-
-            j = 0
-            while j < len(t.boarding_areas):
-
-                a = t.boarding_areas[j]
-
-                k = 0
-                while k < len(a.gates):
-
-                    if a.gates[k].occupied:
-                        count += 1
-
-                    k += 1
-                j += 1
-            i += 1
+        count = sum(
+            1 for t in bcn.terminals
+            for a in t.boarding_areas
+            for g in a.gates
+            if g.occupied
+        )
 
         hours.append(h)
         occupancy.append(count)
         rejected.append(not_assigned)
 
-        h += 1
-
-    # gràfic final
     import matplotlib.pyplot as plt
 
-    plt.plot(hours, occupancy, label="Gates ocupadas")
-    plt.plot(hours, rejected, label="No asignados")
+    plt.plot(hours, occupancy, label="Gates ocupades")
+    plt.plot(hours, rejected, label="No assignats")
 
-    plt.title("Simulación diaria del aeropuerto")
+    plt.title("Simulació diària")
     plt.xlabel("Hora")
-    plt.ylabel("Número")
+    plt.ylabel("Nombre")
     plt.legend()
     plt.grid()
     plt.show()
 
-def SimulateDayOccupancyButton():
 
+def SimulateFullDayButton():
     global bcn
-    global aircrafts
+    global merged
 
-    # comprobar backend V3/V4
     if bcn is None:
         messagebox.showerror("Error", "Load LEBL structure first")
         return
 
-    if len(aircrafts) == 0:
-        messagebox.showwarning("Warning", "Load arrivals first")
+    if len(merged) == 0:
+        messagebox.showwarning("Warning", "Load and merge movements first")
         return
 
-    # reconstruir estructura para empezar el día limpio
     bcn = LoadAirportStructure("LEBL.txt")
 
-    if bcn == -1:
-        messagebox.showerror("Error", "LEBL structure could not be loaded")
-        return
-
-    # simular las 24 horas del día
-    h = 0
     total_not_assigned = 0
 
-    while h < 24:
-
-        time = str(h).zfill(2) + ":00"
-
-        not_assigned = AssignGatesAtTime(bcn, aircrafts, time)
-
-        total_not_assigned += not_assigned
-
-        h += 1
+    for h in range(24):
+        time = f"{h:02d}:00"
+        total_not_assigned += AssignGatesAtTime(bcn, merged, time)
 
     messagebox.showinfo(
         "Day Simulation",
-        "Simulation completed\nNot assigned flights: " + str(total_not_assigned)
+        f"Simulation completed\nNot assigned flights: {total_not_assigned}"
     )
 
-    # mostrar gráfico final
-    PlotDayOccupancy(bcn, aircrafts)
-
-# FRAME V1
-frame_v1 = Frame(window)
-frame_v1.pack(pady=10)
-
-Button(frame_v1, text="Load Airports", width=28, command=load_airports).grid(row=0, column=0)
-Button(frame_v1, text="Add Airport", width=28, command=add_airport).grid(row=0, column=1)
-Button(frame_v1, text="Remove Airport", width=28, command=remove_airport).grid(row=1, column=0)
-Button(frame_v1, text="Plot Airports", width=28, command=plot_airports).grid(row=1, column=1)
-Button(frame_v1, text="Map Airports", width=28, command=map_airports).grid(row=2, column=0)
-Button(frame_v1, text="Save Schengen", width=28, command=save_schengen).grid(row=2, column=1)
+    PlotDayOccupancy(bcn, merged)
 
 
-# FRAME V2
-frame_v2 = Frame(window)
-frame_v2.pack(pady=10)
 
-Button(frame_v2, text="Load Arrivals", width=28, command=LoadArrivalsButton).grid(row=0, column=0)
-Button(frame_v2, text="Save Flights", width=28, command=SaveFlightsButton).grid(row=0, column=1)
-Button(frame_v2, text="Plot Arrivals", width=28, command=PlotArrivalsButton).grid(row=1, column=0)
-Button(frame_v2, text="Plot Airlines", width=28, command=PlotAirlinesButton).grid(row=1, column=1)
-Button(frame_v2, text="Plot Type", width=28, command=PlotFlightsTypeButton).grid(row=2, column=0)
-Button(frame_v2, text="Map Flights", width=28, command=MapFlightsButton).grid(row=2, column=1)
-Button(frame_v2, text="Long Distance", width=28, command=MapLongDistanceButton).grid(row=3, column=0, columnspan=2)
+# ============================================================
+# INTERFÍCIE GRÀFICA — DISEÑO PROFESIONAL EQUILIBRADO
+# ============================================================
 
+window = Tk()
+window.title("Airport Manager — Professional Edition")
+window.geometry("1400x900")
+window.configure(bg="#ECEFF1")
 
-# FRAME V3
-frame_v3 = Frame(window)
-frame_v3.pack(pady=10)
+setup_style()
 
-Button(frame_v3, text="Build LEBL", width=28, command=BuildLEBLStructureButton).grid(row=0, column=0)
-Button(frame_v3, text="Assign Gates", width=28, command=AssignGatesButton).grid(row=0, column=1)
-Button(frame_v3, text="Gate Occupancy", width=28, command=ShowGateOccupancyButton).grid(row=1, column=0, columnspan=2)
+# TÍTULO PRINCIPAL
+ttk.Label(
+    window,
+    text="Airport Operations Manager",
+    style="Title.TLabel"
+).pack(pady=15)
 
-# FRAME V4
-Button(frame_v3, text="Simulate Day", width=28, command=SimulateDayButton).grid(
-    row=2, column=0, columnspan=2, padx=5, pady=5
-)
+# CONTENEDOR PRINCIPAL (3 COLUMNAS + PANEL DE VISUALIZACIÓN)
+main_frame = Frame(window, bg="#ECEFF1")
+main_frame.pack(fill=BOTH, expand=True, padx=20, pady=10)
 
+# Configurar columnas para que ocupen el mismo espacio
+main_frame.columnconfigure(0, weight=1)
+main_frame.columnconfigure(1, weight=1)
+main_frame.columnconfigure(2, weight=1)
+main_frame.columnconfigure(3, weight=2)   # panel de visualización más grande
 
-def SimulateFullDayButton():
+# ============================================================
+# COLUMNA 1 — AIRPORT MANAGEMENT
+# ============================================================
 
-    global bcn
-    global aircrafts
+col1 = Frame(main_frame, bg="#ECEFF1")
+col1.grid(row=0, column=0, sticky="nsew", padx=20)
 
-    if not _v3_backend_ready():
-        messagebox.showerror("Error", "Backend V3/V4 not ready")
-        return
+ttk.Label(col1, text="Airport Management", style="Section.TLabel").pack(pady=10)
 
-    if len(aircrafts) == 0:
-        messagebox.showwarning("Warning", "Load aircrafts first")
-        return
+# Inputs
+input_frame = Frame(col1, bg="#ECEFF1")
+input_frame.pack(pady=5)
 
-    if bcn is None:
-        messagebox.showwarning("Warning", "Load LEBL structure first")
-        return
+ttk.Label(input_frame, text="ICAO Code:", style="Text.TLabel").grid(row=0, column=0, sticky="e")
+entry_code = ttk.Entry(input_frame, width=18)
+entry_code.grid(row=0, column=1, pady=3)
 
-    # reiniciar estructura (día nuevo)
-    bcn = LoadAirportStructure("LEBL.txt")
+ttk.Label(input_frame, text="Latitude:", style="Text.TLabel").grid(row=1, column=0, sticky="e")
+entry_lat = ttk.Entry(input_frame, width=18)
+entry_lat.grid(row=1, column=1, pady=3)
 
-    if bcn == -1:
-        messagebox.showerror("Error", "LEBL structure could not be loaded")
-        return
+ttk.Label(input_frame, text="Longitude:", style="Text.TLabel").grid(row=2, column=0, sticky="e")
+entry_lon = ttk.Entry(input_frame, width=18)
+entry_lon.grid(row=2, column=1, pady=3)
 
-    total_not_assigned = 0
-    hourly_not_assigned = []
+# Botones columna 1
+create_button(col1, "Load Airports", load_airports).pack(pady=5, fill=X)
+create_button(col1, "Add Airport", add_airport).pack(pady=5, fill=X)
+create_button(col1, "Remove Airport", remove_airport).pack(pady=5, fill=X)
+create_button(col1, "Save Schengen", save_schengen).pack(pady=5, fill=X)
 
-    h = 0
-    while h < 24:
+# ============================================================
+# COLUMNA 2 — FLIGHT MANAGEMENT
+# ============================================================
 
-        time = str(h).zfill(2) + ":00"
+col2 = Frame(main_frame, bg="#ECEFF1")
+col2.grid(row=0, column=1, sticky="nsew", padx=20)
 
-        not_assigned = AssignGatesAtTime(bcn, aircrafts, time)
+ttk.Label(col2, text="Flight Management", style="Section.TLabel").pack(pady=10)
 
-        hourly_not_assigned.append(not_assigned)
-        total_not_assigned += not_assigned
+create_button(col2, "Load Arrivals", LoadArrivalsButton).pack(pady=5, fill=X)
+create_button(col2, "Load Departures", LoadDeparturesButton).pack(pady=5, fill=X)
+create_button(col2, "Merge Movements", MergeMovementsButton).pack(pady=5, fill=X)
+create_button(col2, "Show Movements", ShowMovementsButton).pack(pady=5, fill=X)
+create_button(col2, "Save Flights", SaveFlightsButton).pack(pady=5, fill=X)
 
-        h += 1
+ttk.Label(col2, text="Gate Assignment", style="Section.TLabel").pack(pady=10)
 
-    messagebox.showinfo(
-        "V4 Simulation Completed",
-        "Total not assigned: " + str(total_not_assigned)
-    )
+create_button(col2, "Build LEBL Structure", BuildLEBLStructureButton).pack(pady=5, fill=X)
+create_button(col2, "Assign Gates", AssignGatesButton).pack(pady=5, fill=X)
+create_button(col2, "Gate Occupancy", ShowGateOccupancyButton).pack(pady=5, fill=X)
 
-    PlotDayOccupancy(bcn, aircrafts)
+# ============================================================
+# COLUMNA 3 — MAPS & VISUALIZATION
+# ============================================================
 
+col3 = Frame(main_frame, bg="#ECEFF1")
+col3.grid(row=0, column=2, sticky="nsew", padx=20)
 
-# EXIT
-Button(window, text="Exit", width=28, command=exit_program).pack(pady=10)
+ttk.Label(col3, text="Maps & Visualization", style="Section.TLabel").pack(pady=10)
+
+create_button(col3, "Map Airports", map_airports).pack(pady=5, fill=X)
+create_button(col3, "Map Flights", MapFlightsButton).pack(pady=5, fill=X)
+create_button(col3, "Long Distance Flights", MapLongDistanceButton).pack(pady=5, fill=X)
+
+ttk.Label(col3, text="Charts", style="Section.TLabel").pack(pady=10)
+
+create_button(col3, "Plot Arrivals", PlotArrivalsButton).pack(pady=5, fill=X)
+create_button(col3, "Plot Airlines", PlotAirlinesButton).pack(pady=5, fill=X)
+create_button(col3, "Plot Schengen", PlotFlightsTypeButton).pack(pady=5, fill=X)
+
+ttk.Label(col3, text="Simulation", style="Section.TLabel").pack(pady=10)
+
+create_button(col3, "Simulate Day", SimulateDayButton).pack(pady=5, fill=X)
+create_button(col3, "Full Day Simulation", SimulateFullDayButton).pack(pady=5, fill=X)
+
+# ============================================================
+# COLUMNA 4 — PANEL DE VISUALIZACIÓN
+# ============================================================
+
+visual_panel = Frame(main_frame, bg="white", relief="solid", bd=1)
+visual_panel.grid(row=0, column=3, sticky="nsew", padx=20, pady=10)
+
+ttk.Label(
+    visual_panel,
+    text="Visualization Panel",
+    style="Section.TLabel"
+).pack(pady=10)
+
+# Aquí se mostrarán gráficos, mapas o imágenes
+visual_canvas = Canvas(visual_panel, bg="white")
+visual_canvas.pack(fill=BOTH, expand=True)
+
+# BOTÓN SALIR
+create_button(window, "Exit", window.destroy).pack(pady=20)
 
 window.mainloop()
-
