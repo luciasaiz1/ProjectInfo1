@@ -119,7 +119,6 @@ def PlotArrivals(aircrafts):
     plt.show()
 
 
-
 # Desa la informació dels vols en un fitxer de text.
 def SaveFlights(aircrafts, filename):
     #Comprovem que la llista no sigui buida
