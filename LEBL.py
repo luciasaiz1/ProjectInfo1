@@ -525,7 +525,7 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
         color="#263238",
         label="Not assigned"
     )
-
+    #configura el títol, els noms dels eixos i l’aspecte general de la gràfica
     ax.set_title("Full Day Gate Cycle")
     ax.set_xlabel("Hour")
     ax.set_ylabel("Number of gates / aircraft")
