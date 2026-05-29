@@ -272,7 +272,7 @@ def _movement_airport_code(aircraft):
 # ============================================================
 def AssignGate(bcn, aircraft):
 
-    terminal_name = SearchTerminal(bcn, aircraft.airline)
+    terminal_name = SearchTerminal(bcn, aircraft.airline)     #busca quina terminal correspon a l’aerolínia de l’avió
 
     if terminal_name == "":
         return -1
@@ -288,8 +288,8 @@ def AssignGate(bcn, aircraft):
 
         if terminal.name == terminal_name:
 
-            for area in terminal.boarding_areas:
-
+            for area in terminal.boarding_areas:  #recorre les zones d’embarcament de la terminal
+                #comprova si la zona és correcta segons si el vol és Schengen o no
                 if flight_is_schengen and area.area_type.lower() == "schengen":
                     correct_area = True
                 elif (not flight_is_schengen) and area.area_type.lower() != "schengen":
@@ -301,7 +301,7 @@ def AssignGate(bcn, aircraft):
 
                     for gate in area.gates:
 
-                        if not gate.occupied:
+                        if not gate.occupied:   #assigna la primera porta lliure trobada
                             gate.occupied = True
                             gate.aircraft_id = aircraft.aircraft_id
                             return gate.name
@@ -473,9 +473,9 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
 
     rejected_accumulated = night_failed
 
-    for h in range(24):
+    for h in range(24):     #simula cada hora del dia
 
-        time = f"{h:02d}:00"
+        time = f"{h:02d}:00"        #format hh:mm
 
         rejected = AssignGatesAtTime(bcn_copy, aircrafts, time)
 
@@ -492,7 +492,7 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
             occupied_total += counts[terminal_name]
 
         free_total = total_gates - occupied_total
-
+        #guarda els valors per representar-los després
         hours.append(h)
         occupied_values.append(occupied_total)
         free_values.append(free_total)
