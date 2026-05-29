@@ -58,7 +58,7 @@ def setup_style():
         "Modern.TButton",
         background=[("active", primary_dark)]
     )
-
+#canvis de separacio de titols, mida, i mida de titols
     style.configure(
         "Title.TLabel",
         font=("Segoe UI", 20, "bold"),
@@ -87,7 +87,7 @@ def setup_style():
 # create_button
 # Evita repetir codi cada vegada que fem un botó.
 # ============================================================
-def create_button(parent, text, command):
+def create_button(parent, text, command):        #funcio comuna per a crear botons
     return ttk.Button(parent, text=text, command=command, style="Modern.TButton")
 
 
@@ -99,10 +99,10 @@ def clear_visual_panel():
 
     global current_plot_widget
 
-    for widget in visual_area.winfo_children():
+    for widget in visual_area.winfo_children():     # Netegem aquesta zona abans de mostrar una nova gràfica o resultat
         widget.destroy()
 
-    current_plot_widget = None
+    current_plot_widget = None          #Reiniciem per evitar treballar amb gràfiques antigues
 
 
 # ============================================================
