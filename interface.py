@@ -159,7 +159,7 @@ def ensure_airports_loaded():
 # ============================================================
 # V1 — AIRPORT MANAGEMENT
 # ============================================================
-def load_airports():
+def load_airports():            # Carreguem els aeroports des del fitxer
 
     global airports
 
