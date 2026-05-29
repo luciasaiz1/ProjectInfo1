@@ -1199,6 +1199,7 @@ create_button(col1, "Map Airports", map_airports).pack(pady=5, fill=X)
 
 # ============================================================
 # COLUMN 2 — FLIGHT AND GATE MANAGEMENT
+# mapes, gràfiques i simulacions
 # ============================================================
 col2 = Frame(main_frame, bg="#ECEFF1")
 col2.grid(row=0, column=1, sticky="nsew", padx=15)
