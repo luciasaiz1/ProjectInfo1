@@ -334,10 +334,10 @@ def ShowMovementsButton():
         messagebox.showwarning("Warning", "No merged movements")
         return
 
-    text = "AIRCRAFT | ORIGIN | ARRIVAL | DESTINATION | DEPARTURE | AIRLINE\n"
+    text = "AIRCRAFT | ORIGIN | ARRIVAL | DESTINATION | DEPARTURE | AIRLINE\n"      #capçalera
     text += "-" * 90 + "\n"
 
-    for a in merged:
+    for a in merged:        #afegim cada moviment en format
         text += f"{a.aircraft_id} | {a.origin or '-'} | {a.arrival or '-'} | {a.destination or '-'} | {a.departure or '-'} | {a.airline}\n"
 
     show_text_in_panel(text)
@@ -349,7 +349,7 @@ def SaveFlightsButton():
         messagebox.showwarning("Warning", "No merged movements to save")
         return
 
-    filename = filedialog.asksaveasfilename(
+    filename = filedialog.asksaveasfilename(        #deixem que l'usuari decideixi on vol guardar el fitxer final
         title="Save flights file",
         defaultextension=".txt",
         filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
@@ -358,7 +358,7 @@ def SaveFlightsButton():
     if filename == "":
         return
 
-    err = SaveFlights(merged, filename)
+    err = SaveFlights(merged, filename)         #guardem els moviments combinats en un fitxe
 
     if err == -1:
         messagebox.showerror("Error", "Flights could not be saved")
@@ -379,7 +379,8 @@ def BuildLEBLStructureButton():
         messagebox.showerror("Error", "LEBL structure could not be loaded")
         return
 
-    total_gates = 0
+    total_gates = 0     #comptem totes les gates per donar un resum útil de l'estructura carregada
+
 
     for terminal in bcn.terminals:
         for area in terminal.boarding_areas:
