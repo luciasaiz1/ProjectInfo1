@@ -812,11 +812,12 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
             # GATES
             # =================================================
             gate_index = 0
+            #recorre les portes de l’àrea i calcula la seva posició alternant-les entre esquerra i dreta del pier
 
             for gate in area.gates:
 
-                row = gate_index // 2
-                left_side = gate_index % 2 == 0
+                row = gate_index // 2               #calcula la fila on es dibuixarà la porta
+                left_side = gate_index % 2 == 0     #si la porta va a l’esquerra o a la dreta
 
                 gate_y = pier_y + 85 + row * gate_gap_y
 
@@ -1073,6 +1074,8 @@ def DashboardButton():
     text += "This dashboard summarizes the full operational day."
 
     show_text_in_panel(text)
+    #aquestes funcions comproven que hi hagi dades carregades i després generen les gràfiques o el mapa dels vols
+
 def PlotArrivalsButton():
 
     if len(arrivals) == 0:
@@ -1196,6 +1199,7 @@ create_button(col1, "Map Airports", map_airports).pack(pady=5, fill=X)
 
 # ============================================================
 # COLUMN 2 — FLIGHT AND GATE MANAGEMENT
+# mapes, gràfiques i simulacions
 # ============================================================
 col2 = Frame(main_frame, bg="#ECEFF1")
 col2.grid(row=0, column=1, sticky="nsew", padx=15)
