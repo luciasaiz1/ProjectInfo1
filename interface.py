@@ -1146,7 +1146,7 @@ def MapLongDistanceButton():
 # ============================================================
 window = Tk()
 window.title("Airport Manager — Professional Edition")
-window.geometry("1500x900")
+window.geometry("1600x950")
 window.configure(bg="#ECEFF1")
 
 setup_style()
