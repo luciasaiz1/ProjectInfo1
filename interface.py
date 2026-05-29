@@ -35,17 +35,17 @@ live_running = False
 # ============================================================
 def setup_style():
 
-    style = ttk.Style()
+    style = ttk.Style()         #centralitzem disseny de la interface
     style.theme_use("clam")
 
-    primary = "#1E88E5"
+    primary = "#1E88E5"         #colors principals
     primary_dark = "#1565C0"
     bg = "#ECEFF1"
     text = "#263238"
 
     window.configure(bg=bg)
 
-    style.configure(
+    style.configure(            #disseny dels botons
         "Modern.TButton",
         font=("Segoe UI", 10, "bold"),
         padding=9,
@@ -54,7 +54,7 @@ def setup_style():
         borderwidth=0
     )
 
-    style.map(
+    style.map(                          #canvi color quan ratolí de l'usuari pasa per sobre
         "Modern.TButton",
         background=[("active", primary_dark)]
     )
