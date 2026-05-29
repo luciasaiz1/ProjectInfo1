@@ -666,3 +666,27 @@ def DashboardData(bcn, aircrafts):
         "not_assigned": total_rejected,
         "terminal_max": terminal_max
     }
+
+# ============================================================
+# SaveGateAssignments
+# Desa l'estat actual de les gates en un fitxer de text.
+# ============================================================
+def SaveGateAssignments(bcn, filename):
+    try:
+        with open(filename, "w", encoding="utf-8") as f:
+            # Capçalera del fitxer
+            f.write("TERMINAL | AREA | GATE | OCCUPIED | AIRCRAFT_ID\n")
+            f.write("-" * 70 + "\n")
+
+            # Recorrem totes les gates i escrivim el seu estat
+            for terminal in bcn.terminals:
+                for area in terminal.boarding_areas:
+                    for gate in area.gates:
+                        occupied = "YES" if gate.occupied else "NO"
+                        aircraft_id = gate.aircraft_id if gate.occupied else "-"
+                        f.write(f"{terminal.name} | {area.name} | {gate.name} | {occupied} | {aircraft_id}\n")
+
+        return 0  # tot correcte
+    except Exception as e:
+        print("Error saving gate assignments:", e)
+        return -1  # error
