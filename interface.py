@@ -27,7 +27,12 @@ live_bcn = None
 live_hour = 0
 live_running = False
 
+# Finestra separada per veure el mapa físic molt més gran
+physical_map_window = None
+physical_map_canvas = None
 
+# Mode vídeo: més lent i més gran perquè es vegi bé gravant pantalla
+LIVE_DELAY_MS = 1500
 # ============================================================
 # setup_style
 # Dona un aspecte més professional a la interfície.
@@ -574,39 +579,110 @@ def _draw_label_box(canvas, x, y, text, font=("Segoe UI", 10, "bold"),
 
 
 # ============================================================
+# PreparePhysicalMapWindow
+# Crea una finestra separada amb scroll vertical i horitzontal.
+# Ho fem perquè el mapa pugui ser gran i no se superposin gates.
+# ============================================================
+def PreparePhysicalMapWindow():
+
+    global physical_map_window
+    global physical_map_canvas
+
+    if physical_map_window is None or not physical_map_window.winfo_exists():
+
+        physical_map_window = Toplevel(window)
+        physical_map_window.title("Live Physical Gate Map — Scroll Mode")
+        physical_map_window.geometry("1550x900")
+        physical_map_window.configure(bg="#ECEFF1")
+
+        title = Label(
+            physical_map_window,
+            text="Live Physical Gate Management",
+            font=("Segoe UI", 22, "bold"),
+            bg="#ECEFF1",
+            fg="#263238"
+        )
+        title.pack(pady=6)
+
+        container = Frame(physical_map_window, bg="#ECEFF1")
+        container.pack(fill=BOTH, expand=True, padx=8, pady=8)
+
+        v_scroll = Scrollbar(container, orient=VERTICAL)
+        h_scroll = Scrollbar(container, orient=HORIZONTAL)
+
+        physical_map_canvas = Canvas(
+            container,
+            bg="#ECEFF1",
+            yscrollcommand=v_scroll.set,
+            xscrollcommand=h_scroll.set,
+            highlightthickness=0
+        )
+
+        v_scroll.config(command=physical_map_canvas.yview)
+        h_scroll.config(command=physical_map_canvas.xview)
+
+        v_scroll.pack(side=RIGHT, fill=Y)
+        h_scroll.pack(side=BOTTOM, fill=X)
+        physical_map_canvas.pack(side=LEFT, fill=BOTH, expand=True)
+
+    return physical_map_canvas
+
+
+# ============================================================
+# _draw_label_box
+# Dibuixa un text amb fons blanc perquè sigui llegible.
+# Ho fem perquè les etiquetes no quedin tapades per línies o rectangles.
+# ============================================================
+def _draw_label_box(canvas, x, y, text,
+                    font=("Segoe UI", 10, "bold"),
+                    fill="#263238",
+                    bg="white",
+                    anchor="center"):
+
+    text_id = canvas.create_text(
+        x,
+        y,
+        text=text,
+        font=font,
+        fill=fill,
+        anchor=anchor,
+        tags=("labels",)
+    )
+
+    box = canvas.bbox(text_id)
+
+    if box is not None:
+
+        x1, y1, x2, y2 = box
+
+        rect_id = canvas.create_rectangle(
+            x1 - 6,
+            y1 - 3,
+            x2 + 6,
+            y2 + 3,
+            fill=bg,
+            outline="#B0BEC5",
+            tags=("label_bg",)
+        )
+
+        canvas.tag_raise(text_id, rect_id)
+
+    return text_id
+
+
+# ============================================================
 # DrawPhysicalGateMap
-# Dibuixa un mapa físic més net de l'aeroport:
-# - terminals en targetes grans
-# - boarding areas ben separades
-# - gates grans amb nom visible
-# - verd = lliure
-# - vermell = ocupada
-# - textos sempre al davant
+# Versió amb scroll i sense superposició:
+# - cada boarding area té prou espai horitzontal
+# - cada gate té prou espai vertical
+# - les gates esquerra/dreta no es trepitgen
+# - els aircraft_id tenen fons blanc
+# - els textos passen sempre davant de tot
 # ============================================================
 def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
 
-    clear_visual_panel()
-
-    container = Frame(visual_area, bg="#ECEFF1")
-    container.pack(fill=BOTH, expand=True)
-
-    v_scroll = Scrollbar(container, orient=VERTICAL)
-    h_scroll = Scrollbar(container, orient=HORIZONTAL)
-
-    canvas = Canvas(
-        container,
-        bg="#ECEFF1",
-        yscrollcommand=v_scroll.set,
-        xscrollcommand=h_scroll.set,
-        highlightthickness=0
-    )
-
-    v_scroll.config(command=canvas.yview)
-    h_scroll.config(command=canvas.xview)
-
-    v_scroll.pack(side=RIGHT, fill=Y)
-    h_scroll.pack(side=BOTTOM, fill=X)
-    canvas.pack(side=LEFT, fill=BOTH, expand=True)
+    canvas = PreparePhysicalMapWindow()
+    canvas.delete("all")
 
     # -------------------------
     # COLORS
@@ -626,8 +702,8 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
     # -------------------------
     header_x1 = 30
     header_y1 = 20
-    header_x2 = 1650
-    header_y2 = 120
+    header_x2 = 2100
+    header_y2 = 125
 
     canvas.create_rectangle(
         header_x1,
@@ -646,133 +722,157 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
 
     canvas.create_text(
         55,
-        50,
+        52,
         text=title,
         anchor="w",
-        font=("Segoe UI", 22, "bold"),
+        font=("Segoe UI", 24, "bold"),
         fill=text_dark,
         tags=("labels",)
     )
 
     # Llegenda
-    canvas.create_rectangle(60, 82, 88, 105, fill=free_color, outline="#1B5E20", width=2)
-    canvas.create_text(98, 94, text="Free gate", anchor="w",
-                       font=("Segoe UI", 11, "bold"), fill=text_dark, tags=("labels",))
-
-    canvas.create_rectangle(220, 82, 248, 105, fill=occupied_color, outline="#B71C1C", width=2)
-    canvas.create_text(258, 94, text="Occupied gate", anchor="w",
-                       font=("Segoe UI", 11, "bold"), fill=text_dark, tags=("labels",))
-
-    canvas.create_rectangle(430, 82, 458, 105, fill=terminal_color, outline=terminal_dark, width=2)
-    canvas.create_text(468, 94, text="Terminal corridor", anchor="w",
-                       font=("Segoe UI", 11, "bold"), fill=text_dark, tags=("labels",))
-
+    canvas.create_rectangle(60, 84, 90, 108, fill=free_color, outline="#1B5E20", width=2)
     canvas.create_text(
-        760,
-        94,
-        text="Rejected aircraft this hour: " + str(rejected),
+        102,
+        96,
+        text="Free gate",
         anchor="w",
         font=("Segoe UI", 12, "bold"),
+        fill=text_dark,
+        tags=("labels",)
+    )
+
+    canvas.create_rectangle(230, 84, 260, 108, fill=occupied_color, outline="#B71C1C", width=2)
+    canvas.create_text(
+        272,
+        96,
+        text="Occupied gate",
+        anchor="w",
+        font=("Segoe UI", 12, "bold"),
+        fill=text_dark,
+        tags=("labels",)
+    )
+
+    canvas.create_rectangle(460, 84, 490, 108, fill=terminal_color, outline=terminal_dark, width=2)
+    canvas.create_text(
+        502,
+        96,
+        text="Terminal / Boarding Area",
+        anchor="w",
+        font=("Segoe UI", 12, "bold"),
+        fill=text_dark,
+        tags=("labels",)
+    )
+
+    canvas.create_text(
+        850,
+        96,
+        text="Rejected aircraft this hour: " + str(rejected),
+        anchor="w",
+        font=("Segoe UI", 13, "bold"),
         fill="#B71C1C",
         tags=("labels",)
     )
 
     # -------------------------
-    # LAYOUT GENERAL
+    # LAYOUT GRAN, AMB SCROLL
     # -------------------------
-    start_x = 60
-    start_y = 165
+    start_x = 90
+    current_y = 180
 
-    terminal_card_width = 1700
-    terminal_gap_y = 720
+    # Aquestes mides són deliberadament grans per evitar superposicions
+    terminal_card_width = 2300
 
-    area_gap_x = 260
-    area_width = 56
+    area_gap_x = 360        # separació entre boarding areas
+    area_width = 70         # amplada del pier blau
 
-    gate_width = 64
-    gate_height = 24
-    gate_gap_y = 34
+    gate_width = 84
+    gate_height = 30
+    gate_gap_y = 46         # separació vertical entre gates
 
-    page_width = 1850
+    gate_to_area_gap = 58   # separació horitzontal entre gate i pier
+
+    page_width = 2450
     page_height = 1000
-
-    terminal_index = 0
 
     # =========================================================
     # TERMINALS
     # =========================================================
     for terminal in bcn_state.terminals:
 
-        terminal_y = start_y + terminal_index * terminal_gap_y
-
-        # Calcular quantes files de gates necessitem
+        # Calculem quantes files necessita el terminal segons l'àrea més carregada
         max_gate_rows = 0
 
         for area in terminal.boarding_areas:
+
             rows = (len(area.gates) + 1) // 2
+
             if rows > max_gate_rows:
                 max_gate_rows = rows
 
-        pier_height = max(390, max_gate_rows * gate_gap_y + 110)
-        card_height = pier_height + 170
+        pier_height = max(470, max_gate_rows * gate_gap_y + 150)
+        card_height = pier_height + 200
 
-        # Targeta de terminal
+        terminal_y = current_y
+
+        # Targeta blanca del terminal
         canvas.create_rectangle(
-            start_x - 20,
-            terminal_y - 50,
-            start_x - 20 + terminal_card_width,
-            terminal_y - 50 + card_height,
+            start_x - 35,
+            terminal_y - 70,
+            start_x - 35 + terminal_card_width,
+            terminal_y - 70 + card_height,
             fill=bg_card,
             outline="#B0BEC5",
-            width=2
+            width=3
         )
 
         # Banda superior del terminal
         canvas.create_rectangle(
-            start_x - 20,
-            terminal_y - 50,
-            start_x - 20 + terminal_card_width,
-            terminal_y + 10,
+            start_x - 35,
+            terminal_y - 70,
+            start_x - 35 + terminal_card_width,
+            terminal_y + 15,
             fill=terminal_color,
             outline=terminal_color
         )
 
-        # Nom gran del terminal SEMPRE al davant
-        canvas.create_text(
-            start_x + 15,
-            terminal_y - 20,
-            text="TERMINAL " + terminal.name,
-            anchor="w",
-            font=("Segoe UI", 22, "bold"),
-            fill="white",
-            tags=("labels",)
-        )
-
-        # Comptadors del terminal
+        # Comptadors
         occupied_terminal = 0
         total_terminal = 0
 
         for area in terminal.boarding_areas:
             for gate in area.gates:
+
                 total_terminal += 1
+
                 if gate.occupied:
                     occupied_terminal += 1
 
         canvas.create_text(
-            start_x + 360,
-            terminal_y - 20,
-            text="Occupied: " + str(occupied_terminal) + " / " + str(total_terminal),
+            start_x + 20,
+            terminal_y - 28,
+            text="TERMINAL " + terminal.name,
             anchor="w",
-            font=("Segoe UI", 14, "bold"),
+            font=("Segoe UI", 28, "bold"),
             fill="white",
             tags=("labels",)
         )
 
-        # Passadís principal del terminal
-        corridor_x1 = start_x + 30
-        corridor_y1 = terminal_y + 50
-        corridor_x2 = start_x + 30 + max(1150, len(terminal.boarding_areas) * area_gap_x)
-        corridor_y2 = terminal_y + 95
+        canvas.create_text(
+            start_x + 450,
+            terminal_y - 28,
+            text="Occupied: " + str(occupied_terminal) + " / " + str(total_terminal),
+            anchor="w",
+            font=("Segoe UI", 18, "bold"),
+            fill="white",
+            tags=("labels",)
+        )
+
+        # Passadís principal
+        corridor_x1 = start_x + 45
+        corridor_y1 = terminal_y + 70
+        corridor_x2 = corridor_x1 + max(1450, len(terminal.boarding_areas) * area_gap_x)
+        corridor_y2 = corridor_y1 + 58
 
         canvas.create_rectangle(
             corridor_x1,
@@ -781,15 +881,15 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
             corridor_y2,
             fill=terminal_color,
             outline=terminal_dark,
-            width=3
+            width=4
         )
 
         canvas.create_text(
-            corridor_x1 + 15,
-            corridor_y1 + 22,
+            corridor_x1 + 20,
+            corridor_y1 + 29,
             text="Main terminal corridor",
             anchor="w",
-            font=("Segoe UI", 12, "bold"),
+            font=("Segoe UI", 16, "bold"),
             fill="white",
             tags=("labels",)
         )
@@ -801,20 +901,20 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
 
         for area in terminal.boarding_areas:
 
-            pier_x = corridor_x1 + 70 + area_index * area_gap_x
+            pier_x = corridor_x1 + 120 + area_index * area_gap_x
             pier_y = corridor_y2
 
-            # Ombra visual
+            # Ombra
             canvas.create_rectangle(
-                pier_x + 5,
-                pier_y + 5,
-                pier_x + area_width + 5,
-                pier_y + pier_height + 5,
+                pier_x + 8,
+                pier_y + 8,
+                pier_x + area_width + 8,
+                pier_y + pier_height + 8,
                 fill="#B0BEC5",
                 outline="#B0BEC5"
             )
 
-            # Boarding area principal
+            # Pier blau de la boarding area
             canvas.create_rectangle(
                 pier_x,
                 pier_y,
@@ -822,31 +922,31 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
                 pier_y + pier_height,
                 fill=area_color,
                 outline=area_dark,
-                width=3
+                width=4
             )
 
-            # Nom de boarding area gran
+            # Etiquetes de l'àrea
             _draw_label_box(
                 canvas,
-                pier_x + area_width // 2,
-                pier_y + 25,
-                terminal.name + " - AREA " + area.name,
-                font=("Segoe UI", 10, "bold"),
+                pier_x + area_width / 2,
+                pier_y + 32,
+                terminal.name + " AREA " + area.name,
+                font=("Segoe UI", 12, "bold"),
                 fill=text_dark,
                 bg="white"
             )
 
             _draw_label_box(
                 canvas,
-                pier_x + area_width // 2,
-                pier_y + 52,
+                pier_x + area_width / 2,
+                pier_y + 66,
                 area.area_type,
-                font=("Segoe UI", 8, "bold"),
+                font=("Segoe UI", 10, "bold"),
                 fill="#455A64",
                 bg="#ECEFF1"
             )
 
-            # Comptador de l'àrea
+            # Comptador d'àrea
             occupied_area = 0
 
             for gate in area.gates:
@@ -855,10 +955,10 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
 
             _draw_label_box(
                 canvas,
-                pier_x + area_width // 2,
-                pier_y + pier_height + 28,
-                "Gates: " + str(occupied_area) + "/" + str(len(area.gates)),
-                font=("Segoe UI", 9, "bold"),
+                pier_x + area_width / 2,
+                pier_y + pier_height + 36,
+                "Gates " + str(occupied_area) + "/" + str(len(area.gates)),
+                font=("Segoe UI", 11, "bold"),
                 fill=text_dark,
                 bg="white"
             )
@@ -867,40 +967,44 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
             # GATES
             # =================================================
             gate_index = 0
-            #recorre les portes de l’àrea i calcula la seva posició alternant-les entre esquerra i dreta del pier
 
             for gate in area.gates:
 
-                row = gate_index // 2               #calcula la fila on es dibuixarà la porta
-                left_side = gate_index % 2 == 0     #si la porta va a l’esquerra o a la dreta
+                row = gate_index // 2
+                left_side = gate_index % 2 == 0
 
-                gate_y = pier_y + 85 + row * gate_gap_y
+                gate_y = pier_y + 115 + row * gate_gap_y
 
                 if left_side:
-                    gate_x = pier_x - gate_width - 38
+
+                    gate_x = pier_x - gate_to_area_gap - gate_width
+
                     line_x1 = gate_x + gate_width
                     line_x2 = pier_x
-                    text_anchor = "e"
-                    aircraft_text_x = gate_x - 8
+
+                    aircraft_text_x = gate_x - 10
+                    aircraft_anchor = "e"
 
                 else:
-                    gate_x = pier_x + area_width + 38
+
+                    gate_x = pier_x + area_width + gate_to_area_gap
+
                     line_x1 = pier_x + area_width
                     line_x2 = gate_x
-                    text_anchor = "w"
-                    aircraft_text_x = gate_x + gate_width + 8
 
-                # Línia de connexió amb la boarding area
+                    aircraft_text_x = gate_x + gate_width + 10
+                    aircraft_anchor = "w"
+
+                # Línia de connexió
                 canvas.create_line(
                     line_x1,
-                    gate_y + gate_height // 2,
+                    gate_y + gate_height / 2,
                     line_x2,
-                    gate_y + gate_height // 2,
+                    gate_y + gate_height / 2,
                     fill=line_color,
-                    width=2
+                    width=3
                 )
 
-                # Color de gate
                 if gate.occupied:
                     gate_color = occupied_color
                     border_color = "#B71C1C"
@@ -908,7 +1012,7 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
                     gate_color = free_color
                     border_color = "#1B5E20"
 
-                # Cos de la gate
+                # Rectangle de gate
                 canvas.create_rectangle(
                     gate_x,
                     gate_y,
@@ -916,49 +1020,56 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
                     gate_y + gate_height,
                     fill=gate_color,
                     outline=border_color,
-                    width=2
+                    width=3
                 )
 
-                # Nom de la gate dins la gate, gran i visible
-                gate_short_name = gate.name.replace("_G", "-G")
+                # Nom curt de gate dins del rectangle
+                gate_number = gate.name.split("_G")[-1]
+                gate_label = terminal.name + area.name + "-G" + gate_number
 
                 canvas.create_text(
-                    gate_x + gate_width // 2,
-                    gate_y + gate_height // 2,
-                    text=gate_short_name,
+                    gate_x + gate_width / 2,
+                    gate_y + gate_height / 2,
+                    text=gate_label,
                     anchor="center",
-                    font=("Segoe UI", 7, "bold"),
+                    font=("Segoe UI", 8, "bold"),
                     fill="white",
                     tags=("labels",)
                 )
 
-                # Si està ocupada, aircraft_id fora amb fons blanc
+                # Aircraft ID amb fons blanc, fora de la gate
                 if gate.occupied:
+
+                    aircraft_label = gate.aircraft_id
+
                     _draw_label_box(
                         canvas,
                         aircraft_text_x,
-                        gate_y + gate_height // 2,
-                        gate.aircraft_id,
+                        gate_y + gate_height / 2,
+                        aircraft_label,
                         font=("Segoe UI", 8, "bold"),
                         fill="#B71C1C",
                         bg="white",
-                        anchor=text_anchor
+                        anchor=aircraft_anchor
                     )
 
                 gate_index += 1
 
             area_index += 1
 
-        page_height = terminal_y + card_height + 100
-        terminal_index += 1
+        # Actualitzem l'altura per al següent terminal.
+        # Així T1 i T2 mai es trepitgen verticalment.
+        current_y = terminal_y + card_height + 130
+        page_height = current_y + 100
 
-    # IMPORTANT: fem que totes les lletres passin davant de tot
+    # Textos al davant de tot
     canvas.tag_raise("label_bg")
     canvas.tag_raise("labels")
 
-    canvas.config(scrollregion=(0, 0, page_width, page_height + 150))
+    # Scroll gran perquè tot es pugui veure sense comprimir
+    canvas.config(scrollregion=(0, 0, page_width, page_height))
 
-# ============================================================
+    physical_map_window.lift()# ============================================================
 # PhysicalGateMapButton
 # Mostra el mapa físic actual de gates.
 # ============================================================
@@ -1018,6 +1129,11 @@ def StopLiveGateMapButton():
 # Fa avançar la simulació una hora.
 # Allibera gates, assigna arribades i redibuixa el mapa físic.
 # ============================================================
+# ============================================================
+# LiveGateStep
+# Avança la simulació una hora.
+# Ara va més lent perquè en vídeo es pugui veure bé.
+# ============================================================
 def LiveGateStep():
 
     global live_hour
@@ -1041,9 +1157,8 @@ def LiveGateStep():
 
     live_hour += 1
 
-    window.after(900, LiveGateStep)
-
-
+    # Més lent que abans perquè es vegi bé al vídeo
+    window.after(LIVE_DELAY_MS, LiveGateStep)
 # ============================================================
 # V4 — SIMULATION, DASHBOARD I EXPORTACIÓ
 # ============================================================
