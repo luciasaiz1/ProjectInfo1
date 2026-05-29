@@ -103,32 +103,37 @@ def LoadArrivals(filename):
 
 
 # PLOT ARRIVALS
-# Mostra un gràfic amb el nombre de vols per hora del dia.
 
-def PlotArrivals(aircrafts):
+# PLOT ARRIVALS
+# fa un gràfic del nombre d'arribades per hora
+# si rep una figura (fig), dibuixa dins d'aquella figura
+# si no rep figura, crea una finestra nova
 
-    if len(aircrafts) == 0:
-        print("Error: empty list")
-        return
+def PlotArrivals(aircrafts, fig=None):
+    import matplotlib.pyplot as plt
 
+    # si no ens passen una figura, en creem una
+    if fig is None:
+        fig = plt.figure()
+
+    ax = fig.add_subplot(111)
+
+    # comptem quants vols arriben a cada hora
     hours = [0] * 24
+    for a in aircrafts:
+        if a.arrival != "":
+            h = int(a.arrival.split(":")[0])
+            hours[h] += 1
 
-    i = 0
-    while i < len(aircrafts):
+    ax.bar(range(24), hours)
+    ax.set_title("Arribades per hora")
+    ax.set_xlabel("Hora")
+    ax.set_ylabel("Nombre d'arribades")
 
-        arrival = aircrafts[i].arrival
-        h = _parse_time(arrival)
-        if h is not None:
-            hour = h // 60
-            hours[hour] += 1
+    # si no hi ha figura externa, mostrem el gràfic normalment
+    if fig is None:
+        plt.show()
 
-        i += 1
-
-    plt.bar(range(24), hours)
-    plt.title("Landing frequency per hour")
-    plt.xlabel("Hour")
-    plt.ylabel("Number of arrivals")
-    plt.show()
 
 
 # SAVE FLIGHTS
@@ -176,72 +181,77 @@ def SaveFlights(aircrafts, filename):
 
 
 # PLOT AIRLINES
-# Mostra quants vols té cada companyia.
+# Mostra el número de vols per aerolínia
 
-def PlotAirlines(aircrafts):
 
-    if len(aircrafts) == 0:
-        print("Error: empty list")
-        return
+def PlotAirlines(aircrafts, fig=None):
+    import matplotlib.pyplot as plt
 
-    airlines = []
-    counts = []
+    if fig is None:
+        fig = plt.figure()
 
-    i = 0
-    while i < len(aircrafts):
+    ax = fig.add_subplot(111)
 
-        airline = aircrafts[i].airline
+    counts = {}
+    for a in aircrafts:
+        counts[a.airline] = counts.get(a.airline, 0) + 1
 
-        if airline in airlines:
-            j = airlines.index(airline)
-            counts[j] += 1
-        else:
-            airlines.append(airline)
-            counts.append(1)
+    airlines = list(counts.keys())
+    flights = list(counts.values())
 
-        i += 1
+    ax.bar(airlines, flights, color="#1E88E5")
 
-    plt.bar(airlines, counts)
-    plt.xlabel("Airlines")
-    plt.ylabel("Number of flights")
-    plt.title("Flights per airline")
-    plt.show()
+    ax.set_title("Flights per Airline")
+    ax.set_xlabel("Airline")
+    ax.set_ylabel("Number of Flights")
+
+    # Rotació i canvi de tamany perquè es pugi llegir bé
+    plt.setp(ax.get_xticklabels(), rotation=60, ha="right", fontsize=7)
+
+    # Si hi ha massa airlines mostrar menys noms
+    if len(airlines) > 20:
+        for label in ax.get_xticklabels():
+            label.set_visible(False)
+        for i, label in enumerate(ax.get_xticklabels()):
+            if i % 3 == 0:  # Cada 3 noms
+                label.set_visible(True)
+
+    fig.tight_layout()
+
+    if fig is None:
+        plt.show()
+
+
 
 
 # PLOT FLIGHTS TYPE
 # Compara vols Schengen vs no Schengen segons l’origen.
 
-def PlotFlightsType(aircrafts):
 
-    if len(aircrafts) == 0:
-        print("Error: empty aircraft list")
-        return
+def PlotFlightsType(aircrafts, fig=None):
+    import matplotlib.pyplot as plt
 
-    schengen_count = 0
-    non_schengen_count = 0
+    if fig is None:
+        fig = plt.figure()
 
-    i = 0
-    while i < len(aircrafts):
+    ax = fig.add_subplot(111)
 
-        origin = aircrafts[i].origin
+    schengen = 0
+    non_schengen = 0
 
-        if IsSchengenAirport(origin):
-            schengen_count += 1
+    for a in aircrafts:
+        if IsSchengenAirport(a.origin):
+            schengen += 1
         else:
-            non_schengen_count += 1
+            non_schengen += 1
 
-        i += 1
+    ax.bar(["Schengen", "No-Schengen"], [schengen, non_schengen])
+    ax.set_title("Tipus de vols")
+    ax.set_ylabel("Nombre de vols")
 
-    plt.bar(["Flights"], [schengen_count], label="Schengen")
-    plt.bar(["Flights"], [non_schengen_count],
-            bottom=[schengen_count],
-            label="Non-Schengen")
+    if fig is None:
+        plt.show()
 
-    plt.xlabel("Flights")
-    plt.ylabel("Number of flights")
-    plt.title("Schengen vs Non-Schengen arrivals")
-    plt.legend()
-    plt.show()
 
 
 # MAP FLIGHTS

@@ -353,26 +353,31 @@ def AssignGatesAtTime(bcn, aircrafts, time):
 # PLOT DAY OCCUPANCY
 
 
-def PlotDayOccupancy(bcn, aircrafts):
+# ============================================================
+# PLOT DAY OCCUPANCY
+# mostra l'ocupació de gates durant tot el dia
+# si rep una figura, dibuixa dins del panell
+# ============================================================
 
+def PlotDayOccupancy(bcn, aircrafts, fig=None):
     import matplotlib.pyplot as plt
-
-    hours = []
-    assigned = []
-    not_assigned = []
-
-    # fem una còpia de l’aeroport per no modificar l’original
     import copy
+
+    if fig is None:
+        fig = plt.figure()
+
+    ax = fig.add_subplot(111)
+
+    # fem una còpia per no modificar l'aeroport real
     bcn_copy = copy.deepcopy(bcn)
 
+    hours = []
+    occupied = []
+    rejected = []
+
     for h in range(24):
-
-        time = str(h).zfill(2) + ":00"
-
+        time = f"{h:02d}:00"
         na = AssignGatesAtTime(bcn_copy, aircrafts, time)
-
-        hours.append(h)
-        not_assigned.append(na)
 
         # comptem gates ocupades
         count = 0
@@ -382,15 +387,17 @@ def PlotDayOccupancy(bcn, aircrafts):
                     if g.occupied:
                         count += 1
 
-        assigned.append(count)
+        hours.append(h)
+        occupied.append(count)
+        rejected.append(na)
 
-    plt.plot(hours, assigned, label="Gates ocupades")
-    plt.plot(hours, not_assigned, label="No assignats")
+    ax.plot(hours, occupied, label="Gates ocupades")
+    ax.plot(hours, rejected, label="No assignats")
+    ax.set_title("Ocupació de gates durant el dia")
+    ax.set_xlabel("Hora")
+    ax.set_ylabel("Nombre")
+    ax.legend()
+    ax.grid()
 
-    plt.xlabel("Hora del dia")
-    plt.ylabel("Nombre")
-    plt.title("Ocupació de gates durant el dia")
-    plt.legend()
-    plt.grid()
-
-    plt.show()
+    if fig is None:
+        plt.show()
