@@ -29,7 +29,7 @@ class Airport:
 
 # IS SCHENGEN AIRPORT
 # Aquesta funció comprova si un aeroport pertany a un país Schengen
-# mirant els dos primers caràcters del codi ICAO
+# Ho fa mirant els dos primers caràcters del codi ICAO
 
 def IsSchengenAirport(code):
 
@@ -141,7 +141,7 @@ def LoadAirports(filename):
 
         sign = 1
 
-        # Si comença per W és negativa
+        # Si comença per W també és negativa
         if lon_str[0] == 'W':
             sign = -1
 
@@ -227,8 +227,7 @@ def SaveSchengenAirports(airports, filename):
         return -1
 
 # ADD AIRPORT
-# Aquesta funció afegeix un aeroport a la llista
-# només si el codi ICAO no existeix ja
+# Aquesta funció afegeix un aeroport a la llista només si el codi ICAO no existeix ja
 
 def AddAirport(airports, airport):
 
