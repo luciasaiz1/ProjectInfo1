@@ -1074,6 +1074,8 @@ def DashboardButton():
     text += "This dashboard summarizes the full operational day."
 
     show_text_in_panel(text)
+    #aquestes funcions comproven que hi hagi dades carregades i després generen les gràfiques o el mapa dels vols
+
 def PlotArrivalsButton():
 
     if len(arrivals) == 0:
