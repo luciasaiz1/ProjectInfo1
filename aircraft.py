@@ -432,20 +432,14 @@ def Haversine(lat1, lon1, lat2, lon2):
 # LONG DISTANCE ARRIVALS
 # Retorna vols que arriben a LEBL des de més de 2000 km.
 
-# ============================================================
-# LongDistanceArrivals
-# Retorna vols de més de 2000 km.
-# Manté el nom per compatibilitat, però ara serveix per arribades i sortides.
-# ============================================================
-def LongDistanceArrivals(aircrafts):
 
+def LongDistanceArrivals(aircrafts):
     result = []
 
     if len(aircrafts) == 0:
         return result
 
     airports = LoadAirports("Airports.txt")
-
     if len(airports) == 0:
         print("Error: Airports.txt could not be loaded")
         return result
@@ -459,46 +453,22 @@ def LongDistanceArrivals(aircrafts):
         lebl_lat = lebl.coordinates[0]
         lebl_lon = lebl.coordinates[1]
 
-    for a in aircrafts:
+    i = 0
+    while i < len(aircrafts):
+        origin_airport = SearchAirportByCode(airports, aircrafts[i].origin)
 
-        is_long = False
+        if origin_airport is not None:
+            dist = Haversine(
+                origin_airport.coordinates[0],
+                origin_airport.coordinates[1],
+                lebl_lat,
+                lebl_lon
+            )
 
-        # Arribada: origin -> LEBL
-        if a.origin != "":
+            if dist > 2000:
+                result.append(aircrafts[i])
 
-            origin_airport = SearchAirportByCode(airports, a.origin)
-
-            if origin_airport is not None:
-
-                dist = Haversine(
-                    origin_airport.coordinates[0],
-                    origin_airport.coordinates[1],
-                    lebl_lat,
-                    lebl_lon
-                )
-
-                if dist > 2000:
-                    is_long = True
-
-        # Sortida: LEBL -> destination
-        if a.destination != "":
-
-            destination_airport = SearchAirportByCode(airports, a.destination)
-
-            if destination_airport is not None:
-
-                dist = Haversine(
-                    lebl_lat,
-                    lebl_lon,
-                    destination_airport.coordinates[0],
-                    destination_airport.coordinates[1]
-                )
-
-                if dist > 2000:
-                    is_long = True
-
-        if is_long:
-            result.append(a)
+        i += 1
 
     return result
 
