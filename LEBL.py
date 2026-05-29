@@ -438,3 +438,61 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
 
     if fig is None:
         plt.show()
+
+# ============================================================
+# SaveGateAssignments
+# Desa l'estat actual de les gates en un fitxer de text.
+# ============================================================
+def SaveGateAssignments(bcn, filename):
+    try:
+        with open(filename, "w", encoding="utf-8") as f:
+            f.write("TERMINAL | AREA | GATE | OCCUPIED | AIRCRAFT_ID\n")
+            f.write("-" * 70 + "\n")
+
+            for terminal in bcn.terminals:
+                for area in terminal.boarding_areas:
+                    for gate in area.gates:
+                        occupied = "YES" if gate.occupied else "NO"
+                        aircraft_id = gate.aircraft_id if gate.occupied else "-"
+                        f.write(f"{terminal.name} | {area.name} | {gate.name} | {occupied} | {aircraft_id}\n")
+
+        return 0  # tot correcte
+    except Exception as e:
+        print("Error saving gate assignments:", e)
+        return -1  # error
+
+# ============================================================
+# DashboardData
+# Calcula dades resum de l'operació diària per mostrar al dashboard.
+# ============================================================
+def DashboardData(bcn, aircrafts):
+    data = {
+        "arrivals": len([a for a in aircrafts if a.arrival]),
+        "departures": len([a for a in aircrafts if a.departure]),
+        "movements": len(aircrafts),
+        "night_aircraft": len([a for a in aircrafts if a.arrival and int(a.arrival.split(":")[0]) < 6]),
+        "max_occupied": 0,
+        "max_hour": "-",
+        "not_assigned": 0
+    }
+
+    # simulació simple per trobar hora de màxima ocupació
+    import copy
+    bcn_copy = copy.deepcopy(bcn)
+    max_occ = 0
+    max_hour = 0
+    not_assigned_total = 0
+
+    for h in range(24):
+        rejected = AssignGatesAtTime(bcn_copy, aircrafts, f"{h:02d}:00")
+        occupied = sum(1 for t in bcn_copy.terminals for a in t.boarding_areas for g in a.gates if g.occupied)
+        if occupied > max_occ:
+            max_occ = occupied
+            max_hour = h
+        not_assigned_total += rejected
+
+    data["max_occupied"] = max_occ
+    data["max_hour"] = f"{max_hour:02d}:00"
+    data["not_assigned"] = not_assigned_total
+
+    return data
