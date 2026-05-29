@@ -238,7 +238,7 @@ def save_schengen():
 
 def map_airports():
 
-    if not ensure_airports_loaded():
+    if not ensure_airports_loaded():    #si NO es pot load
         messagebox.showerror("Error", "Airports could not be loaded")
         return
 
