@@ -224,7 +224,7 @@ def remove_airport():
 
 def save_schengen():
 
-    if len(airports) == 0:
+    if len(airports) == 0:    #    # Comprovem que hi hagi aeroports carregats abans de guardar el fitxer
         messagebox.showwarning("Warning", "Load airports first")
         return
 
