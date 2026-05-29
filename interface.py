@@ -812,11 +812,12 @@ def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
             # GATES
             # =================================================
             gate_index = 0
+            #recorre les portes de l’àrea i calcula la seva posició alternant-les entre esquerra i dreta del pier
 
             for gate in area.gates:
 
-                row = gate_index // 2
-                left_side = gate_index % 2 == 0
+                row = gate_index // 2               #calcula la fila on es dibuixarà la porta
+                left_side = gate_index % 2 == 0     #si la porta va a l’esquerra o a la dreta
 
                 gate_y = pier_y + 85 + row * gate_gap_y
 
