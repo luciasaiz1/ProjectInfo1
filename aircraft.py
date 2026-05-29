@@ -277,6 +277,13 @@ def PlotFlightsType(aircrafts, fig=None):
 # Genera un fitxer KML amb les rutes dels vols cap a LEBL
 # Només rep aircrafts i carrega Airports.txt internament
 
+# ============================================================
+# MapFlights
+# Genera un KML amb trajectòries de vols.
+# Si el vol té origin, dibuixa origin -> LEBL.
+# Si el vol té destination, dibuixa LEBL -> destination.
+# Així cobrim arribades i sortides.
+# ============================================================
 def MapFlights(aircrafts, airports):
 
     if len(aircrafts) == 0:
@@ -287,14 +294,8 @@ def MapFlights(aircrafts, airports):
         print("Error: no airports")
         return -1
 
-    # Buscar LEBL en la llista d'aeroports
-    lebl = None
-    for ap in airports:
-        if ap.code == "LEBL":
-            lebl = ap
-            break
+    lebl = SearchAirportByCode(airports, "LEBL")
 
-    # Si no es troba, usar coordenades per defecte
     if lebl is None:
         lebl_lat = 41.297445
         lebl_lon = 2.0832941
@@ -302,68 +303,92 @@ def MapFlights(aircrafts, airports):
         lebl_lat = lebl.coordinates[0]
         lebl_lon = lebl.coordinates[1]
 
-    # Crear fitxer KML
-    file = open("FlightsMap.kml", "w", encoding="utf-8")
+    try:
+        file = open("FlightsMap.kml", "w", encoding="utf-8")
+    except:
+        print("Error: KML file could not be created")
+        return -1
 
-    # Capçalera XML del KML
     file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
     file.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
     file.write("<Document>\n")
 
-    # Estils per Schengen i No-Schengen
-    file.write('<Style id="schengen">\n')
+    # Estil arribades Schengen
+    file.write('<Style id="arrival_schengen">\n')
     file.write('<LineStyle><color>ff00ff00</color><width>3</width></LineStyle>\n')
     file.write("</Style>\n")
 
-    file.write('<Style id="nonschengen">\n')
+    # Estil arribades non-Schengen
+    file.write('<Style id="arrival_nonschengen">\n')
     file.write('<LineStyle><color>ff0000ff</color><width>3</width></LineStyle>\n')
     file.write("</Style>\n")
 
-    # Escriure cada trajectòria
+    # Estil sortides
+    file.write('<Style id="departure">\n')
+    file.write('<LineStyle><color>ffff9900</color><width>3</width></LineStyle>\n')
+    file.write("</Style>\n")
+
     for a in aircrafts:
 
-        # Buscar aeroport d'origen
-        origin_airport = None
-        for ap in airports:
-            if ap.code == a.origin:
-                origin_airport = ap
-                break
+        # ----------------------------
+        # ARRIVAL: origin -> LEBL
+        # ----------------------------
+        if a.origin != "":
 
-        if origin_airport is None:
-            continue  # Si no trobem origen, saltem vol
+            origin_airport = SearchAirportByCode(airports, a.origin)
 
-        origin_lat = origin_airport.coordinates[0]
-        origin_lon = origin_airport.coordinates[1]
+            if origin_airport is not None:
 
-        # Color segons si és o no Schengen
-        if IsSchengenAirport(a.origin):
-            style = "#schengen"
-        else:
-            style = "#nonschengen"
+                origin_lat = origin_airport.coordinates[0]
+                origin_lon = origin_airport.coordinates[1]
 
-        # Bloc KML per cada vol
-        file.write("<Placemark>\n")
-        file.write("<name>" + a.aircraft_id + ": " +
-                   a.origin + " - LEBL</name>\n")
-        file.write("<styleUrl>" + style + "</styleUrl>\n")
-        file.write("<LineString>\n")
-        file.write("<tessellate>1</tessellate>\n")
-        file.write("<coordinates>\n")
+                if IsSchengenAirport(a.origin):
+                    style = "#arrival_schengen"
+                else:
+                    style = "#arrival_nonschengen"
 
-        # Coordenades origen → LEBL
-        file.write(f"{origin_lon},{origin_lat},0 ")
-        file.write(f"{lebl_lon},{lebl_lat},0\n")
+                file.write("<Placemark>\n")
+                file.write("<name>" + a.aircraft_id + " ARRIVAL: " + a.origin + " - LEBL</name>\n")
+                file.write("<styleUrl>" + style + "</styleUrl>\n")
+                file.write("<LineString>\n")
+                file.write("<tessellate>1</tessellate>\n")
+                file.write("<coordinates>\n")
+                file.write(f"{origin_lon},{origin_lat},0 ")
+                file.write(f"{lebl_lon},{lebl_lat},0\n")
+                file.write("</coordinates>\n")
+                file.write("</LineString>\n")
+                file.write("</Placemark>\n")
 
-        file.write("</coordinates>\n")
-        file.write("</LineString>\n")
-        file.write("</Placemark>\n")
+        # ----------------------------
+        # DEPARTURE: LEBL -> destination
+        # ----------------------------
+        if a.destination != "":
+
+            destination_airport = SearchAirportByCode(airports, a.destination)
+
+            if destination_airport is not None:
+
+                dest_lat = destination_airport.coordinates[0]
+                dest_lon = destination_airport.coordinates[1]
+
+                file.write("<Placemark>\n")
+                file.write("<name>" + a.aircraft_id + " DEPARTURE: LEBL - " + a.destination + "</name>\n")
+                file.write("<styleUrl>#departure</styleUrl>\n")
+                file.write("<LineString>\n")
+                file.write("<tessellate>1</tessellate>\n")
+                file.write("<coordinates>\n")
+                file.write(f"{lebl_lon},{lebl_lat},0 ")
+                file.write(f"{dest_lon},{dest_lat},0\n")
+                file.write("</coordinates>\n")
+                file.write("</LineString>\n")
+                file.write("</Placemark>\n")
 
     file.write("</Document>\n")
     file.write("</kml>\n")
     file.close()
 
     print("FlightsMap.kml created")
-    webbrowser.open("FlightsMap.kml")  # Obrim automàticament
+    webbrowser.open("FlightsMap.kml")
 
     return 0
 
@@ -407,22 +432,26 @@ def Haversine(lat1, lon1, lat2, lon2):
 # LONG DISTANCE ARRIVALS
 # Retorna vols que arriben a LEBL des de més de 2000 km.
 
+# ============================================================
+# LongDistanceArrivals
+# Retorna vols de més de 2000 km.
+# Manté el nom per compatibilitat, però ara serveix per arribades i sortides.
+# ============================================================
 def LongDistanceArrivals(aircrafts):
 
-    result = []  # Llista de vols llarga distància
+    result = []
 
     if len(aircrafts) == 0:
         return result
 
-    airports = LoadAirports("Airports.txt")  # Carreguem aeroports
+    airports = LoadAirports("Airports.txt")
 
     if len(airports) == 0:
         print("Error: Airports.txt could not be loaded")
         return result
 
-    lebl = SearchAirportByCode(airports, "LEBL")  # Busquem LEBL
+    lebl = SearchAirportByCode(airports, "LEBL")
 
-    # Coordenades de LEBL
     if lebl is None:
         lebl_lat = 41.297445
         lebl_lon = 2.0832941
@@ -430,25 +459,46 @@ def LongDistanceArrivals(aircrafts):
         lebl_lat = lebl.coordinates[0]
         lebl_lon = lebl.coordinates[1]
 
-    i = 0
-    while i < len(aircrafts):
+    for a in aircrafts:
 
-        origin_airport = SearchAirportByCode(airports, aircrafts[i].origin)
+        is_long = False
 
-        if origin_airport is not None:
+        # Arribada: origin -> LEBL
+        if a.origin != "":
 
-            # Calculem distància origen → LEBL
-            dist = Haversine(
-                origin_airport.coordinates[0],
-                origin_airport.coordinates[1],
-                lebl_lat,
-                lebl_lon
-            )
+            origin_airport = SearchAirportByCode(airports, a.origin)
 
-            if dist > 2000:  # Si supera 2000 km → afegim
-                result.append(aircrafts[i])
+            if origin_airport is not None:
 
-        i += 1
+                dist = Haversine(
+                    origin_airport.coordinates[0],
+                    origin_airport.coordinates[1],
+                    lebl_lat,
+                    lebl_lon
+                )
+
+                if dist > 2000:
+                    is_long = True
+
+        # Sortida: LEBL -> destination
+        if a.destination != "":
+
+            destination_airport = SearchAirportByCode(airports, a.destination)
+
+            if destination_airport is not None:
+
+                dist = Haversine(
+                    lebl_lat,
+                    lebl_lon,
+                    destination_airport.coordinates[0],
+                    destination_airport.coordinates[1]
+                )
+
+                if dist > 2000:
+                    is_long = True
+
+        if is_long:
+            result.append(a)
 
     return result
 

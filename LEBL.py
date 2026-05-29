@@ -4,7 +4,37 @@ from airport import IsSchengenAirport
 # importem la funció per carregar vols (V2)
 from aircraft import LoadArrivals
 
+# ============================================================
+# _parse_time
+# Converteix una hora hh:mm a minuts des de mitjanit.
+# Ho fem perquè la V4 compari hores amb minuts reals.
+# ============================================================
+def _parse_time(t):
 
+    if t == "" or t is None:
+        return None
+
+    if ":" not in t:
+        return None
+
+    parts = t.split(":")
+
+    if len(parts) != 2:
+        return None
+
+    try:
+        hour = int(parts[0])
+        minute = int(parts[1])
+    except:
+        return None
+
+    if hour < 0 or hour > 23:
+        return None
+
+    if minute < 0 or minute > 59:
+        return None
+
+    return hour * 60 + minute
 # CLASSES PRINCIPALS
 
 # CLASSE BARCELONA AP
@@ -355,38 +385,44 @@ def AssignNightGates(bcn, aircrafts):
 
 # ASSIGN GATES AT TIME
 
+# ============================================================
+# AssignGatesAtTime
+# Simula una hora concreta del dia.
+# Primer allibera gates dels avions que ja han marxat.
+# Després assigna gates als avions que arriben dins d'aquella hora.
+# Ara compara amb minuts reals, no només amb l'hora.
+# ============================================================
 def AssignGatesAtTime(bcn, aircrafts, time):
 
-    current_hour = int(time.split(":")[0])
+    start_minute = _parse_time(time)
 
-    # 1) alliberar gates dels avions que ja han marxat
-    for a in aircrafts:
+    if start_minute is None:
+        return -1
 
-        if a.departure != "":
-            dep_hour = int(a.departure.split(":")[0])
-
-            if dep_hour <= current_hour:
-                FreeGate(bcn, a.aircraft_id)
-
-    # 2) assignar gates als avions que arriben ara
+    end_minute = start_minute + 60
     not_assigned = 0
 
+    # 1) Alliberar gates dels avions que ja han marxat abans de començar aquesta hora
     for a in aircrafts:
 
-        if a.arrival != "":
-            arr_hour = int(a.arrival.split(":")[0])
+        dep_minute = _parse_time(a.departure)
 
-            if arr_hour == current_hour:
+        if dep_minute is not None and dep_minute <= start_minute:
+            FreeGate(bcn, a.aircraft_id)
 
-                gate_name = AssignGate(bcn, a)
+    # 2) Assignar avions que arriben dins d'aquesta hora
+    for a in aircrafts:
 
-                if gate_name == -1:
-                    not_assigned += 1
+        arr_minute = _parse_time(a.arrival)
+
+        if arr_minute is not None and start_minute <= arr_minute < end_minute:
+
+            gate_name = AssignGate(bcn, a)
+
+            if gate_name == -1:
+                not_assigned += 1
 
     return not_assigned
-
-
-
 # PLOT DAY OCCUPANCY
 
 
@@ -441,6 +477,13 @@ def CountTotalGates(bcn):
 # - avions no assignats amb línia discontínua
 # Això fa que el full day cycle torni a mostrar també les free gates.
 # ============================================================
+# ============================================================
+# PlotDayOccupancy
+# Simula tot el dia i dibuixa l'ocupació per terminal.
+# Això compleix millor la rúbrica:
+# "ocupación de cada terminal, cada hora del día".
+# També mostra free gates totals i no assignats.
+# ============================================================
 def PlotDayOccupancy(bcn, aircrafts, fig=None):
 
     import matplotlib.pyplot as plt
@@ -456,7 +499,7 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
     # Fem una còpia per no modificar l'aeroport real de la GUI
     bcn_copy = copy.deepcopy(bcn)
 
-    # A les 00:00 assignem avions nocturns
+    # Assignem avions nocturns a les 00:00
     night_result = AssignNightGates(bcn_copy, aircrafts)
 
     if isinstance(night_result, tuple):
@@ -464,13 +507,20 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
     else:
         night_failed = 0
 
-    total_gates = CountTotalGates(bcn_copy)
+    terminal_names = []
+
+    for terminal in bcn_copy.terminals:
+        terminal_names.append(terminal.name)
 
     hours = []
-    occupied_values = []
+    occupied_by_terminal = {}
     free_values = []
     rejected_values = []
 
+    for terminal_name in terminal_names:
+        occupied_by_terminal[terminal_name] = []
+
+    total_gates = CountTotalGates(bcn_copy)
     rejected_accumulated = night_failed
 
     for h in range(24):     #simula cada hora del dia
@@ -488,32 +538,36 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
 
         occupied_total = 0
 
-        for terminal_name in counts:
-            occupied_total += counts[terminal_name]
+        for terminal_name in terminal_names:
+
+            value = counts.get(terminal_name, 0)
+            occupied_by_terminal[terminal_name].append(value)
+            occupied_total += value
 
         free_total = total_gates - occupied_total
         #guarda els valors per representar-los després
         hours.append(h)
-        occupied_values.append(occupied_total)
         free_values.append(free_total)
         rejected_values.append(rejected_accumulated)
 
-    # Free gates en verd
+    # Una línia per cada terminal
+    for terminal_name in terminal_names:
+
+        ax.plot(
+            hours,
+            occupied_by_terminal[terminal_name],
+            marker="o",
+            label="Occupied gates " + terminal_name
+        )
+
+    # Free gates totals en verd
     ax.plot(
         hours,
         free_values,
         marker="o",
+        linestyle="--",
         color="#43A047",
-        label="Free gates"
-    )
-
-    # Occupied gates en vermell
-    ax.plot(
-        hours,
-        occupied_values,
-        marker="o",
-        color="#E53935",
-        label="Occupied gates"
+        label="Free gates total"
     )
 
     # No assignats en negre discontinu
@@ -521,12 +575,12 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
         hours,
         rejected_values,
         marker="x",
-        linestyle="--",
+        linestyle=":",
         color="#263238",
         label="Not assigned"
     )
     #configura el títol, els noms dels eixos i l’aspecte general de la gràfica
-    ax.set_title("Full Day Gate Cycle")
+    ax.set_title("Gate Occupancy per Terminal During the Day")
     ax.set_xlabel("Hour")
     ax.set_ylabel("Number of gates / aircraft")
     ax.set_xticks(range(0, 24, 1))
@@ -539,8 +593,7 @@ def PlotDayOccupancy(bcn, aircrafts, fig=None):
 # ============================================================
 # DashboardData
 # Calcula el resum final de la simulació del dia.
-# Retorna dades que després la GUI mostra al Final Dashboard.
-# Ho fem amb una còpia de l'aeroport per no modificar l'estat real.
+# Ara usa la simulació corregida amb minuts reals.
 # ============================================================
 def DashboardData(bcn, aircrafts):
 
@@ -548,10 +601,8 @@ def DashboardData(bcn, aircrafts):
 
     bcn_copy = copy.deepcopy(bcn)
 
-    # Assignem avions nocturns a les 00:00
     night_result = AssignNightGates(bcn_copy, aircrafts)
 
-    # Compatibilitat: si AssignNightGates retorna tuple, l'usem bé
     if isinstance(night_result, tuple):
         night_assigned = night_result[0]
         night_failed = night_result[1]
@@ -562,6 +613,11 @@ def DashboardData(bcn, aircrafts):
     total_rejected = night_failed
     max_occupied = 0
     max_hour = "00:00"
+
+    terminal_max = {}
+
+    for terminal in bcn_copy.terminals:
+        terminal_max[terminal.name] = 0
 
     for h in range(24):
 
@@ -579,7 +635,11 @@ def DashboardData(bcn, aircrafts):
         occupied_now = 0
 
         for terminal_name in counts:
+
             occupied_now += counts[terminal_name]
+
+            if counts[terminal_name] > terminal_max.get(terminal_name, 0):
+                terminal_max[terminal_name] = counts[terminal_name]
 
         if occupied_now > max_occupied:
             max_occupied = occupied_now
@@ -603,5 +663,6 @@ def DashboardData(bcn, aircrafts):
         "night_aircraft": night_assigned,
         "max_occupied": max_occupied,
         "max_hour": max_hour,
-        "not_assigned": total_rejected
+        "not_assigned": total_rejected,
+        "terminal_max": terminal_max
     }

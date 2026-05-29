@@ -14,18 +14,13 @@ class Airport:
 
     def __init__(self, code, lat, lon):
 
-        # Comprovem que el codi ICAO tingui 4 caràcters
         if len(code) == 4:
             self.code = code.upper()
         else:
             raise ValueError("ICAO code must have 4 characters")
 
-        # Coordenades en graus decimals
         self.coordinates = [lat, lon]
-
-        # Inicialment l'aeroport no està marcat com Schengen
         self.schengen = False
-
 
 # IS SCHENGEN AIRPORT
 # Aquesta funció comprova si un aeroport pertany a un país Schengen
@@ -79,22 +74,27 @@ def PrintAirport(airport):
     print("Schengen:", airport.schengen)
 
 
-# LOAD AIRPORTS
-# Aquesta funció carrega aeroports des d'un fitxer de text
 
+
+# ============================================================
+# LOAD AIRPORTS
+# Carrega aeroports des d'un fitxer.
+# Si una línia és incorrecta, no penja el programa.
+# Guarda els errors trobats a LoadAirports.last_errors.
+# ============================================================
 def LoadAirports(filename):
 
     airports = []
+    LoadAirports.last_errors = []
 
-    # Intentem obrir el fitxer
     try:
         F = open(filename, "r")
     except:
         print("Error: file could not be opened")
+        LoadAirports.last_errors.append("File could not be opened")
         return airports
 
     lines = F.readlines()
-
     F.close()
 
     # Comencem a la línia 1 perquè la primera és la capçalera
@@ -104,66 +104,167 @@ def LoadAirports(filename):
 
         line = lines[i].strip()
 
-        # Ignorem línies buides
         if line == "":
             i += 1
             continue
 
         data = line.split()
 
-        # Comprovem que hi hagi prou dades
         if len(data) < 3:
+            LoadAirports.last_errors.append("Line " + str(i + 1) + ": not enough data")
             i += 1
             continue
 
-        code = data[0]
+        code = data[0].upper()
         lat_str = data[1]
         lon_str = data[2]
 
-        # LATITUD
+        try:
+            if len(code) != 4:
+                raise ValueError("Invalid ICAO code")
 
-        sign = 1
+            if len(lat_str) < 7:
+                raise ValueError("Invalid latitude format")
 
-        # Si comença per S és negativa
-        if lat_str[0] == 'S':
-            sign = -1
+            if len(lon_str) < 8:
+                raise ValueError("Invalid longitude format")
 
-        degrees = int(lat_str[1:3])
-        minutes = int(lat_str[3:5])
-        seconds = int(lat_str[5:7])
+            # ----------------------------
+            # LATITUDE
+            # ----------------------------
+            sign = 1
 
-        # Convertim DMS a graus decimals
-        lat = degrees + minutes / 60 + seconds / 3600
+            if lat_str[0] == "S":
+                sign = -1
+            elif lat_str[0] != "N":
+                raise ValueError("Latitude must start with N or S")
 
-        lat = lat * sign
+            degrees = int(lat_str[1:3])
+            minutes = int(lat_str[3:5])
+            seconds = int(lat_str[5:7])
 
-        # LONGITUD
+            if minutes < 0 or minutes > 59 or seconds < 0 or seconds > 59:
+                raise ValueError("Invalid latitude minutes/seconds")
 
-        sign = 1
+            lat = degrees + minutes / 60 + seconds / 3600
+            lat = lat * sign
 
-        # Si comença per W també és negativa
-        if lon_str[0] == 'W':
-            sign = -1
+            # ----------------------------
+            # LONGITUDE
+            # ----------------------------
+            sign = 1
 
-        degrees = int(lon_str[1:4])
-        minutes = int(lon_str[4:6])
-        seconds = int(lon_str[6:8])
+            if lon_str[0] == "W":
+                sign = -1
+            elif lon_str[0] != "E":
+                raise ValueError("Longitude must start with E or W")
 
-        # Convertim DMS a graus decimals
-        lon = degrees + minutes / 60 + seconds / 3600
+            degrees = int(lon_str[1:4])
+            minutes = int(lon_str[4:6])
+            seconds = int(lon_str[6:8])
 
-        lon = lon * sign
+            if minutes < 0 or minutes > 59 or seconds < 0 or seconds > 59:
+                raise ValueError("Invalid longitude minutes/seconds")
 
-        # Creem l'aeroport i l'afegim a la llista
-        airport = Airport(code, lat, lon)
+            lon = degrees + minutes / 60 + seconds / 3600
+            lon = lon * sign
 
-        airports.append(airport)
+            airport = Airport(code, lat, lon)
+            airports.append(airport)
+
+        except Exception as error:
+            LoadAirports.last_errors.append(
+                "Line " + str(i + 1) + ": " + str(error)
+            )
 
         i += 1
 
     return airports
+# ============================================================
+# LiveGateStep
+# Avança la simulació una hora i redibuixa el mapa físic.
+# ============================================================
+def LiveGateStep():
 
+    global live_hour
+    global live_running
+    global live_bcn
 
+    if not live_running:
+        return
+
+    if physical_map_window is None or not physical_map_window.winfo_exists():
+        live_running = False
+        return
+
+    if live_hour > 23:
+        live_running = False
+        DrawPhysicalGateMap(live_bcn, "End of day", 0)
+        messagebox.showinfo("Simulation finished", "Full day live simulation completed")
+        return
+
+    time = f"{live_hour:02d}:00"
+
+    rejected = AssignGatesAtTime(live_bcn, merged, time)
+
+    DrawPhysicalGateMap(live_bcn, time, rejected)
+
+    live_hour += 1
+
+    # Velocitat del live map: 900 ms = 1 hora
+    window.after(900, LiveGateStep)
+
+# ============================================================
+# SAVE AIRPORTS
+# Desa tots els aeroports, no només els Schengen.
+# Això cobreix millor el requisit de guardar dades d'aeroports.
+# ============================================================
+def SaveAirports(airports, filename):
+
+    if len(airports) == 0:
+        return -1
+
+    def decimal_to_dms(value, is_latitude):
+
+        if is_latitude:
+            direction = 'N' if value >= 0 else 'S'
+            value = abs(value)
+            degrees = int(value)
+            minutes_float = (value - degrees) * 60
+            minutes = int(minutes_float)
+            seconds = int((minutes_float - minutes) * 60)
+            return f"{direction}{degrees:02d}{minutes:02d}{seconds:02d}"
+
+        else:
+            direction = 'E' if value >= 0 else 'W'
+            value = abs(value)
+            degrees = int(value)
+            minutes_float = (value - degrees) * 60
+            minutes = int(minutes_float)
+            seconds = int((minutes_float - minutes) * 60)
+            return f"{direction}{degrees:03d}{minutes:02d}{seconds:02d}"
+
+    try:
+        F = open(filename, "w")
+    except:
+        return -1
+
+    F.write("CODE LAT LON\n")
+
+    for airport in airports:
+
+        lat_dms = decimal_to_dms(airport.coordinates[0], True)
+        lon_dms = decimal_to_dms(airport.coordinates[1], False)
+
+        F.write(
+            airport.code + " " +
+            lat_dms + " " +
+            lon_dms + "\n"
+        )
+
+    F.close()
+
+    return 0
 # SAVE SCHENGEN AIRPORTS
 # Aquesta funció desa en un fitxer només els aeroports Schengen
 
