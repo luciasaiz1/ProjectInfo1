@@ -165,11 +165,11 @@ def load_airports():            # Carreguem els aeroports des del fitxer
 
     airports = LoadAirports("Airports.txt")
 
-    if len(airports) == 0:
+    if len(airports) == 0:               # Si no s'ha carregat cap aeroport, avisem l'usuari i parem funció
         messagebox.showerror("Error", "Airports could not be loaded")
         return
 
-    for ap in airports:
+    for ap in airports:     # Marquem si cada aeroport és Schengen
         SetSchengen(ap)
 
     messagebox.showinfo("OK", f"Loaded {len(airports)} airports")
@@ -179,14 +179,14 @@ def load_airports():            # Carreguem els aeroports des del fitxer
 def add_airport():
 
     global airports
-
+    # Normalitzem el codi perquè tots els aeroports segueixin el mateix format ICAO
     code = entry_code.get().strip().upper()
 
     if len(code) != 4:
         messagebox.showerror("Error", "ICAO code must have 4 characters")
         return
 
-    try:
+    try:   # Convertim les coordenades a números
         lat = float(entry_lat.get())
         lon = float(entry_lon.get())
     except:
@@ -197,7 +197,7 @@ def add_airport():
     SetSchengen(airport)
 
     err = AddAirport(airports, airport)
-
+    # Avisem si l'aeroport ja existia
     if err == -1:
         messagebox.showerror("Error", "Airport already exists")
     else:
@@ -207,9 +207,9 @@ def add_airport():
 def remove_airport():
 
     global airports
-
+    #búsqueda
     code = entry_code.get().strip().upper()
-
+    #No eliminem un aeroport si l'usuari no ha escrit cap codi
     if code == "":
         messagebox.showerror("Error", "Write an ICAO code first")
         return
