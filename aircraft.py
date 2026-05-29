@@ -40,7 +40,7 @@ class Aircraft:
 # --------- FUNCIONS AUXILIARS TEMPS ---------
 
 def _parse_time(t):
-    #Converteix una hora 'hh:mm' a minuts des de mitjanit. Retorna None si és invàlida.
+    """Converteix una hora 'hh:mm' a minuts des de mitjanit. Retorna None si és invàlida."""
     if t == "" or ":" not in t:
         return None
     parts = t.split(":")
@@ -126,9 +126,9 @@ def PlotArrivals(aircrafts, fig=None):
             hours[h] += 1
 
     ax.bar(range(24), hours)
-    ax.set_title("Arrivals per hour")
-    ax.set_xlabel("Hour")
-    ax.set_ylabel("Name of arrivals")
+    ax.set_title("Arribades per hora")
+    ax.set_xlabel("Hora")
+    ax.set_ylabel("Nombre d'arribades")
 
     # si no hi ha figura externa, mostrem el gràfic normalment
     if fig is None:
@@ -245,9 +245,9 @@ def PlotFlightsType(aircrafts, fig=None):
         else:
             non_schengen += 1
 
-    ax.bar(["Schengen", "Non-Schengen"], [schengen, non_schengen])
-    ax.set_title("Types of Flights")
-    ax.set_ylabel("Number of flights")
+    ax.bar(["Schengen", "No-Schengen"], [schengen, non_schengen])
+    ax.set_title("Tipus de vols")
+    ax.set_ylabel("Nombre de vols")
 
     if fig is None:
         plt.show()
