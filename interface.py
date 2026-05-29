@@ -843,6 +843,10 @@ def SimulateDayButton():
     show_plot_in_panel(fig)
 
 
+# ============================================================
+# DashboardButton
+# Mostra un resum final de tota la simulació.
+# ============================================================
 def DashboardButton():
 
     if bcn is None or bcn == -1:
@@ -867,7 +871,6 @@ def DashboardButton():
     text += "This dashboard summarizes the full operational day."
 
     show_text_in_panel(text)
-
 
 def PlotArrivalsButton():
 

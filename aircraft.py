@@ -228,8 +228,16 @@ def PlotAirlines(aircrafts, fig=None):
 # Compara vols Schengen vs no Schengen segons l’origen.
 
 
+# ============================================================
+# PlotFlightsType
+# Compara vols Schengen i no Schengen amb una barra apilada.
+# Blau = Schengen.
+# Vermell = Non-Schengen.
+# Ho fem apilat perquè visualment es vegi com abans: un bloc sobre l'altre.
+# ============================================================
 def PlotFlightsType(aircrafts, fig=None):
-    import matplotlib.pyplot as plt
+
+    external_fig = fig is not None
 
     if fig is None:
         fig = plt.figure()
@@ -240,18 +248,41 @@ def PlotFlightsType(aircrafts, fig=None):
     non_schengen = 0
 
     for a in aircrafts:
-        if IsSchengenAirport(a.origin):
+
+        # Si és arribada usem origin; si és sortida/nocturn usem destination
+        airport_code = a.origin
+
+        if airport_code == "":
+            airport_code = a.destination
+
+        if IsSchengenAirport(airport_code):
             schengen += 1
         else:
             non_schengen += 1
 
-    ax.bar(["Schengen", "No-Schengen"], [schengen, non_schengen])
-    ax.set_title("Tipus de vols")
-    ax.set_ylabel("Nombre de vols")
+    # Barra apilada: primer Schengen, després Non-Schengen a sobre
+    ax.bar(
+        ["Flights"],
+        [schengen],
+        label="Schengen",
+        color="#1E88E5"
+    )
 
-    if fig is None:
+    ax.bar(
+        ["Flights"],
+        [non_schengen],
+        bottom=[schengen],
+        label="Non-Schengen",
+        color="#E53935"
+    )
+
+    ax.set_title("Schengen vs Non-Schengen Flights")
+    ax.set_ylabel("Number of Flights")
+    ax.legend()
+    ax.grid(axis="y")
+
+    if not external_fig:
         plt.show()
-
 
 
 # MAP FLIGHTS
