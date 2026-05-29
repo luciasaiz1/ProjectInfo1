@@ -462,7 +462,7 @@ def ExportGateAssignmentsButton():
     if filename == "":
         return
 
-    err = SaveGateAssignments(bcn, filename)
+    err = SaveGateAssignments(bcn, filename)  #guarda les assignacions de portes al fitxer triat
 
     if err == -1:
         messagebox.showerror("Error", "Gate assignments could not be saved")
