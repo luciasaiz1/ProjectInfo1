@@ -396,103 +396,212 @@ def AssignGatesAtTime(bcn, aircrafts, time):
 # si rep una figura, dibuixa dins del panell
 # ============================================================
 
+
+# ============================================================
+# CountOccupiedByTerminal
+# Compta quantes gates ocupades hi ha a cada terminal.
+# ============================================================
+def CountOccupiedByTerminal(bcn):
+
+    result = {}
+
+    for terminal in bcn.terminals:
+
+        count = 0
+
+        for area in terminal.boarding_areas:
+            for gate in area.gates:
+                if gate.occupied:
+                    count += 1
+
+        result[terminal.name] = count
+
+    return result
+
+
+# ============================================================
+# CountTotalGates
+# Compta el total de gates de tot l'aeroport.
+# Serveix per calcular quantes gates queden lliures.
+# ============================================================
+def CountTotalGates(bcn):
+
+    total = 0
+
+    for terminal in bcn.terminals:
+        for area in terminal.boarding_areas:
+            total += len(area.gates)
+
+    return total
+# ============================================================
+# PlotDayOccupancy
+# Simula tot el dia i dibuixa:
+# - gates ocupades en vermell
+# - gates lliures en verd
+# - avions no assignats amb línia discontínua
+# Això fa que el full day cycle torni a mostrar també les free gates.
+# ============================================================
 def PlotDayOccupancy(bcn, aircrafts, fig=None):
+
     import matplotlib.pyplot as plt
     import copy
+
+    external_fig = fig is not None
 
     if fig is None:
         fig = plt.figure()
 
     ax = fig.add_subplot(111)
 
-    # fem una còpia per no modificar l'aeroport real
+    # Fem una còpia per no modificar l'aeroport real de la GUI
     bcn_copy = copy.deepcopy(bcn)
 
+    # A les 00:00 assignem avions nocturns
+    night_result = AssignNightGates(bcn_copy, aircrafts)
+
+    if isinstance(night_result, tuple):
+        night_failed = night_result[1]
+    else:
+        night_failed = 0
+
+    total_gates = CountTotalGates(bcn_copy)
+
     hours = []
-    occupied = []
-    rejected = []
+    occupied_values = []
+    free_values = []
+    rejected_values = []
+
+    rejected_accumulated = night_failed
 
     for h in range(24):
-        time = f"{h:02d}:00"
-        na = AssignGatesAtTime(bcn_copy, aircrafts, time)
 
-        # comptem gates ocupades
-        count = 0
-        for t in bcn_copy.terminals:
-            for a in t.boarding_areas:
-                for g in a.gates:
-                    if g.occupied:
-                        count += 1
+        time = f"{h:02d}:00"
+
+        rejected = AssignGatesAtTime(bcn_copy, aircrafts, time)
+
+        if rejected == -1:
+            rejected = 0
+
+        rejected_accumulated += rejected
+
+        counts = CountOccupiedByTerminal(bcn_copy)
+
+        occupied_total = 0
+
+        for terminal_name in counts:
+            occupied_total += counts[terminal_name]
+
+        free_total = total_gates - occupied_total
 
         hours.append(h)
-        occupied.append(count)
-        rejected.append(na)
+        occupied_values.append(occupied_total)
+        free_values.append(free_total)
+        rejected_values.append(rejected_accumulated)
 
-    ax.plot(hours, occupied, label="Gates ocupades")
-    ax.plot(hours, rejected, label="No assignats")
-    ax.set_title("Ocupació de gates durant el dia")
-    ax.set_xlabel("Hora")
-    ax.set_ylabel("Nombre")
+    # Free gates en verd
+    ax.plot(
+        hours,
+        free_values,
+        marker="o",
+        color="#43A047",
+        label="Free gates"
+    )
+
+    # Occupied gates en vermell
+    ax.plot(
+        hours,
+        occupied_values,
+        marker="o",
+        color="#E53935",
+        label="Occupied gates"
+    )
+
+    # No assignats en negre discontinu
+    ax.plot(
+        hours,
+        rejected_values,
+        marker="x",
+        linestyle="--",
+        color="#263238",
+        label="Not assigned"
+    )
+
+    ax.set_title("Full Day Gate Cycle")
+    ax.set_xlabel("Hour")
+    ax.set_ylabel("Number of gates / aircraft")
+    ax.set_xticks(range(0, 24, 1))
     ax.legend()
     ax.grid()
 
-    if fig is None:
+    if not external_fig:
         plt.show()
 
 # ============================================================
-# SaveGateAssignments
-# Desa l'estat actual de les gates en un fitxer de text.
-# ============================================================
-def SaveGateAssignments(bcn, filename):
-    try:
-        with open(filename, "w", encoding="utf-8") as f:
-            f.write("TERMINAL | AREA | GATE | OCCUPIED | AIRCRAFT_ID\n")
-            f.write("-" * 70 + "\n")
-
-            for terminal in bcn.terminals:
-                for area in terminal.boarding_areas:
-                    for gate in area.gates:
-                        occupied = "YES" if gate.occupied else "NO"
-                        aircraft_id = gate.aircraft_id if gate.occupied else "-"
-                        f.write(f"{terminal.name} | {area.name} | {gate.name} | {occupied} | {aircraft_id}\n")
-
-        return 0  # tot correcte
-    except Exception as e:
-        print("Error saving gate assignments:", e)
-        return -1  # error
-
-# ============================================================
 # DashboardData
-# Calcula dades resum de l'operació diària per mostrar al dashboard.
+# Calcula el resum final de la simulació del dia.
+# Retorna dades que després la GUI mostra al Final Dashboard.
+# Ho fem amb una còpia de l'aeroport per no modificar l'estat real.
 # ============================================================
 def DashboardData(bcn, aircrafts):
-    data = {
-        "arrivals": len([a for a in aircrafts if a.arrival]),
-        "departures": len([a for a in aircrafts if a.departure]),
-        "movements": len(aircrafts),
-        "night_aircraft": len([a for a in aircrafts if a.arrival and int(a.arrival.split(":")[0]) < 6]),
-        "max_occupied": 0,
-        "max_hour": "-",
-        "not_assigned": 0
-    }
 
-    # simulació simple per trobar hora de màxima ocupació
     import copy
+
     bcn_copy = copy.deepcopy(bcn)
-    max_occ = 0
-    max_hour = 0
-    not_assigned_total = 0
+
+    # Assignem avions nocturns a les 00:00
+    night_result = AssignNightGates(bcn_copy, aircrafts)
+
+    # Compatibilitat: si AssignNightGates retorna tuple, l'usem bé
+    if isinstance(night_result, tuple):
+        night_assigned = night_result[0]
+        night_failed = night_result[1]
+    else:
+        night_assigned = 0
+        night_failed = 0
+
+    total_rejected = night_failed
+    max_occupied = 0
+    max_hour = "00:00"
 
     for h in range(24):
-        rejected = AssignGatesAtTime(bcn_copy, aircrafts, f"{h:02d}:00")
-        occupied = sum(1 for t in bcn_copy.terminals for a in t.boarding_areas for g in a.gates if g.occupied)
-        if occupied > max_occ:
-            max_occ = occupied
-            max_hour = h
-        not_assigned_total += rejected
 
-    data["max_occupied"] = max_occ
-    data["max_hour"] = f"{max_hour:02d}:00"
-    data["not_assigned"] = not_assigned_total
+        time = f"{h:02d}:00"
 
-    return data
+        rejected = AssignGatesAtTime(bcn_copy, aircrafts, time)
+
+        if rejected == -1:
+            rejected = 0
+
+        total_rejected += rejected
+
+        counts = CountOccupiedByTerminal(bcn_copy)
+
+        occupied_now = 0
+
+        for terminal_name in counts:
+            occupied_now += counts[terminal_name]
+
+        if occupied_now > max_occupied:
+            max_occupied = occupied_now
+            max_hour = time
+
+    arrivals = 0
+    departures = 0
+
+    for a in aircrafts:
+
+        if a.arrival != "":
+            arrivals += 1
+
+        if a.departure != "":
+            departures += 1
+
+    return {
+        "arrivals": arrivals,
+        "departures": departures,
+        "movements": len(aircrafts),
+        "night_aircraft": night_assigned,
+        "max_occupied": max_occupied,
+        "max_hour": max_hour,
+        "not_assigned": total_rejected
+    }
