@@ -35,17 +35,17 @@ live_running = False
 # ============================================================
 def setup_style():
 
-    style = ttk.Style()
+    style = ttk.Style()         #centralitzem disseny de la interface
     style.theme_use("clam")
 
-    primary = "#1E88E5"
+    primary = "#1E88E5"         #colors principals
     primary_dark = "#1565C0"
     bg = "#ECEFF1"
     text = "#263238"
 
     window.configure(bg=bg)
 
-    style.configure(
+    style.configure(            #disseny dels botons
         "Modern.TButton",
         font=("Segoe UI", 10, "bold"),
         padding=9,
@@ -54,11 +54,11 @@ def setup_style():
         borderwidth=0
     )
 
-    style.map(
+    style.map(                          #canvi color quan ratolí de l'usuari pasa per sobre
         "Modern.TButton",
         background=[("active", primary_dark)]
     )
-
+#canvis de separacio de titols, mida, i mida de titols
     style.configure(
         "Title.TLabel",
         font=("Segoe UI", 20, "bold"),
@@ -87,7 +87,7 @@ def setup_style():
 # create_button
 # Evita repetir codi cada vegada que fem un botó.
 # ============================================================
-def create_button(parent, text, command):
+def create_button(parent, text, command):        #funcio comuna per a crear botons
     return ttk.Button(parent, text=text, command=command, style="Modern.TButton")
 
 
@@ -99,10 +99,10 @@ def clear_visual_panel():
 
     global current_plot_widget
 
-    for widget in visual_area.winfo_children():
+    for widget in visual_area.winfo_children():     # Netegem aquesta zona abans de mostrar una nova gràfica o resultat
         widget.destroy()
 
-    current_plot_widget = None
+    current_plot_widget = None          #Reiniciem per evitar treballar amb gràfiques antigues
 
 
 # ============================================================
@@ -159,7 +159,7 @@ def ensure_airports_loaded():
 # ============================================================
 # V1 — AIRPORT MANAGEMENT
 # ============================================================
-def load_airports():
+def load_airports():            # Carreguem els aeroports des del fitxer
 
     global airports
 
