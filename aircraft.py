@@ -228,7 +228,6 @@ def PlotAirlines(aircrafts, fig=None):
 # Compara vols Schengen vs no Schengen segons l’origen.
 
 
-# ============================================================
 # PlotFlightsType
 # Compara vols Schengen i no Schengen amb una barra apilada.
 # Blau = Schengen.
