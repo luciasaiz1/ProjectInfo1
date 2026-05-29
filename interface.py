@@ -405,13 +405,13 @@ def BuildLEBLStructureButton():
 # ============================================================
 def AssignGatesButton():
 
-    global bcn
+    global bcn      #permet modificar la variable global de l’aeroport
 
     if len(merged) == 0:
         messagebox.showwarning("Warning", "Load and merge movements first")
         return
 
-    bcn = LoadAirportStructure("LEBL.txt")
+    bcn = LoadAirportStructure("LEBL.txt")      #carrega l’estructura de l’aeroport LEBL
 
     if bcn == -1:
         messagebox.showerror("Error", "LEBL structure could not be loaded")
@@ -435,11 +435,11 @@ def ShowGateOccupancyButton():
         messagebox.showwarning("Warning", "Build LEBL structure first")
         return
 
-    occupancy = GateOccupancy(bcn)
+    occupancy = GateOccupancy(bcn)      #calcula l’estat de totes les portes
 
     text = "TERMINAL | AREA | GATE | STATUS\n"
     text += "-" * 70 + "\n"
-
+    #recorre cada porta i mostra si està lliure o ocupada
     for terminal, area, gate, occupied, aircraft_id in occupancy:
         status = "Occupied by " + aircraft_id if occupied else "Free"
         text += f"{terminal} | {area} | {gate} | {status}\n"
