@@ -248,7 +248,7 @@ def map_airports():
         messagebox.showerror("Error", "KML could not be created")
         return
 
-    try:
+    try:        #obrim el mapa automàticament
         os.startfile(kml_path)
     except:
         messagebox.showinfo("OK", f"KML created at:\n{kml_path}")
@@ -263,7 +263,7 @@ def LoadArrivalsButton():
 
     global arrivals
 
-    filename = filedialog.askopenfilename(
+    filename = filedialog.askopenfilename(      #usuari tria el fitxer
         title="Select arrivals file",
         filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
     )
@@ -271,10 +271,11 @@ def LoadArrivalsButton():
     if filename == "":
         return
 
-    arrivals = LoadArrivals(filename)
+    arrivals = LoadArrivals(filename)   #carreguem les arribades
 
     if len(arrivals) == 0:
         messagebox.showerror("Error", "No arrivals loaded")
+        # Confirmem la càrrega i mostrem el resultat també al panell visual
     else:
         messagebox.showinfo("OK", f"Loaded {len(arrivals)} arrivals")
         show_text_in_panel(f"Arrivals loaded: {len(arrivals)}")
@@ -304,7 +305,7 @@ def LoadDeparturesButton():
 def MergeMovementsButton():
 
     global merged
-
+    #arribades i sortides
     if len(arrivals) == 0:
         messagebox.showwarning("Warning", "Load arrivals first")
         return
@@ -313,9 +314,9 @@ def MergeMovementsButton():
         messagebox.showwarning("Warning", "Load departures first")
         return
 
-    merged = MergeMovements(arrivals, departures)
+    merged = MergeMovements(arrivals, departures)       #unim arribades i sortides en una sola llista
 
-    night = NightAircraft(merged)
+    night = NightAircraft(merged)       #calculem els avions que passen la nit
 
     messagebox.showinfo("OK", f"Merged movements: {len(merged)}")
     show_text_in_panel(
