@@ -180,45 +180,11 @@ def LoadAirports(filename):
         i += 1
 
     return airports
-# ============================================================
-# LiveGateStep
-# Avança la simulació una hora i redibuixa el mapa físic.
-# ============================================================
-def LiveGateStep():
 
-    global live_hour
-    global live_running
-    global live_bcn
-
-    if not live_running:
-        return
-
-    if physical_map_window is None or not physical_map_window.winfo_exists():
-        live_running = False
-        return
-
-    if live_hour > 23:
-        live_running = False
-        DrawPhysicalGateMap(live_bcn, "End of day", 0)
-        messagebox.showinfo("Simulation finished", "Full day live simulation completed")
-        return
-
-    time = f"{live_hour:02d}:00"
-
-    rejected = AssignGatesAtTime(live_bcn, merged, time)
-
-    DrawPhysicalGateMap(live_bcn, time, rejected)
-
-    live_hour += 1
-
-    # Velocitat del live map: 900 ms = 1 hora
-    window.after(900, LiveGateStep)
-
-# ============================================================
 # SAVE AIRPORTS
 # Desa tots els aeroports, no només els Schengen.
 # Això cobreix millor el requisit de guardar dades d'aeroports.
-# ============================================================
+
 def SaveAirports(airports, filename):
 
     if len(airports) == 0:
