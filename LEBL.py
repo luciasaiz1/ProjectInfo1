@@ -248,6 +248,28 @@ def SearchTerminal(bcn, name):
 # ASSIGN GATE
 
 
+# ============================================================
+# _movement_airport_code
+# Decideix quin aeroport usem per saber si el moviment és Schengen.
+# Si és una arribada usem origin.
+# Si és un avió nocturn o una sortida usem destination.
+# ============================================================
+def _movement_airport_code(aircraft):
+
+    if aircraft.origin != "":
+        return aircraft.origin
+
+    return aircraft.destination
+
+
+# ============================================================
+# AssignGate
+# Assigna una gate lliure a un avió.
+# Procés:
+# 1) companyia -> terminal
+# 2) origin/destination -> Schengen o non-Schengen
+# 3) primera gate lliure dins l'àrea correcta
+# ============================================================
 def AssignGate(bcn, aircraft):
 
     terminal_name = SearchTerminal(bcn, aircraft.airline)
@@ -255,7 +277,12 @@ def AssignGate(bcn, aircraft):
     if terminal_name == "":
         return -1
 
-    flight_is_schengen = IsSchengenAirport(aircraft.origin)
+    airport_code = _movement_airport_code(aircraft)
+
+    if airport_code == "":
+        return -1
+
+    flight_is_schengen = IsSchengenAirport(airport_code)
 
     for terminal in bcn.terminals:
 
@@ -263,7 +290,6 @@ def AssignGate(bcn, aircraft):
 
             for area in terminal.boarding_areas:
 
-                # àrea correcta segons tipus de vol
                 if flight_is_schengen and area.area_type.lower() == "schengen":
                     correct_area = True
                 elif (not flight_is_schengen) and area.area_type.lower() != "schengen":
@@ -276,15 +302,11 @@ def AssignGate(bcn, aircraft):
                     for gate in area.gates:
 
                         if not gate.occupied:
-
                             gate.occupied = True
                             gate.aircraft_id = aircraft.aircraft_id
-
                             return gate.name
 
     return -1
-
-
 
 # FREE GATE
 
@@ -305,15 +327,30 @@ def FreeGate(bcn, aircraft_id):
 
 # ASSIGN NIGHT GATES
 
+# ============================================================
+# AssignNightGates
+# Assigna gates als avions que ja estaven a LEBL a les 00:00.
+# Són avions que tenen departure però no tenen arrival.
+# Retorna quants s'han assignat i quants han fallat.
+# ============================================================
 def AssignNightGates(bcn, aircrafts):
+
+    assigned = 0
+    failed = 0
 
     for a in aircrafts:
 
+        # Avió nocturn: no arriba durant el dia, però sí que surt
         if a.arrival == "" and a.departure != "":
-            AssignGate(bcn, a)
 
-    return 0
+            gate_name = AssignGate(bcn, a)
 
+            if gate_name == -1:
+                failed += 1
+            else:
+                assigned += 1
+
+    return assigned, failed
 
 
 # ASSIGN GATES AT TIME

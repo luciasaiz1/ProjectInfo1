@@ -7,6 +7,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from airport import *
 from aircraft import *
+from aircraft import _parse_time
 from LEBL import *
 
 
@@ -20,6 +21,11 @@ departures = []
 merged = []
 bcn = None
 current_plot_widget = None
+
+# Variables per fer la simulació física en directe
+live_bcn = None
+live_hour = 0
+live_running = False
 
 
 # ============================================================
@@ -87,7 +93,7 @@ def create_button(parent, text, command):
 
 # ============================================================
 # clear_visual_panel
-# Esborra el panell dret abans de posar un nou gràfic o text.
+# Esborra el panell dret abans de posar un nou gràfic, text o mapa.
 # ============================================================
 def clear_visual_panel():
 
@@ -328,7 +334,7 @@ def ShowMovementsButton():
         return
 
     text = "AIRCRAFT | ORIGIN | ARRIVAL | DESTINATION | DEPARTURE | AIRLINE\n"
-    text += "-" * 75 + "\n"
+    text += "-" * 90 + "\n"
 
     for a in merged:
         text += f"{a.aircraft_id} | {a.origin or '-'} | {a.arrival or '-'} | {a.destination or '-'} | {a.departure or '-'} | {a.airline}\n"
@@ -387,6 +393,14 @@ def BuildLEBLStructureButton():
     )
 
 
+# ============================================================
+# AssignGatesButton
+# Crea l'estat inicial de gates.
+# IMPORTANT: no assignem tots els vols del dia aquí,
+# perquè això ompliria gates sense alliberar-les.
+# Només assignem avions nocturns, que ja estan a LEBL a les 00:00.
+# La resta es fa amb Simulate Hour o Start Live Gate Map.
+# ============================================================
 def AssignGatesButton():
 
     global bcn
@@ -401,28 +415,18 @@ def AssignGatesButton():
         messagebox.showerror("Error", "LEBL structure could not be loaded")
         return
 
+    # Assignem només avions nocturns
     night_assigned, night_failed = AssignNightGates(bcn, merged)
 
-    assigned = night_assigned
-    failed = night_failed
-
-    # Assignació estàtica per obtenir una foto inicial de portes ocupades
-    for a in merged:
-        if a.arrival != "":
-            gate_name = AssignGate(bcn, a)
-            if gate_name == -1:
-                failed += 1
-            else:
-                assigned += 1
-
     messagebox.showinfo(
-        "Gate Assignment",
-        f"Assigned: {assigned}\nNot assigned: {failed}"
+        "Initial Gate Assignment",
+        "Initial gate state created.\n\n" +
+        "Night aircraft assigned: " + str(night_assigned) + "\n" +
+        "Night aircraft not assigned: " + str(night_failed) + "\n\n" +
+        "Use Simulate Hour or Start Live Gate Map for the full day."
     )
 
-    ShowGateOccupancyButton()
-
-
+    DrawPhysicalGateMap(bcn, "00:00 initial state", night_failed)
 def ShowGateOccupancyButton():
 
     if bcn is None or bcn == -1:
@@ -432,13 +436,358 @@ def ShowGateOccupancyButton():
     occupancy = GateOccupancy(bcn)
 
     text = "TERMINAL | AREA | GATE | STATUS\n"
-    text += "-" * 60 + "\n"
+    text += "-" * 70 + "\n"
 
     for terminal, area, gate, occupied, aircraft_id in occupancy:
         status = "Occupied by " + aircraft_id if occupied else "Free"
         text += f"{terminal} | {area} | {gate} | {status}\n"
 
     show_text_in_panel(text)
+
+
+def ExportGateAssignmentsButton():
+
+    if bcn is None or bcn == -1:
+        messagebox.showerror("Error", "Load or assign gates first")
+        return
+
+    filename = filedialog.asksaveasfilename(
+        title="Save gate assignments",
+        defaultextension=".txt",
+        filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
+    )
+
+    if filename == "":
+        return
+
+    err = SaveGateAssignments(bcn, filename)
+
+    if err == -1:
+        messagebox.showerror("Error", "Gate assignments could not be saved")
+    else:
+        messagebox.showinfo("OK", "Gate assignments saved")
+
+
+# ============================================================
+# DRAW PHYSICAL GATE MAP
+# Dibuixa l'aeroport com si fos físic:
+# terminal, boarding areas i gates lliures/ocupades.
+# Verd = gate lliure.
+# Vermell = gate ocupada.
+# ============================================================
+def DrawPhysicalGateMap(bcn_state, hour_label="", rejected=0):
+
+    clear_visual_panel()
+
+    container = Frame(visual_area, bg="white")
+    container.pack(fill=BOTH, expand=True)
+
+    v_scroll = Scrollbar(container, orient=VERTICAL)
+    h_scroll = Scrollbar(container, orient=HORIZONTAL)
+
+    canvas = Canvas(
+        container,
+        bg="white",
+        yscrollcommand=v_scroll.set,
+        xscrollcommand=h_scroll.set
+    )
+
+    v_scroll.config(command=canvas.yview)
+    h_scroll.config(command=canvas.xview)
+
+    v_scroll.pack(side=RIGHT, fill=Y)
+    h_scroll.pack(side=BOTTOM, fill=X)
+    canvas.pack(side=LEFT, fill=BOTH, expand=True)
+
+    title = "LIVE GATE MANAGEMENT"
+
+    if hour_label != "":
+        title += " — " + hour_label
+
+    canvas.create_text(
+        40, 25,
+        text=title,
+        anchor="w",
+        font=("Segoe UI", 18, "bold"),
+        fill="#263238"
+    )
+
+    # Llegenda
+    canvas.create_rectangle(40, 55, 58, 73, fill="#43A047", outline="black")
+    canvas.create_text(65, 64, text="Free gate", anchor="w", font=("Segoe UI", 10))
+
+    canvas.create_rectangle(160, 55, 178, 73, fill="#E53935", outline="black")
+    canvas.create_text(185, 64, text="Occupied gate", anchor="w", font=("Segoe UI", 10))
+
+    canvas.create_rectangle(310, 55, 328, 73, fill="#0E5A70", outline="black")
+    canvas.create_text(335, 64, text="Terminal / Boarding Area", anchor="w", font=("Segoe UI", 10))
+
+    canvas.create_text(
+        40, 90,
+        text="Rejected aircraft this hour: " + str(rejected),
+        anchor="w",
+        font=("Segoe UI", 11, "bold"),
+        fill="#B71C1C"
+    )
+
+    start_x = 60
+    start_y = 140
+
+    area_gap = 165
+    gate_size = 11
+    gate_spacing = 17
+
+    page_width = 1400
+    page_height = 900
+
+    terminal_index = 0
+
+    for terminal in bcn_state.terminals:
+
+        terminal_y = start_y + terminal_index * 560
+
+        max_rows = 0
+
+        for area in terminal.boarding_areas:
+            rows = (len(area.gates) + 1) // 2
+            if rows > max_rows:
+                max_rows = rows
+
+        pier_height = max(260, max_rows * gate_spacing + 70)
+        corridor_width = max(900, len(terminal.boarding_areas) * area_gap + 80)
+
+        # Nom del terminal
+        canvas.create_text(
+            start_x,
+            terminal_y - 35,
+            text="Terminal " + terminal.name,
+            anchor="w",
+            font=("Segoe UI", 16, "bold"),
+            fill="#263238"
+        )
+
+        # Passadís principal
+        canvas.create_rectangle(
+            start_x,
+            terminal_y,
+            start_x + corridor_width,
+            terminal_y + 28,
+            fill="#0E5A70",
+            outline="#083A47"
+        )
+
+        area_index = 0
+
+        for area in terminal.boarding_areas:
+
+            pier_x = start_x + 50 + area_index * area_gap
+            pier_y = terminal_y + 28
+
+            # Boarding area vertical
+            canvas.create_rectangle(
+                pier_x,
+                pier_y,
+                pier_x + 28,
+                pier_y + pier_height,
+                fill="#0E5A70",
+                outline="#083A47"
+            )
+
+            canvas.create_text(
+                pier_x + 14,
+                pier_y + pier_height + 25,
+                text=terminal.name + "BA" + area.name,
+                font=("Segoe UI", 11, "bold"),
+                fill="#263238"
+            )
+
+            canvas.create_text(
+                pier_x + 14,
+                pier_y + pier_height + 43,
+                text=area.area_type,
+                font=("Segoe UI", 8),
+                fill="#546E7A"
+            )
+
+            gate_index = 0
+
+            for gate in area.gates:
+
+                row = gate_index // 2
+                left_side = gate_index % 2 == 0
+
+                gate_y = pier_y + 40 + row * gate_spacing
+
+                if left_side:
+                    gate_x = pier_x - 48
+
+                    canvas.create_line(
+                        gate_x + gate_size,
+                        gate_y + gate_size // 2,
+                        pier_x,
+                        gate_y + gate_size // 2,
+                        fill="#263238",
+                        width=2
+                    )
+
+                else:
+                    gate_x = pier_x + 65
+
+                    canvas.create_line(
+                        pier_x + 28,
+                        gate_y + gate_size // 2,
+                        gate_x,
+                        gate_y + gate_size // 2,
+                        fill="#263238",
+                        width=2
+                    )
+
+                if gate.occupied:
+                    color = "#E53935"
+                else:
+                    color = "#43A047"
+
+                canvas.create_rectangle(
+                    gate_x,
+                    gate_y,
+                    gate_x + gate_size,
+                    gate_y + gate_size,
+                    fill=color,
+                    outline="black"
+                )
+
+                # Mostrem aircraft_id si està ocupada
+                if gate.occupied:
+                    if left_side:
+                        text_x = gate_x - 4
+                        anchor = "e"
+                    else:
+                        text_x = gate_x + gate_size + 4
+                        anchor = "w"
+
+                    canvas.create_text(
+                        text_x,
+                        gate_y + gate_size // 2,
+                        text=gate.aircraft_id,
+                        anchor=anchor,
+                        font=("Segoe UI", 6),
+                        fill="#B71C1C"
+                    )
+
+                # Mostrem alguns números de gate per orientar-nos
+                if gate_index % 8 == 0:
+                    if left_side:
+                        label_x = gate_x - 4
+                        anchor = "e"
+                    else:
+                        label_x = gate_x + gate_size + 4
+                        anchor = "w"
+
+                    gate_number = gate.name.split("_G")[-1]
+
+                    canvas.create_text(
+                        label_x,
+                        gate_y + gate_size + 7,
+                        text=gate_number,
+                        anchor=anchor,
+                        font=("Segoe UI", 6),
+                        fill="#455A64"
+                    )
+
+                gate_index += 1
+
+            area_index += 1
+
+        page_height = terminal_y + pier_height + 140
+        terminal_index += 1
+
+    canvas.config(scrollregion=(0, 0, page_width, page_height + 100))
+
+
+# ============================================================
+# PhysicalGateMapButton
+# Mostra el mapa físic actual de gates.
+# ============================================================
+def PhysicalGateMapButton():
+
+    if bcn is None or bcn == -1:
+        messagebox.showwarning("Warning", "Build LEBL structure first")
+        return
+
+    DrawPhysicalGateMap(bcn, "Current state", 0)
+
+
+# ============================================================
+# StartLiveGateMapButton
+# Inicia una simulació visual en directe hora a hora.
+# Cada 900 ms representa una hora del dia.
+# ============================================================
+def StartLiveGateMapButton():
+
+    global live_bcn
+    global live_hour
+    global live_running
+
+    if bcn is None or bcn == -1:
+        messagebox.showwarning("Warning", "Build LEBL structure first")
+        return
+
+    if len(merged) == 0:
+        messagebox.showwarning("Warning", "Load and merge movements first")
+        return
+
+    live_bcn = copy.deepcopy(bcn)
+
+    # A les 00:00 ja hi ha avions nocturns ocupant gates
+    AssignNightGates(live_bcn, merged)
+
+    live_hour = 0
+    live_running = True
+
+    LiveGateStep()
+
+
+# ============================================================
+# StopLiveGateMapButton
+# Atura l'animació del mapa de gates.
+# ============================================================
+def StopLiveGateMapButton():
+
+    global live_running
+
+    live_running = False
+    show_text_in_panel("Live gate simulation stopped.")
+
+
+# ============================================================
+# LiveGateStep
+# Fa avançar la simulació una hora.
+# Allibera gates, assigna arribades i redibuixa el mapa físic.
+# ============================================================
+def LiveGateStep():
+
+    global live_hour
+    global live_running
+    global live_bcn
+
+    if not live_running:
+        return
+
+    if live_hour > 23:
+        live_running = False
+        DrawPhysicalGateMap(live_bcn, "End of day", 0)
+        messagebox.showinfo("Simulation finished", "Full day live simulation completed")
+        return
+
+    time = f"{live_hour:02d}:00"
+
+    rejected = AssignGatesAtTime(live_bcn, merged, time)
+
+    DrawPhysicalGateMap(live_bcn, time, rejected)
+
+    live_hour += 1
+
+    window.after(900, LiveGateStep)
 
 
 # ============================================================
@@ -460,34 +809,21 @@ def SimulateHourButton():
         messagebox.showerror("Error", "Write a valid hour as hh:mm")
         return
 
-    # Fem una còpia per simular sense destruir l'estat real
     bcn_copy = copy.deepcopy(bcn)
+
+    # Assignem avions nocturns a les 00:00
     AssignNightGates(bcn_copy, merged)
 
     target_hour = int(time.split(":")[0])
     rejected_total = 0
 
-    for h in range(target_hour + 1):
+    h = 0
+
+    while h <= target_hour:
         rejected_total += AssignGatesAtTime(bcn_copy, merged, f"{h:02d}:00")
+        h += 1
 
-    counts = CountOccupiedByTerminal(bcn_copy)
-    occ = GateOccupancy(bcn_copy)
-
-    text = f"SIMULATION AT {time}\n"
-    text += "-" * 50 + "\n"
-
-    for terminal in counts:
-        text += f"Occupied gates {terminal}: {counts[terminal]}\n"
-
-    text += f"Rejected until this hour: {rejected_total}\n\n"
-    text += "CURRENT OCCUPANCY\n"
-    text += "-" * 50 + "\n"
-
-    for terminal, area, gate, occupied, aircraft_id in occ:
-        if occupied:
-            text += f"{terminal} | {area} | {gate} | {aircraft_id}\n"
-
-    show_text_in_panel(text)
+    DrawPhysicalGateMap(bcn_copy, time, rejected_total)
 
 
 def SimulateDayButton():
@@ -531,29 +867,6 @@ def DashboardButton():
     text += "This dashboard summarizes the full operational day."
 
     show_text_in_panel(text)
-
-
-def ExportGateAssignmentsButton():
-
-    if bcn is None or bcn == -1:
-        messagebox.showerror("Error", "Load or assign gates first")
-        return
-
-    filename = filedialog.asksaveasfilename(
-        title="Save gate assignments",
-        defaultextension=".txt",
-        filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
-    )
-
-    if filename == "":
-        return
-
-    err = SaveGateAssignments(bcn, filename)
-
-    if err == -1:
-        messagebox.showerror("Error", "Gate assignments could not be saved")
-    else:
-        messagebox.showinfo("OK", "Gate assignments saved")
 
 
 def PlotArrivalsButton():
@@ -631,7 +944,7 @@ def MapLongDistanceButton():
 # ============================================================
 window = Tk()
 window.title("Airport Manager — Professional Edition")
-window.geometry("1400x900")
+window.geometry("1500x900")
 window.configure(bg="#ECEFF1")
 
 setup_style()
@@ -644,7 +957,7 @@ main_frame.pack(fill=BOTH, expand=True, padx=20, pady=10)
 main_frame.columnconfigure(0, weight=1)
 main_frame.columnconfigure(1, weight=1)
 main_frame.columnconfigure(2, weight=1)
-main_frame.columnconfigure(3, weight=2)
+main_frame.columnconfigure(3, weight=3)
 
 
 # ============================================================
@@ -695,7 +1008,8 @@ ttk.Label(col2, text="Gate Assignment", style="Section.TLabel").pack(pady=10)
 
 create_button(col2, "Build LEBL Structure", BuildLEBLStructureButton).pack(pady=5, fill=X)
 create_button(col2, "Assign Gates", AssignGatesButton).pack(pady=5, fill=X)
-create_button(col2, "Gate Occupancy", ShowGateOccupancyButton).pack(pady=5, fill=X)
+create_button(col2, "Gate Occupancy Text", ShowGateOccupancyButton).pack(pady=5, fill=X)
+create_button(col2, "Physical Gate Map", PhysicalGateMapButton).pack(pady=5, fill=X)
 create_button(col2, "Export Gate Assignments", ExportGateAssignmentsButton).pack(pady=5, fill=X)
 
 
@@ -724,7 +1038,9 @@ entry_hour.insert(0, "08:00")
 entry_hour.pack(side=LEFT, padx=5)
 
 create_button(col3, "Simulate Hour", SimulateHourButton).pack(pady=5, fill=X)
-create_button(col3, "Simulate Full Day", SimulateDayButton).pack(pady=5, fill=X)
+create_button(col3, "Start Live Gate Map", StartLiveGateMapButton).pack(pady=5, fill=X)
+create_button(col3, "Stop Live Gate Map", StopLiveGateMapButton).pack(pady=5, fill=X)
+create_button(col3, "Simulate Full Day Chart", SimulateDayButton).pack(pady=5, fill=X)
 create_button(col3, "Final Dashboard", DashboardButton).pack(pady=5, fill=X)
 
 
@@ -745,9 +1061,11 @@ show_text_in_panel(
     "2) Load Departures\n"
     "3) Merge Movements\n"
     "4) Build LEBL Structure\n"
-    "5) Simulate Full Day or Final Dashboard"
+    "5) Physical Gate Map or Start Live Gate Map\n\n"
+    "Green gates = free\n"
+    "Red gates = occupied"
 )
 
-create_button(window, "Exit", window.destroy).pack(pady=20)
+create_button(window, "Exit", window.destroy).pack(pady=15)
 
 window.mainloop()
