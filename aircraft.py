@@ -273,17 +273,13 @@ def PlotFlightsType(aircrafts, fig=None):
         plt.show()  # Només mostrem si no és figura externa
 
 
-# MAP FLIGHTS
-# Genera un fitxer KML amb les rutes dels vols cap a LEBL
-# Només rep aircrafts i carrega Airports.txt internament
 
-# ============================================================
 # MapFlights
 # Genera un KML amb trajectòries de vols.
 # Si el vol té origin, dibuixa origin -> LEBL.
 # Si el vol té destination, dibuixa LEBL -> destination.
 # Així cobrim arribades i sortides.
-# ============================================================
+
 def MapFlights(aircrafts, airports):
 
     if len(aircrafts) == 0:

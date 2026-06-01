@@ -423,14 +423,7 @@ def AssignGatesAtTime(bcn, aircrafts, time):
                 not_assigned += 1
 
     return not_assigned
-# PLOT DAY OCCUPANCY
 
-
-# ============================================================
-# PLOT DAY OCCUPANCY
-# mostra l'ocupació de gates durant tot el dia
-# si rep una figura, dibuixa dins del panell
-# ============================================================
 
 
 # ============================================================
@@ -469,15 +462,7 @@ def CountTotalGates(bcn):
             total += len(area.gates)
 
     return total
-# ============================================================
-# PlotDayOccupancy
-# Simula tot el dia i dibuixa:
-# - gates ocupades en vermell
-# - gates lliures en verd
-# - avions no assignats amb línia discontínua
-# Això fa que el full day cycle torni a mostrar també les free gates.
-# ============================================================
-# ============================================================
+
 # PlotDayOccupancy
 # Simula tot el dia i dibuixa l'ocupació per terminal.
 # Això compleix millor la rúbrica:

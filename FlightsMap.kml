@@ -1,799 +1,5972 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
 <Document>
-<Style id="schengen">
+<Style id="arrival_schengen">
 <LineStyle><color>ff00ff00</color><width>3</width></LineStyle>
 </Style>
-<Style id="nonschengen">
+<Style id="arrival_nonschengen">
 <LineStyle><color>ff0000ff</color><width>3</width></LineStyle>
 </Style>
+<Style id="departure">
+<LineStyle><color>ffff9900</color><width>3</width></LineStyle>
+</Style>
 <Placemark>
-<name>ECMKN: LGSR - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>ECMKV ARRIVAL: LIRP - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-25.479166666666664,36.399166666666666,0 2.0783333333333336,41.29694444444444,0
+10.39472222222222,43.68222222222222,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N761AJ: KJFK - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECJGM ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--73.77833333333334,40.640277777777776,0 2.0783333333333336,41.29694444444444,0
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMAI: BIKF - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>ECLOB ARRIVAL: EHAM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--22.605555555555558,63.985,0 2.0783333333333336,41.29694444444444,0
+4.764166666666667,52.30722222222222,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECLZZ: URKK - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLOB DEPARTURE: LEBL - LEMG</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-39.169999999999995,45.03472222222222,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 -4.498333333333333,36.674166666666665,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>VQBTN: UUEE - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLVC ARRIVAL: LEGR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-37.41305555555555,55.972500000000004,0 2.0783333333333336,41.29694444444444,0
+-3.776388888888889,37.187777777777775,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>OHLZD: EFHK - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>ECLVC DEPARTURE: LEBL - LEIB</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-24.96333333333333,60.31722222222223,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 1.3730555555555557,38.8725,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N823NW: KATL - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>DALEC ARRIVAL: EBBR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--84.43333333333334,33.63333333333333,0 2.0783333333333336,41.29694444444444,0
+4.484444444444445,50.900555555555556,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMEA: ULLI - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>DALEC DEPARTURE: LEBL - EDDP</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-30.2625,59.80027777777777,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 12.235555555555555,51.42388888888889,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECLZN: LGMK - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>N327UP ARRIVAL: LEVC - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-25.34722222222222,37.43722222222222,0 2.0783333333333336,41.29694444444444,0
+-0.4816666666666667,39.489444444444445,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMGE: UUDD - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>N327UP DEPARTURE: LEBL - EDDK</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-37.906388888888884,55.40861111111111,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 7.142777777777778,50.865833333333335,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMEQ: OLBA - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMKN ARRIVAL: EDDV - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-35.49,33.81916666666667,0 2.0783333333333336,41.29694444444444,0
+9.683333333333334,52.46027777777778,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N76054: KEWR - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMKN DEPARTURE: LEBL - EPKK</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--74.16833333333334,40.696666666666665,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 19.784722222222225,50.07777777777778,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>9VSWD: SBGR - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>DALEN ARRIVAL: EDDP - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--46.47,-23.433333333333334,0 2.0783333333333336,41.29694444444444,0
+12.235555555555555,51.42388888888889,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>TCJNZ: LTBA - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>DALEN DEPARTURE: LEBL - EDDP</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-28.81416666666667,40.976111111111116,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 12.235555555555555,51.42388888888889,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>CGHLQ: CYUL - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMKT ARRIVAL: EFHK - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--73.74138888888889,45.46805555555556,0 2.0783333333333336,41.29694444444444,0
+24.963055555555556,60.31722222222223,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMBK: UWKD - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMKT DEPARTURE: LEBL - LGAV</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-49.280277777777776,55.606944444444444,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 23.944444444444446,37.93583333333333,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECLUT: LLBG - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>N920FD ARRIVAL: LFPG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-34.885555555555555,32.00944444444445,0 2.0783333333333336,41.29694444444444,0
+2.5469444444444442,49.00972222222222,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N790AN: KMIA - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>OEIBZ ARRIVAL: EBLG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--80.28333333333333,25.8,0 2.0783333333333336,41.29694444444444,0
+5.441944444444444,50.63611111111111,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMMU: GCLP - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>OEIBZ DEPARTURE: LEBL - LFML</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--15.386666666666667,27.931944444444447,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 5.214166666666667,43.43583333333333,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>LNRNO: ENGM - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>EIDPG ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29694444444444,0
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N290AY: KPHL - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>EIDPG DEPARTURE: LEBL - LEPA</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--75.245,39.87,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 2.738888888888889,39.55083333333333,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>VQBHK: UUEE - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLTG ARRIVAL: LFBT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-37.41305555555555,55.972500000000004,0 2.0783333333333336,41.29694444444444,0
+-0.002777777777777778,43.18472222222222,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMMH: GCXO - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>N761AJ ARRIVAL: KJFK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--16.341666666666665,28.482777777777777,0 2.0783333333333336,41.29694444444444,0
+-73.77833333333334,40.64,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>VPBWG: ULLI - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>N761AJ DEPARTURE: LEBL - KJFK</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-30.2625,59.80027777777777,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 -73.77833333333334,40.64,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>LNNGP: ENGM - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>EIFJP ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29694444444444,0
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N900JG: LLBG - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>EIFJP DEPARTURE: LEBL - LEPA</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-34.885555555555555,32.00944444444445,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 2.738888888888889,39.55083333333333,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>CFIYE: CYYZ - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECKRH ARRIVAL: LEMH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--79.63055555555555,43.67722222222222,0 2.0783333333333336,41.29694444444444,0
+4.2186111111111115,39.862500000000004,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECLQK: LLBG - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECKRH DEPARTURE: LEBL - LECO</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-34.885555555555555,32.00944444444445,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 -8.377222222222223,43.301944444444445,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N803NW: KJFK - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLVV ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--73.77833333333334,40.640277777777776,0 2.0783333333333336,41.29694444444444,0
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N283AY: KCLT - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLVV DEPARTURE: LEBL - LEPA</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--80.95,35.21666666666667,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 2.738888888888889,39.55083333333333,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>CFDAT: CYUL - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLYB ARRIVAL: LEMH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--73.74138888888889,45.46805555555556,0 2.0783333333333336,41.29694444444444,0
+4.2186111111111115,39.862500000000004,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>CGTSW: CYYZ - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLYB DEPARTURE: LEBL - LEMH</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--79.63055555555555,43.67722222222222,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 4.2186111111111115,39.862500000000004,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N76062: KIAD - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLXV ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--77.45666666666666,38.94499999999999,0 2.0783333333333336,41.29694444444444,0
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>URPSS: UKBB - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLXV DEPARTURE: LEBL - LEPA</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-30.893333333333334,50.344722222222224,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 2.738888888888889,39.55083333333333,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>4XELD: LLBG - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>PHXRD ARRIVAL: EHAM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-34.885555555555555,32.00944444444445,0 2.0783333333333336,41.29694444444444,0
+4.764166666666667,52.30722222222222,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>TCJVM: LTFJ - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>PHXRD DEPARTURE: LEBL - EHAM</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-29.309166666666666,40.89833333333333,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 4.764166666666667,52.30722222222222,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>URPSO: UKBB - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMAI ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-30.893333333333334,50.344722222222224,0 2.0783333333333336,41.29694444444444,0
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>A7AEC: OTHH - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMAI DEPARTURE: LEBL - UUEE</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-51.608333333333334,25.274444444444445,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 37.4125,55.972500000000004,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>A6EOP: OMDB - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>GRAJG ARRIVAL: EBOS - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-55.36,25.249166666666667,0 2.0783333333333336,41.29694444444444,0
+2.8622222222222224,51.198055555555555,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>TCJHZ: LTBA - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>GRAJG DEPARTURE: LEBL - EBOS</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-28.81416666666667,40.976111111111116,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 2.8622222222222224,51.198055555555555,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>EIDHT: EYVI - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>GEZWE ARRIVAL: LIMC - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-25.28777777777778,54.636944444444445,0 2.0783333333333336,41.29694444444444,0
+8.723055555555556,45.63,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>TCCPG: LTFJ - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>GEZWE DEPARTURE: LEBL - LIMC</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-29.309166666666666,40.89833333333333,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 8.723055555555556,45.63,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>SUGCE: HECA - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>EIFOG ARRIVAL: LEZL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-31.413888888888888,30.11138888888889,0 2.0783333333333336,41.29694444444444,0
+-5.898055555555555,37.41722222222222,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N969AV: SKBO - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>EIFOG DEPARTURE: LEBL - LEZL</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--74.15,4.7,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 -5.898055555555555,37.41722222222222,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>EIFJL: ENBR - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>DAIQE ARRIVAL: EDDS - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-5.218055555555556,60.29361111111111,0 2.0783333333333336,41.29694444444444,0
+9.221944444444444,48.689166666666665,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>EIFJM: ESSA - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>DAIQE DEPARTURE: LEBL - EDDS</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-17.91861111111111,59.651944444444446,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 9.221944444444444,48.689166666666665,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>OYRUP: GCXO - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>OOJEM ARRIVAL: EBAW - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--16.341666666666665,28.482777777777777,0 2.0783333333333336,41.29694444444444,0
+4.460277777777778,51.18861111111111,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>LVCSX: SAEZ - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>OOJEM DEPARTURE: LEBL - EBAW</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--58.53583333333333,-34.82222222222222,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 4.460277777777778,51.18861111111111,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>VQBBG: UUEE - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECLZZ ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-37.41305555555555,55.972500000000004,0 2.0783333333333336,41.29694444444444,0
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>PTMSV: SBGR - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>HALXH ARRIVAL: LHBP - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--46.47,-23.433333333333334,0 2.0783333333333336,41.29694444444444,0
+19.261944444444445,47.43861111111111,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>EIFJK: EFHK - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>HALXH DEPARTURE: LEBL - LHBP</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-24.96333333333333,60.31722222222223,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 19.261944444444445,47.43861111111111,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>TCJIP: LTBA - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>GEZAT ARRIVAL: LFBD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-28.81416666666667,40.976111111111116,0 2.0783333333333336,41.29694444444444,0
+-0.7144444444444444,44.828611111111115,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>TCDCF: LTFJ - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>GEZAT DEPARTURE: LEBL - LFLL</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-29.309166666666666,40.89833333333333,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 5.0808333333333335,45.72555555555556,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>VPBAS: UUDD - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMBS ARRIVAL: LEZL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-37.906388888888884,55.40861111111111,0 2.0783333333333336,41.29694444444444,0
+-5.898055555555555,37.41722222222222,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECJFF: GCFV - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMBS DEPARTURE: LEBL - LEZL</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--13.863888888888889,28.452777777777776,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 -5.898055555555555,37.41722222222222,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>LNRRG: ENGM - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>ECJYX ARRIVAL: LIPX - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29694444444444,0
+10.887777777777778,45.395833333333336,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMMH: GCXO - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>DAEBP ARRIVAL: EDDM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--16.341666666666665,28.482777777777777,0 2.0783333333333336,41.29694444444444,0
+11.786111111111111,48.35388888888889,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>EIDHO: ESKN - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>DAEBP DEPARTURE: LEBL - EDDM</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-16.90361111111111,58.78861111111111,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 11.786111111111111,48.35388888888889,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>HALWY: EVRA - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>OOSSW ARRIVAL: EBBR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-23.97111111111111,56.92361111111111,0 2.0783333333333336,41.29694444444444,0
+4.484444444444445,50.900555555555556,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>LNDYP: ESSA - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>OOSSW DEPARTURE: LEBL - EBBR</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-17.91861111111111,59.651944444444446,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 4.484444444444445,50.900555555555556,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMFB: ENGM - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>VQBTN ARRIVAL: UUEE - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29694444444444,0
+37.4125,55.972500000000004,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMMU: GCLP - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>VQBTN DEPARTURE: LEBL - UUEE</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--15.386666666666667,27.931944444444447,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 37.4125,55.972500000000004,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECLUT: GCXO - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>OHLZD ARRIVAL: EFHK - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--16.341666666666665,28.482777777777777,0 2.0783333333333336,41.29694444444444,0
+24.963055555555556,60.31722222222223,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>A7ACD: OTHH - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>OHLZD DEPARTURE: LEBL - EFHK</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-51.608333333333334,25.274444444444445,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 24.963055555555556,60.31722222222223,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>OHLZB: EFHK - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>DABZA ARRIVAL: EDDL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-24.96333333333333,60.31722222222223,0 2.0783333333333336,41.29694444444444,0
+6.7572222222222225,51.280833333333334,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>A6EEH: OMDB - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>DABZA DEPARTURE: LEBL - EDDL</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-55.36,25.249166666666667,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 6.7572222222222225,51.280833333333334,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>CSTRN: ESSA - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>N823NW ARRIVAL: KATL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-17.91861111111111,59.651944444444446,0 2.0783333333333336,41.29694444444444,0
+-84.43333333333334,33.63305555555556,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>EIDLH: GCLP - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>N823NW DEPARTURE: LEBL - KATL</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--15.386666666666667,27.931944444444447,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 -84.43333333333334,33.63305555555556,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>N900AL: HTDA - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMAH ARRIVAL: LIRF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-39.20333333333333,-6.875555555555556,0 2.0783333333333336,41.29694444444444,0
+12.238888888888889,41.79944444444444,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ECMKT: EFHK - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>ECMAH DEPARTURE: LEBL - LOWW</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-24.96333333333333,60.31722222222223,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 16.569166666666668,48.11027777777778,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>EIFHS: ENGM - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>EIENM ARRIVAL: EDDB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29694444444444,0
+13.500555555555556,52.36194444444445,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>TFBRO: BIKF - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>EIENM DEPARTURE: LEBL - EDDB</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--22.605555555555558,63.985,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 13.500555555555556,52.36194444444445,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>ERAXP: LUKK - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMBT ARRIVAL: LEAS - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-28.930833333333336,46.92777777777778,0 2.0783333333333336,41.29694444444444,0
+-6.034722222222222,43.562777777777775,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>TCJRF: LTBA - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECMBT DEPARTURE: LEBL - LEAS</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-28.81416666666667,40.976111111111116,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 -6.034722222222222,43.562777777777775,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>EIFJN: ENGM - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>ECJQZ ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29694444444444,0
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>VPBZA: UUEE - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>ECJQZ DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-37.41305555555555,55.972500000000004,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>VPBRI: UUDD - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>HBIOK ARRIVAL: LSZH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
-37.906388888888884,55.40861111111111,0 2.0783333333333336,41.29694444444444,0
+8.547777777777778,47.45805555555556,0 2.0783333333333336,41.29666666666667,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>OYRUP: GCLP - LEBL</name>
-<styleUrl>#nonschengen</styleUrl>
+<name>HBIOK DEPARTURE: LEBL - LSZH</name>
+<styleUrl>#departure</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--15.386666666666667,27.931944444444447,0 2.0783333333333336,41.29694444444444,0
+2.0783333333333336,41.29666666666667,0 8.547777777777778,47.45805555555556,0
 </coordinates>
 </LineString>
 </Placemark>
 <Placemark>
-<name>YLPSH: BIKF - LEBL</name>
-<styleUrl>#schengen</styleUrl>
+<name>ECMEA ARRIVAL: LEZL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
 <LineString>
 <tessellate>1</tessellate>
 <coordinates>
--22.605555555555558,63.985,0 2.0783333333333336,41.29694444444444,0
+-5.898055555555555,37.41722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLZN ARRIVAL: LKPR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+14.259722222222223,50.100833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMLM ARRIVAL: LEVX - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-8.627500000000001,42.22916666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAGWT ARRIVAL: EDDV - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.683333333333334,52.46027777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAGWT DEPARTURE: LEBL - EDDV</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 9.683333333333334,52.46027777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJQQ ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJQQ DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHHSK ARRIVAL: EHEH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+5.373611111111111,51.45,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHHSK DEPARTURE: LEBL - EHEH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 5.373611111111111,51.45,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMGE ARRIVAL: EGGW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.3675,51.874722222222225,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIPZ ARRIVAL: EDDL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+6.7572222222222225,51.280833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIPZ DEPARTURE: LEBL - EDDL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 6.7572222222222225,51.280833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUC ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUC DEPARTURE: LEBL - EGLL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.4613888888888889,51.477222222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMEQ ARRIVAL: LFPO - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.3794444444444447,48.723333333333336,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEKL ARRIVAL: LPPR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-8.6775,41.23555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEKL DEPARTURE: LEBL - LPPR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -8.6775,41.23555555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLUL ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLUL DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OELBR ARRIVAL: LOWW - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+16.569166666666668,48.11027777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OELBR DEPARTURE: LEBL - LOWW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 16.569166666666668,48.11027777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N76054 ARRIVAL: KEWR - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-74.16833333333334,40.69583333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N76054 DEPARTURE: LEBL - KEWR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -74.16833333333334,40.69583333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFIY ARRIVAL: LIPH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.197777777777778,45.650555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMFM ARRIVAL: LEZL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-5.898055555555555,37.41722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMFM DEPARTURE: LEBL - LEZL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -5.898055555555555,37.41722222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>9VSWD ARRIVAL: SBGR - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-46.469722222222224,-23.433333333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>9VSWD DEPARTURE: LEBL - WSSS</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 103.9888888888889,1.3591666666666669,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGTAZ ARRIVAL: LFPG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.5469444444444442,49.00972222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGTAZ DEPARTURE: LEBL - LFPG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.5469444444444442,49.00972222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OYKBP ARRIVAL: EKCH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.655833333333334,55.61805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OYKBP DEPARTURE: LEBL - EKCH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.655833333333334,55.61805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMHA ARRIVAL: LIMC - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.723055555555556,45.63,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMHA DEPARTURE: LEBL - LFPO</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.3794444444444447,48.723333333333336,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAGWI ARRIVAL: EDDK - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+7.142777777777778,50.865833333333335,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAGWI DEPARTURE: LEBL - EDDK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 7.142777777777778,50.865833333333335,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLLJ ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLLJ DEPARTURE: LEBL - LFPO</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.3794444444444447,48.723333333333336,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIDL ARRIVAL: EDDF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.570555555555556,50.033055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIDL DEPARTURE: LEBL - EDDF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.570555555555556,50.033055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJTR ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFRF ARRIVAL: EIDW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-6.269444444444445,53.420833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFRF DEPARTURE: LEBL - EIDW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -6.269444444444445,53.420833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GZBAI ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GZBAI DEPARTURE: LEBL - EGKK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.18944444444444444,51.14805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJNZ ARRIVAL: LTBA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+28.81416666666667,40.976111111111116,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJNZ DEPARTURE: LEBL - LTBA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 28.81416666666667,40.976111111111116,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZDU ARRIVAL: EDDB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+13.500555555555556,52.36194444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZDU DEPARTURE: LEBL - EDDB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 13.500555555555556,52.36194444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>B5913 ARRIVAL: LOWW - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+16.569166666666668,48.11027777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>B5913 DEPARTURE: LEBL - LOWW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 16.569166666666668,48.11027777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OELED ARRIVAL: LOWW - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+16.569166666666668,48.11027777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OELED DEPARTURE: LEBL - LOWW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 16.569166666666668,48.11027777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GZBAH ARRIVAL: EGBB - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-1.7480555555555557,52.45388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GZBAH DEPARTURE: LEBL - EGBB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -1.7480555555555557,52.45388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMHS ARRIVAL: GCRR - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-13.605,28.94527777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMHS DEPARTURE: LEBL - LHBP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 19.261944444444445,47.43861111111111,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLML ARRIVAL: LEMH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.2186111111111115,39.862500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDAM ARRIVAL: EIDW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-6.269444444444445,53.420833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZTG ARRIVAL: EGGD - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.7191666666666667,51.3825,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZTG DEPARTURE: LEBL - EGGD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.7191666666666667,51.3825,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTO ARRIVAL: LPPT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-9.133333333333333,38.77388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTO DEPARTURE: LEBL - LPPT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -9.133333333333333,38.77388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZUM ARRIVAL: LFLL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+5.0808333333333335,45.72555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDEJ ARRIVAL: EIDW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-6.269444444444445,53.420833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDEJ DEPARTURE: LEBL - EIDW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -6.269444444444445,53.420833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMLE ARRIVAL: LEMH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.2186111111111115,39.862500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMLE DEPARTURE: LEBL - LRCL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 23.692222222222224,46.788333333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CGHLQ ARRIVAL: CYUL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-73.74138888888889,45.46805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CGHLQ DEPARTURE: LEBL - CYYZ</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -79.62972222222221,43.676944444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLZF ARRIVAL: LEAL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.5580555555555556,38.282222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLZF DEPARTURE: LEBL - EVRA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 23.970277777777778,56.922777777777775,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSDXZ ARRIVAL: LFST - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+7.633611111111111,48.54138888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSDXZ DEPARTURE: LEBL - LIRP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 10.39472222222222,43.68222222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZPC ARRIVAL: EGGP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.8497222222222223,53.333333333333336,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZPC DEPARTURE: LEBL - EGGP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.8497222222222223,53.333333333333336,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXF ARRIVAL: EHAM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.764166666666667,52.30722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXF DEPARTURE: LEBL - EHAM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.764166666666667,52.30722222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEBK ARRIVAL: EGCC - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.2741666666666664,53.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEBK DEPARTURE: LEBL - EGCC</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.2741666666666664,53.35388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDPM ARRIVAL: EGPH - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.3725,55.95,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDPM DEPARTURE: LEBL - EGPH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.3725,55.95,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMBK ARRIVAL: LIEE - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.055833333333334,39.246944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLUN ARRIVAL: LEBB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.9097222222222223,43.30027777777777,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZBD ARRIVAL: EGAA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-6.215,54.657222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZBD DEPARTURE: LEBL - EGAA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -6.215,54.657222222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLRY ARRIVAL: EDDM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.786111111111111,48.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLRY DEPARTURE: LEBL - UKKK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 30.45138888888889,50.401944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEFW ARRIVAL: EBBR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.484444444444445,50.900555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEFW DEPARTURE: LEBL - EGGP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.8497222222222223,53.333333333333336,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHP ARRIVAL: EGBB - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-1.7480555555555557,52.45388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHP DEPARTURE: LEBL - EGBB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -1.7480555555555557,52.45388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDWK ARRIVAL: LIRF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.238888888888889,41.79944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>YRBGI ARRIVAL: LROP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+26.084166666666665,44.571111111111115,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>YRBGI DEPARTURE: LEBL - LROP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 26.084166666666665,44.571111111111115,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIENO ARRIVAL: LHBP - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+19.261944444444445,47.43861111111111,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>YRBAP ARRIVAL: LROP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+26.084166666666665,44.571111111111115,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>YRBAP DEPARTURE: LEBL - LROP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 26.084166666666665,44.571111111111115,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLUT ARRIVAL: LEMH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.2186111111111115,39.862500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUO ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUO DEPARTURE: LEBL - EGLL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.4613888888888889,51.477222222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N790AN ARRIVAL: KMIA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-80.28277777777778,25.8,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N790AN DEPARTURE: LEBL - KMIA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -80.28277777777778,25.8,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZWN ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZWN DEPARTURE: LEBL - EGKK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.18944444444444444,51.14805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SXDGQ ARRIVAL: LGAV - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+23.944444444444446,37.93583333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SXDGQ DEPARTURE: LEBL - LGAV</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 23.944444444444446,37.93583333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMMU ARRIVAL: GCLP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-15.386666666666667,27.931944444444447,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMMU DEPARTURE: LEBL - GCLP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -15.386666666666667,27.931944444444447,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNRNO ARRIVAL: ENGM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNRNO DEPARTURE: LEBL - ENGM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.08388888888889,60.20277777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHUH ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHUH DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>IBIXR ARRIVAL: LIRF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.238888888888889,41.79944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>IBIXR DEPARTURE: LEBL - LIRF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.238888888888889,41.79944444444444,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECKMI ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GOZBE ARRIVAL: EGCC - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.2741666666666664,53.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GOZBE DEPARTURE: LEBL - EGCC</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.2741666666666664,53.35388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SPLND ARRIVAL: EPWA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+20.96638888888889,52.16555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SPLND DEPARTURE: LEBL - EPWA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 20.96638888888889,52.16555555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDAE ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N290AY ARRIVAL: KPHL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-75.245,39.86972222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N290AY DEPARTURE: LEBL - KPHL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -75.245,39.86972222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VQBHK ARRIVAL: UUEE - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+37.4125,55.972500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VQBHK DEPARTURE: LEBL - UUEE</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 37.4125,55.972500000000004,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECKLT ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECKLT DEPARTURE: LEBL - EBBR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.484444444444445,50.900555555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMMH ARRIVAL: GCXO - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-16.34111111111111,28.481944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMMH DEPARTURE: LEBL - GCXO</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -16.34111111111111,28.481944444444444,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMHB ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBWG ARRIVAL: ULLI - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+30.261944444444445,59.79944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBWG DEPARTURE: LEBL - ULLI</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 30.261944444444445,59.79944444444444,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMBY ARRIVAL: EGGP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.8497222222222223,53.333333333333336,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIDF ARRIVAL: EDDM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.786111111111111,48.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIDF DEPARTURE: LEBL - EDDM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.786111111111111,48.35388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDCJ ARRIVAL: EDDB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+13.500555555555556,52.36194444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJTQ ARRIVAL: LEVD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-4.851111111111111,41.70611111111111,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJTQ DEPARTURE: LEBL - LIRF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.238888888888889,41.79944444444444,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNNGP ARRIVAL: ENGM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNNGP DEPARTURE: LEBL - ENGM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.08388888888889,60.20277777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMIQ ARRIVAL: LIRQ - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.201944444444443,43.80777777777777,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMIQ DEPARTURE: LEBL - LIRQ</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.201944444444443,43.80777777777777,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZBI ARRIVAL: EGGW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.3675,51.874722222222225,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZBI DEPARTURE: LEBL - EGGW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.3675,51.874722222222225,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMGZ ARRIVAL: EHAM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.764166666666667,52.30722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLQM ARRIVAL: EDDT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+13.287777777777778,52.559444444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLQM DEPARTURE: LEBL - LBSF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 23.4075,42.69416666666666,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GCELG ARRIVAL: EGCC - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.2741666666666664,53.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GCELG DEPARTURE: LEBL - EGCC</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.2741666666666664,53.35388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZTA ARRIVAL: LFPG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.5469444444444442,49.00972222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISG ARRIVAL: EDDF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.570555555555556,50.033055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N900JG ARRIVAL: LLBG - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+34.88527777777778,32.00944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N900JG DEPARTURE: LEBL - LIML</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 9.278333333333334,45.448611111111106,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNDYW ARRIVAL: EKCH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.655833333333334,55.61805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNDYW DEPARTURE: LEBL - EKCH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.655833333333334,55.61805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHX ARRIVAL: LIME - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.699722222222222,45.66861111111111,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CFIYE ARRIVAL: CYYZ - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-79.62972222222221,43.676944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CFIYE DEPARTURE: LEBL - CYUL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -73.74138888888889,45.46805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMJC ARRIVAL: LDSP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+16.298055555555557,43.538333333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMJC DEPARTURE: LEBL - EHAM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.764166666666667,52.30722222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJYI ARRIVAL: LSGG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+6.10861111111111,46.23833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJYI DEPARTURE: LEBL - LSGG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 6.10861111111111,46.23833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLQK ARRIVAL: EIDW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-6.269444444444445,53.420833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMBE ARRIVAL: LSZH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.547777777777778,47.45805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CNRGG ARRIVAL: GMMN - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-7.5808333333333335,33.36416666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CNRGG DEPARTURE: LEBL - GMMN</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -7.5808333333333335,33.36416666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMJR ARRIVAL: LIMC - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.723055555555556,45.63,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TSIMV ARRIVAL: DTTA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+10.226944444444445,36.850833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TSIMV DEPARTURE: LEBL - DTTA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 10.226944444444445,36.850833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLQL ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FF333 ARRIVAL: LFCK - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.290277777777778,43.55416666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GGDFK ARRIVAL: EGNM - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-1.6602777777777777,53.865833333333335,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GGDFK DEPARTURE: LEBL - EGNM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -1.6602777777777777,53.865833333333335,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLRG ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLRG DEPARTURE: LEBL - LEIB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 1.3730555555555557,38.8725,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N803NW ARRIVAL: KJFK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-73.77833333333334,40.64,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N803NW DEPARTURE: LEBL - KJFK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -73.77833333333334,40.64,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUYC ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUYC DEPARTURE: LEBL - EGLL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.4613888888888889,51.477222222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N283AY ARRIVAL: KCLT - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-80.95,35.21666666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N283AY DEPARTURE: LEBL - KCLT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -80.95,35.21666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMGF ARRIVAL: EDDF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.570555555555556,50.033055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMLD ARRIVAL: EGCC - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.2741666666666664,53.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIIMU ARRIVAL: LIML - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.278333333333334,45.448611111111106,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIIMU DEPARTURE: LEBL - LIML</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 9.278333333333334,45.448611111111106,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHUI ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHUI DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLRN ARRIVAL: LICJ - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+13.099444444444446,38.18138888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLRN DEPARTURE: LEBL - OLBA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 35.49,33.81916666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZWZ ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTV ARRIVAL: LPPT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-9.133333333333333,38.77388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTV DEPARTURE: LEBL - LPPT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -9.133333333333333,38.77388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXP ARRIVAL: EHAM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.764166666666667,52.30722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXP DEPARTURE: LEBL - EHAM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.764166666666667,52.30722222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CFDAT ARRIVAL: CYUL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-73.74138888888889,45.46805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CFDAT DEPARTURE: LEBL - CYUL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -73.74138888888889,45.46805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHG ARRIVAL: EDDK - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+7.142777777777778,50.865833333333335,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHQI ARRIVAL: LFMN - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+7.214166666666667,43.664722222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CGTSW ARRIVAL: CYYZ - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-79.62972222222221,43.676944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CGTSW DEPARTURE: LEBL - CYYZ</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -79.62972222222221,43.676944444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLZO ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N76062 ARRIVAL: KIAD - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-77.4563888888889,38.94416666666666,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FA123 ARRIVAL: LEBB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.9097222222222223,43.30027777777777,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>URPSS ARRIVAL: UKBB - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+30.893333333333334,50.344722222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>URPSS DEPARTURE: LEBL - UKBB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 30.893333333333334,50.344722222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>4XELD ARRIVAL: LLBG - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+34.88527777777778,32.00944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEBA ARRIVAL: EGNX - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-1.3272222222222223,52.83111111111111,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEBA DEPARTURE: LEBL - EGNX</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -1.3272222222222223,52.83111111111111,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLZE ARRIVAL: LEMG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-4.498333333333333,36.674166666666665,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLZE DEPARTURE: LEBL - LCLK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 33.63,34.87861111111111,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISW ARRIVAL: EDDF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.570555555555556,50.033055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISW DEPARTURE: LEBL - EDDF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.570555555555556,50.033055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHXRX ARRIVAL: EHEH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+5.373611111111111,51.45,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHXRX DEPARTURE: LEBL - EHEH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 5.373611111111111,51.45,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJVM ARRIVAL: LTFJ - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+29.30888888888889,40.89833333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJVM DEPARTURE: LEBL - LTFJ</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 29.30888888888889,40.89833333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVP ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVP DEPARTURE: LEBL - EETN</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 24.831944444444446,59.413333333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>URPSO ARRIVAL: UKBB - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+30.893333333333334,50.344722222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>URPSO DEPARTURE: LEBL - UKBB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 30.893333333333334,50.344722222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLRM ARRIVAL: LIPE - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.296666666666667,44.530833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A7AEC ARRIVAL: OTHH - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+51.608333333333334,25.274444444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A7AEC DEPARTURE: LEBL - OTHH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 51.608333333333334,25.274444444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNDYB ARRIVAL: ESGG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.290833333333333,57.659444444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNDYB DEPARTURE: LEBL - ESGG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.290833333333333,57.659444444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A6EOP ARRIVAL: OMDB - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+55.359722222222224,25.249166666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A6EOP DEPARTURE: LEBL - OMDB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 55.359722222222224,25.249166666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAKNQ ARRIVAL: EDDT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+13.287777777777778,52.559444444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAKNQ DEPARTURE: LEBL - EDDT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 13.287777777777778,52.559444444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAGWE ARRIVAL: EDDH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.987499999999999,53.63,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAGWE DEPARTURE: LEBL - EDDH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 9.987499999999999,53.63,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DCARO ARRIVAL: LEVC - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4816666666666667,39.489444444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DCARO DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OKNEN ARRIVAL: LKPR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+14.259722222222223,50.100833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OKNEN DEPARTURE: LEBL - LKPR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 14.259722222222223,50.100833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LXLQB ARRIVAL: ELLX - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+6.203611111111111,49.623333333333335,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LXLQB DEPARTURE: LEBL - ELLX</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 6.203611111111111,49.623333333333335,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIENL ARRIVAL: LEJR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-6.059166666666666,36.74472222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJHZ ARRIVAL: LTBA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+28.81416666666667,40.976111111111116,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJHZ DEPARTURE: LEBL - LTBA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 28.81416666666667,40.976111111111116,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFRH ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFRH DEPARTURE: LEBL - LEPA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.738888888888889,39.55083333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTK ARRIVAL: LPPT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-9.133333333333333,38.77388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTK DEPARTURE: LEBL - LPPT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -9.133333333333333,38.77388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHT ARRIVAL: EGSS - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+0.23500000000000001,51.88472222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCCPG ARRIVAL: LTFJ - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+29.30888888888889,40.89833333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCCPG DEPARTURE: LEBL - LTFJ</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 29.30888888888889,40.89833333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECIXD ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECIXD DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SUGCE ARRIVAL: HECA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+31.413055555555555,30.11138888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SUGCE DEPARTURE: LEBL - HECA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 31.413055555555555,30.11138888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SXABE ARRIVAL: EBBR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.484444444444445,50.900555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBIOM ARRIVAL: LSZH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.547777777777778,47.45805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBIOM DEPARTURE: LEBL - LSZH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.547777777777778,47.45805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUY ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUY DEPARTURE: LEBL - EGLL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.4613888888888889,51.477222222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIRA ARRIVAL: EDDM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.786111111111111,48.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIRA DEPARTURE: LEBL - EDDM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.786111111111111,48.35388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZPL ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZPL DEPARTURE: LEBL - EGKK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.18944444444444444,51.14805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFJN ARRIVAL: ENGM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUYB ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUYB DEPARTURE: LEBL - EGKK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.18944444444444444,51.14805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISE ARRIVAL: EDDF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.570555555555556,50.033055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISE DEPARTURE: LEBL - EDDF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.570555555555556,50.033055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N969AV ARRIVAL: SKBO - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-74.15,4.7,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N969AV DEPARTURE: LEBL - SKBO</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -74.15,4.7,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A6AIN ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A6AIN DEPARTURE: LEBL - OMAA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 54.64972222222222,24.433333333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHOB ARRIVAL: LYTV - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+18.722499999999997,42.40416666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFJL ARRIVAL: EKBI - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.151666666666667,55.74,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLST ARRIVAL: LEMH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.2186111111111115,39.862500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLST DEPARTURE: LEBL - LEMH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.2186111111111115,39.862500000000004,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EK111 ARRIVAL: LSZG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+7.416388888888889,47.18138888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMGY ARRIVAL: LEGR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.776388888888889,37.187777777777775,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFJM ARRIVAL: EKCH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.655833333333334,55.61805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISR ARRIVAL: EDDF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.570555555555556,50.033055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISR DEPARTURE: LEBL - EDDF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.570555555555556,50.033055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTN ARRIVAL: LPPT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-9.133333333333333,38.77388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTN DEPARTURE: LEBL - LPPT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -9.133333333333333,38.77388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OYRUP ARRIVAL: GCLP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-15.386666666666667,27.931944444444447,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECIVJ ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LVCSX ARRIVAL: SAEZ - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-58.53527777777778,-34.82222222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LVCSX DEPARTURE: LEBL - SAEZ</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -58.53527777777778,-34.82222222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXG ARRIVAL: EHAM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.764166666666667,52.30722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXG DEPARTURE: LEBL - EHAM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.764166666666667,52.30722222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LYVEO ARRIVAL: LFPG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.5469444444444442,49.00972222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LYVEO DEPARTURE: LEBL - LMML</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 14.477500000000001,35.8575,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMJZ ARRIVAL: LELN - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-5.6561111111111115,42.58861111111111,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VQBBG ARRIVAL: UUEE - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+37.4125,55.972500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VQBBG DEPARTURE: LEBL - UUEE</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 37.4125,55.972500000000004,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PTMSV ARRIVAL: SBGR - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-46.469722222222224,-23.433333333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJYL ARRIVAL: LSGG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+6.10861111111111,46.23833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJYL DEPARTURE: LEBL - LSGG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 6.10861111111111,46.23833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJPF ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJPF DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJXE ARRIVAL: LFSB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+7.529166666666667,47.59,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJXE DEPARTURE: LEBL - LFSB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 7.529166666666667,47.59,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CNNMH ARRIVAL: GMTT - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-5.921111111111111,35.73166666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CNNMH DEPARTURE: LEBL - GMMN</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -7.5808333333333335,33.36416666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJNI ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJNI DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFJK ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMBF ARRIVAL: EDDN - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.0775,49.498333333333335,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMBF DEPARTURE: LEBL - LFPO</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.3794444444444447,48.723333333333336,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJIP ARRIVAL: LTBA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+28.81416666666667,40.976111111111116,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJIP DEPARTURE: LEBL - LTBA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 28.81416666666667,40.976111111111116,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCDCF ARRIVAL: LTFJ - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+29.30888888888889,40.89833333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCDCF DEPARTURE: LEBL - LTFJ</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 29.30888888888889,40.89833333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>IBIXS ARRIVAL: LIRF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.238888888888889,41.79944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>IBIXS DEPARTURE: LEBL - LIRF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.238888888888889,41.79944444444444,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBAS ARRIVAL: UUDD - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+37.905833333333334,55.408055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBAS DEPARTURE: LEBL - UUDD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 37.905833333333334,55.408055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJFF ARRIVAL: LDDU - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+18.268055555555556,42.56055555555555,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNRRG ARRIVAL: ENGM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNRRG DEPARTURE: LEBL - ENGM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.08388888888889,60.20277777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMKX ARRIVAL: EDDL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+6.7572222222222225,51.280833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVO ARRIVAL: LECO - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-8.377222222222223,43.301944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N483CM ARRIVAL: LDDU - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+18.268055555555556,42.56055555555555,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FHEPB ARRIVAL: LFPG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.5469444444444442,49.00972222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FHEPB DEPARTURE: LEBL - LFPG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.5469444444444442,49.00972222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMKM ARRIVAL: LPPR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-8.6775,41.23555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DIERF ARRIVAL: EDDN - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.0775,49.498333333333335,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DIERF DEPARTURE: LEBL - EDDP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.235555555555555,51.42388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIRD ARRIVAL: EDDM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.786111111111111,48.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIRD DEPARTURE: LEBL - EDDM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.786111111111111,48.35388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJFN ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBIOH ARRIVAL: LSZH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.547777777777778,47.45805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBIOH DEPARTURE: LEBL - LSZH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.547777777777778,47.45805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECKCU ARRIVAL: LIRF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.238888888888889,41.79944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GTTOE ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GTTOE DEPARTURE: LEBL - EGLL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.4613888888888889,51.477222222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLAA ARRIVAL: LEST - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-8.415277777777778,42.895833333333336,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLAA DEPARTURE: LEBL - LGIR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 25.18027777777778,35.339444444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEPG ARRIVAL: LFOB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.112777777777778,49.45444444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHHA ARRIVAL: LSZH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.547777777777778,47.45805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIDQ ARRIVAL: EDDF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.570555555555556,50.033055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIDQ DEPARTURE: LEBL - EDDF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.570555555555556,50.033055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHQJ ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGUGO ARRIVAL: LFPG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.5469444444444442,49.00972222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGUGO DEPARTURE: LEBL - LFPG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.5469444444444442,49.00972222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECKRN ARRIVAL: GMMX - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-8.040833333333333,31.608611111111113,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXE ARRIVAL: EHAM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.764166666666667,52.30722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXE DEPARTURE: LEBL - EHAM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.764166666666667,52.30722222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAICG ARRIVAL: EDDS - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.221944444444444,48.689166666666665,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAICG DEPARTURE: LEBL - EDDS</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 9.221944444444444,48.689166666666665,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTPA ARRIVAL: LPPT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-9.133333333333333,38.77388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTPA DEPARTURE: LEBL - LPPT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -9.133333333333333,38.77388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GOZBW ARRIVAL: EGNM - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-1.6602777777777777,53.865833333333335,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GOZBW DEPARTURE: LEBL - EGNM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -1.6602777777777777,53.865833333333335,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHO ARRIVAL: ESKN - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+16.90361111111111,58.788333333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHO DEPARTURE: LEBL - ESKN</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 16.90361111111111,58.788333333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISL ARRIVAL: EDDF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.570555555555556,50.033055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALPX ARRIVAL: LRCL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+23.692222222222224,46.788333333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALPX DEPARTURE: LEBL - LRCL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 23.692222222222224,46.788333333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALWY ARRIVAL: EVRA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+23.970277777777778,56.922777777777775,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALWY DEPARTURE: LEBL - EVRA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 23.970277777777778,56.922777777777775,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJFT ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJFT DEPARTURE: LEBL - LEPA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.738888888888889,39.55083333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNDYP ARRIVAL: ESSA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+17.91861111111111,59.651944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LNDYP DEPARTURE: LEBL - ESSA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 17.91861111111111,59.651944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZIM ARRIVAL: EDDB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+13.500555555555556,52.36194444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZIM DEPARTURE: LEBL - EDDB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 13.500555555555556,52.36194444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIQK ARRIVAL: EDDK - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+7.142777777777778,50.865833333333335,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIQK DEPARTURE: LEBL - EDDK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 7.142777777777778,50.865833333333335,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMFB ARRIVAL: ENGM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DASXJ ARRIVAL: EDDL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+6.7572222222222225,51.280833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DASXJ DEPARTURE: LEBL - EDDL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 6.7572222222222225,51.280833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGRXE ARRIVAL: LFPG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.5469444444444442,49.00972222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGRXE DEPARTURE: LEBL - LFPG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.5469444444444442,49.00972222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUT ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUT DEPARTURE: LEBL - EGLL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.4613888888888889,51.477222222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLQN ARRIVAL: LSZH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.547777777777778,47.45805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>LYVEV ARRIVAL: LIPZ - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.351111111111111,45.505,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>9HVMK ARRIVAL: LIPZ - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.351111111111111,45.505,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>9HVMK DEPARTURE: LEBL - LMML</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 14.477500000000001,35.8575,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CGDEJ ARRIVAL: EHRD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.436388888888889,51.956944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CGDEJ DEPARTURE: LEBL - EHRD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.436388888888889,51.956944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLLM ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLLM DEPARTURE: LEBL - LEIB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 1.3730555555555557,38.8725,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OEIEW ARRIVAL: LOWW - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+16.569166666666668,48.11027777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OEIEW DEPARTURE: LEBL - LOWW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 16.569166666666668,48.11027777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEFN ARRIVAL: EBBR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.484444444444445,50.900555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEFN DEPARTURE: LEBL - EBBR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.484444444444445,50.900555555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZEG ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZEG DEPARTURE: LEBL - EGKK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.18944444444444444,51.14805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDCM ARRIVAL: LIRF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.238888888888889,41.79944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDCM DEPARTURE: LEBL - LIRF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.238888888888889,41.79944444444444,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A7ACD ARRIVAL: OTHH - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+51.608333333333334,25.274444444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>7TVJM ARRIVAL: DAAG - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+3.2144444444444447,36.69305555555555,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJYK ARRIVAL: LSGG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+6.10861111111111,46.23833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJYK DEPARTURE: LEBL - LSGG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 6.10861111111111,46.23833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALYG ARRIVAL: EPKT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+19.079722222222223,50.47416666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALYG DEPARTURE: LEBL - EPKT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 19.079722222222223,50.47416666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZBU ARRIVAL: EGMC - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+0.6933333333333334,51.57027777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZBU DEPARTURE: LEBL - EGMC</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 0.6933333333333334,51.57027777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OHLZB ARRIVAL: EFHK - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+24.963055555555556,60.31722222222223,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJYE ARRIVAL: LFSB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+7.529166666666667,47.59,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBJYE DEPARTURE: LEBL - LFSB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 7.529166666666667,47.59,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A6EEH ARRIVAL: OMDB - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+55.359722222222224,25.249166666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A6EEH DEPARTURE: LEBL - OMDB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 55.359722222222224,25.249166666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OELEF ARRIVAL: LOWW - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+16.569166666666668,48.11027777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OELEF DEPARTURE: LEBL - LOWW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 16.569166666666668,48.11027777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OOSSK ARRIVAL: EBBR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.484444444444445,50.900555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OOSSK DEPARTURE: LEBL - EBBR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.484444444444445,50.900555555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEFI ARRIVAL: EIDW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-6.269444444444445,53.420833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEFI DEPARTURE: LEBL - EIDW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -6.269444444444445,53.420833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBIJQ ARRIVAL: LSGG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+6.10861111111111,46.23833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBIJQ DEPARTURE: LEBL - LSGG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 6.10861111111111,46.23833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZFY ARRIVAL: EGNT - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-1.6897222222222223,55.0375,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZFY DEPARTURE: LEBL - EGNT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -1.6897222222222223,55.0375,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTRN ARRIVAL: ESSA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+17.91861111111111,59.651944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHB ARRIVAL: LEZL - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-5.898055555555555,37.41722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHB DEPARTURE: LEBL - LEZL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -5.898055555555555,37.41722222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGZHY ARRIVAL: LFPO - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.3794444444444447,48.723333333333336,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGZHY DEPARTURE: LEBL - LFPO</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.3794444444444447,48.723333333333336,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHH ARRIVAL: GCRR - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-13.605,28.94527777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDHH DEPARTURE: LEBL - GCRR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -13.605,28.94527777777778,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJBX ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVS ARRIVAL: LEMG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-4.498333333333333,36.674166666666665,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVS DEPARTURE: LEBL - GMMX</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -8.040833333333333,31.608611111111113,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALYL ARRIVAL: LWSK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+21.62138888888889,41.96138888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALYL DEPARTURE: LEBL - LWSK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 21.62138888888889,41.96138888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDWA ARRIVAL: EGPK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-4.593611111111111,55.50944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDWA DEPARTURE: LEBL - EGPK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -4.593611111111111,55.50944444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJPK ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJPK DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZFG ARRIVAL: EGGP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.8497222222222223,53.333333333333336,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZFG DEPARTURE: LEBL - EGGP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.8497222222222223,53.333333333333336,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDLH ARRIVAL: GCLP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-15.386666666666667,27.931944444444447,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDLH DEPARTURE: LEBL - GCLP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -15.386666666666667,27.931944444444447,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALYO ARRIVAL: LBSF - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+23.4075,42.69416666666666,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HALYO DEPARTURE: LEBL - LBSF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 23.4075,42.69416666666666,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N900AL ARRIVAL: HTDA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+39.20305555555556,-6.875555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N900AL DEPARTURE: LEBL - KUGN</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -87.86749999999999,42.42166666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIRB ARRIVAL: EDDM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.786111111111111,48.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZIZ ARRIVAL: LIMC - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.723055555555556,45.63,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZIZ DEPARTURE: LEBL - LIMC</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.723055555555556,45.63,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFIN ARRIVAL: EGCC - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.2741666666666664,53.35388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFIN DEPARTURE: LEBL - EGCC</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.2741666666666664,53.35388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECKHN ARRIVAL: LEMH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.2186111111111115,39.862500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIENG ARRIVAL: LIPE - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.296666666666667,44.530833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIENG DEPARTURE: LEBL - LIPE</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.296666666666667,44.530833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GDBCI ARRIVAL: EGKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.18944444444444444,51.14805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GDBCI DEPARTURE: LEBL - EGKK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.18944444444444444,51.14805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIFHS ARRIVAL: ENGM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.08388888888889,60.20277777777778,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZIK ARRIVAL: EGGD - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-2.7191666666666667,51.3825,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZIK DEPARTURE: LEBL - EGGD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.7191666666666667,51.3825,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLGV ARRIVAL: LEMD - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-3.5599999999999996,40.471944444444446,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDLC ARRIVAL: LPPR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-8.6775,41.23555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDLC DEPARTURE: LEBL - LPPR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -8.6775,41.23555555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TFBRO ARRIVAL: BIKF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-22.605555555555558,63.984722222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TFBRO DEPARTURE: LEBL - BIKF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -22.605555555555558,63.984722222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDEE ARRIVAL: EIDW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-6.269444444444445,53.420833333333334,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDEE DEPARTURE: LEBL - EIDW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -6.269444444444445,53.420833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVA ARRIVAL: LIRF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.238888888888889,41.79944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVA DEPARTURE: LEBL - UUDD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 37.905833333333334,55.408055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ERAXP ARRIVAL: LUKK - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+28.930833333333336,46.926944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBION ARRIVAL: LSZH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+8.547777777777778,47.45805555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCICT ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>YRBGA ARRIVAL: LROP - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+26.084166666666665,44.571111111111115,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>YRBGA DEPARTURE: LEBL - LROP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 26.084166666666665,44.571111111111115,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJRF ARRIVAL: LTBA - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+28.81416666666667,40.976111111111116,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DCALL ARRIVAL: LIEE - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.055833333333334,39.246944444444445,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMIR ARRIVAL: LIRQ - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+11.201944444444443,43.80777777777777,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PHBXK ARRIVAL: EHAM - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.764166666666667,52.30722222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUG ARRIVAL: EGLL - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.4613888888888889,51.477222222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMFL ARRIVAL: LFPO - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.3794444444444447,48.723333333333336,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMFL DEPARTURE: LEBL - LROP</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 26.084166666666665,44.571111111111115,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGKXR ARRIVAL: LFPG - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.5469444444444442,49.00972222222222,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIEIB ARRIVAL: LIRF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+12.238888888888889,41.79944444444444,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBZA ARRIVAL: UUEE - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+37.4125,55.972500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLZS ARRIVAL: LIEO - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+9.517777777777779,40.89833333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHTD ARRIVAL: LEIB - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+1.3730555555555557,38.8725,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECHFK ARRIVAL: LEPA - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.738888888888889,39.55083333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTS ARRIVAL: LPPT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-9.133333333333333,38.77388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVB ARRIVAL: LPPT - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-9.133333333333333,38.77388888888889,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMFK ARRIVAL: LEMH - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+4.2186111111111115,39.862500000000004,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBRI ARRIVAL: UUDD - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+37.905833333333334,55.408055555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBRI DEPARTURE: LEBL - UUDD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 37.905833333333334,55.408055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLSA ARRIVAL: LPPR - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-8.6775,41.23555555555556,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLSA DEPARTURE: LEBL - UUDD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 37.905833333333334,55.408055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SXDVV ARRIVAL: LGAV - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+23.944444444444446,37.93583333333333,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>SXDVV DEPARTURE: LEBL - LGAV</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 23.944444444444446,37.93583333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>YLPSH ARRIVAL: BIKF - LEBL</name>
+<styleUrl>#arrival_schengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-22.605555555555558,63.984722222222224,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZDJ ARRIVAL: EGGW - LEBL</name>
+<styleUrl>#arrival_nonschengen</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+-0.3675,51.874722222222225,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEZDJ DEPARTURE: LEBL - EGGW</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.3675,51.874722222222225,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMFN DEPARTURE: LEBL - LEBB</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -2.9097222222222223,43.30027777777777,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>TCJSO DEPARTURE: LEBL - LTBA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 28.81416666666667,40.976111111111116,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EIDTO DEPARTURE: LEBL - LIRF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.238888888888889,41.79944444444444,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>HBIOF DEPARTURE: LEBL - LSZH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.547777777777778,47.45805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTTI DEPARTURE: LEBL - LPPT</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -9.133333333333333,38.77388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSTRO DEPARTURE: LEBL - LPPR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -8.6775,41.23555555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIRM DEPARTURE: LEBL - EDDF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.570555555555556,50.033055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FF111 DEPARTURE: LEBL - LFMN</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 7.214166666666667,43.664722222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJRE DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAIDP DEPARTURE: LEBL - EDDM</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 11.786111111111111,48.35388888888889,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DAISV DEPARTURE: LEBL - EDDF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.570555555555556,50.033055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>DIMRB DEPARTURE: LEBL - EDDS</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 9.221944444444444,48.689166666666665,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECJLI DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMBD DEPARTURE: LEBL - LIRF</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 12.238888888888889,41.79944444444444,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLAE DEPARTURE: LEBL - LGKR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 19.911388888888887,39.60194444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECLVX DEPARTURE: LEBL - LEAL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.5580555555555556,38.282222222222224,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSDFK DEPARTURE: LEBL - LEMH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 4.2186111111111115,39.862500000000004,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECDTS DEPARTURE: LEBL - LEBL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECIRV DEPARTURE: LEBL - LEBL</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.0783333333333336,41.29666666666667,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>CSDGW DEPARTURE: LEBL - LEMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -3.5599999999999996,40.471944444444446,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBRN DEPARTURE: LEBL - UUDD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 37.905833333333334,55.408055555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>GEUUV DEPARTURE: LEBL - EGKK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -0.18944444444444444,51.14805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>ECMBL DEPARTURE: LEBL - LSZH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 8.547777777777778,47.45805555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>N550GH DEPARTURE: LEBL - LEPA</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.738888888888889,39.55083333333333,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FGTAT DEPARTURE: LEBL - LFPG</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.5469444444444442,49.00972222222222,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>FK123 DEPARTURE: LEBL - LEGE</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 2.7597222222222224,41.900555555555556,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>EX321 DEPARTURE: LEBL - LFMD</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 6.954166666666667,43.545833333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>PTMSO DEPARTURE: LEBL - SBGR</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 -46.469722222222224,-23.433333333333334,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>OHLZE DEPARTURE: LEBL - EFHK</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 24.963055555555556,60.31722222222223,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>A7AEE DEPARTURE: LEBL - OTHH</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 51.608333333333334,25.274444444444445,0
+</coordinates>
+</LineString>
+</Placemark>
+<Placemark>
+<name>VPBON DEPARTURE: LEBL - UUEE</name>
+<styleUrl>#departure</styleUrl>
+<LineString>
+<tessellate>1</tessellate>
+<coordinates>
+2.0783333333333336,41.29666666666667,0 37.4125,55.972500000000004,0
 </coordinates>
 </LineString>
 </Placemark>
