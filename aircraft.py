@@ -571,6 +571,36 @@ def NightAircraft(aircrafts):
             result.append(a)
 
     return result
+#SHORT STAY FLIGHTS
+#Retorna els avions que estan menys de 2 hores a l'aeroport. Passen menys de 120 minuts entre arrival i departure
+def VuelosEstacionamientoCorto(aircrafts):
+
+    #Crear llista buida
+    result = []
+
+    #Recorrer tot els avions
+    for a in aircrafts:
+
+        #convertir h a minuts
+        arrival_time = _parse_time(a.arrival)
+        departure_time = _parse_time(a.departure)
+
+        #Comprobar que les hores existeixen
+        if arrival_time is not None and departure_time is not None:
+
+            time_in_airport = (departure_time) - (arrival_time)
+
+            #Cas especial: si surt despres de mitjanit
+            if time_in_airport < 0:
+                #Sumem un dia sencer
+                time_in_airport += 24 * 60
+
+            #Menys de dues hores
+            if time_in_airport < 120:
+                result.append(a)
+    #Tornem llista
+    return result
+
 
 
 # TEST SECTION

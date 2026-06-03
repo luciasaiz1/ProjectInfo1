@@ -391,12 +391,66 @@ def ShowMovementsButton():
     show_text_in_panel(text)
 
 
-# ============================================================
+#Vuelos Estacionamiento Corto Button
+#Mostra quants vols estan menys de 2 hores a l'aeroport.
+def VuelosEstacionamientoCortoButton():
+
+    # Si no hi ha moviments fusionats no podem calcular el temps a l'aeroport
+    if len(merged) == 0:
+        messagebox.showwarning(
+            "Warning",
+            "Dale al boton Merge Movements primero"
+        )
+        return
+
+    #Busquem els vols que estan menys de 2 hores a l'aeroport
+    estac_corto = VuelosEstacionamientoCorto(merged)
+
+    text = "VUELOS ESTACIONAMIENTO CORTO\n"
+    text += "Vuelos que pasan menos de 2 horas al aeropuerto: "
+    text += str(len(estac_corto)) + "\n\n"
+
+    text += "AIRCRAFT ID | LLEGADA | IDA | TIEMPO EN EL AEROPUERTO | AEROLINEA\n"
+
+    #Busquem aircraft id per estac_corto
+    for a in estac_corto:
+
+        arrival_time = _parse_time(a.arrival)
+        departure_time = _parse_time(a.departure)
+
+        #Comprobar que les hores existeixen
+        if arrival_time is not None and departure_time is not None:
+
+            time_in_airport = (departure_time) - (arrival_time)
+
+            # Si surt després de mitjanit
+            if time_in_airport < 0:
+                time_in_airport += 24 * 60
+
+            hours = time_in_airport // 60
+            minutes = time_in_airport % 60
+
+            text += (
+                a.aircraft_id + " | " +
+                a.arrival + " | " +
+                a.departure + " | " +
+                str(hours) + "h " + str(minutes) + "min | " +
+                a.airline + "\n"
+            )
+
+    show_text_in_panel(text)
+
+    messagebox.showinfo(
+        "Vuelos estacionamiento corto",
+        str(len(estac_corto)) + " vuelos que se quedan menos de 2 horas en el aeropuerto"
+    )
+
+
 # SaveFlightsButton
 # Guarda moviments fusionats si existeixen.
 # Si encara no hi ha merge, guarda les arribades.
 # Això evita que l'avaluador carregui només arrivals i no pugui guardar.
-# ============================================================
+
 def SaveFlightsButton():
 
     if len(merged) > 0:
@@ -1421,6 +1475,7 @@ create_button(col2, "Load Arrivals", LoadArrivalsButton).pack(pady=5, fill=X)
 create_button(col2, "Load Departures", LoadDeparturesButton).pack(pady=5, fill=X)
 create_button(col2, "Merge Movements", MergeMovementsButton).pack(pady=5, fill=X)
 create_button(col2, "Show Movements", ShowMovementsButton).pack(pady=5, fill=X)
+create_button(col2, "Vuelos Estac. Corto", VuelosEstacionamientoCortoButton).pack(pady=5, fill=X)
 create_button(col2, "Save Flights", SaveFlightsButton).pack(pady=5, fill=X)
 
 ttk.Label(col2, text="Gate Assignment", style="Section.TLabel").pack(pady=10)
