@@ -261,7 +261,6 @@ def IsAirlineInTerminal(terminal, name):
     return name in terminal.airlines
 
 
-
 # SEARCH TERMINAL
 
 
@@ -300,43 +299,37 @@ def _movement_airport_code(aircraft):
 # 2) origin/destination -> Schengen o non-Schengen
 # 3) primera gate lliure dins l'àrea correcta
 # ============================================================
+
 def AssignGate(bcn, aircraft):
 
-    terminal_name = SearchTerminal(bcn, aircraft.airline)     #busca quina terminal correspon a l’aerolínia de l’avió
+    terminal_name = SearchTerminal(bcn, aircraft.airline)
 
     if terminal_name == "":
         return -1
 
-    airport_code = _movement_airport_code(aircraft)
-
-    if airport_code == "":
-        return -1
-
-    flight_is_schengen = IsSchengenAirport(airport_code)
+    flight_is_schengen = IsSchengenAirport(aircraft.origin)
 
     for terminal in bcn.terminals:
 
         if terminal.name == terminal_name:
 
-            for area in terminal.boarding_areas:  #recorre les zones d’embarcament de la terminal
-                #comprova si la zona és correcta segons si el vol és Schengen o no
-                if flight_is_schengen and area.area_type.lower() == "schengen":
-                    correct_area = True
-                elif (not flight_is_schengen) and area.area_type.lower() != "schengen":
-                    correct_area = True
-                else:
-                    correct_area = False
+            for area in terminal.boarding_areas:
 
-                if correct_area:
+                if flight_is_schengen and area.area_type.lower() != "schengen":
+                    continue
 
-                    for gate in area.gates:
+                if (not flight_is_schengen) and area.area_type.lower() == "schengen":
+                    continue
 
-                        if not gate.occupied:   #assigna la primera porta lliure trobada
-                            gate.occupied = True
-                            gate.aircraft_id = aircraft.aircraft_id
-                            return gate.name
+                for gate in area.gates:
+
+                    if not gate.occupied:
+                        gate.occupied = True
+                        gate.aircraft_id = aircraft.aircraft_id
+                        return gate.name
 
     return -1
+
 
 # FREE GATE
 

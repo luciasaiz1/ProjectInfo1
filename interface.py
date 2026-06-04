@@ -483,6 +483,104 @@ def SaveFlightsButton():
 # ============================================================
 # V3/V4 — GATE MANAGEMENT
 # ============================================================
+
+
+def ShowGateOccupancyButton():
+
+    global bcn, merged
+
+    if bcn is None or bcn == -1:
+        messagebox.showwarning("Warning", "Load LEBL structure first")
+        return
+
+    if len(merged) == 0:
+        messagebox.showwarning("Warning", "Load and merge movements first")
+        return
+
+    time = entry_hour.get().strip()
+
+    if time == "":
+        messagebox.showwarning("Warning", "Enter a time (hh:mm)")
+        return
+
+    import copy
+    bcn_copy = copy.deepcopy(bcn)
+
+    AssignGatesAtTime(bcn_copy, merged, time)
+
+    # obtener ocupación ya simulada
+    occupancy = GateOccupancy(bcn_copy)
+
+    text = f"Gate Occupancy at {time}\n\n"
+
+    for terminal, area, gate, is_occupied, aircraft in occupancy:
+
+        status = "OCCUPIED" if is_occupied else "FREE"
+
+        text += f"{gate} | {terminal} | {area} -> {status}"
+
+        if is_occupied:
+            text += f" ({aircraft})"
+
+        text += "\n"
+
+    show_text_in_panel(text)
+
+
+
+# EXAMEN --------------------
+
+def SearchGateButton():
+
+    global bcn
+
+    if bcn is None or bcn == -1:
+        messagebox.showwarning("Warning", "Build LEBL structure first")
+        return
+
+    gate_name = entry_gate.get().strip().upper()
+
+    if gate_name == "":
+        messagebox.showwarning("Warning", "Enter a gate identifier")
+        return
+
+    found_gate = None
+
+    for terminal in bcn.terminals:
+        for area in terminal.boarding_areas:
+            for gate in area.gates:
+
+                if gate.name.upper() == gate_name:
+                    found_gate = gate
+                    break
+
+            if found_gate:
+                break
+        if found_gate:
+            break
+
+    if not found_gate:
+        messagebox.showerror("Error", "Gate not found")
+        return
+
+    if found_gate.occupied:
+        messagebox.showinfo(
+            "Gate Status",
+            f"Gate: {found_gate.name}\nStatus: OCCUPIED\nAircraft: {found_gate.aircraft_id}"
+        )
+    else:
+        messagebox.showinfo(
+            "Gate Status",
+            f"Gate: {found_gate.name}\nStatus: FREE"
+        )
+
+
+# FIN EXAMEN ----------------
+
+
+
+
+
 def BuildLEBLStructureButton():
 
     global bcn
@@ -519,46 +617,45 @@ def BuildLEBLStructureButton():
 # ============================================================
 def AssignGatesButton():
 
-    global bcn      #permet modificar la variable global de l’aeroport
+    global bcn
 
     if len(merged) == 0:
         messagebox.showwarning("Warning", "Load and merge movements first")
         return
 
-    bcn = LoadAirportStructure("LEBL.txt")      #carrega l’estructura de l’aeroport LEBL
-
     if bcn == -1:
         messagebox.showerror("Error", "LEBL structure could not be loaded")
         return
 
-    # Assignem només avions nocturns
+    # Night aircraft (ja estan a l'aeroport a l'inici del dia)
     night_assigned, night_failed = AssignNightGates(bcn, merged)
+
+    day_assigned = 0
+    day_failed = 0
+
+    for a in merged:
+
+        # solo vuelos con arrival real
+        if a.arrival != "" and a.departure != "":
+
+            gate = AssignGate(bcn, a)
+
+            if gate == -1:
+                day_failed += 1
+            else:
+                day_assigned += 1
 
     messagebox.showinfo(
         "Initial Gate Assignment",
         "Initial gate state created.\n\n" +
         "Night aircraft assigned: " + str(night_assigned) + "\n" +
-        "Night aircraft not assigned: " + str(night_failed) + "\n\n" +
-        "Use Simulate Hour or Start Live Gate Map for the full day."
+        "Day aircraft assigned: " + str(day_assigned) + "\n\n" +
+        "Night failed: " + str(night_failed) + "\n" +
+        "Day failed: " + str(day_failed) + "\n\n" +
+        "Use simulation for dynamic updates."
     )
 
-    DrawPhysicalGateMap(bcn, "00:00 initial state", night_failed)
-def ShowGateOccupancyButton():
-
-    if bcn is None or bcn == -1:
-        messagebox.showwarning("Warning", "Build LEBL structure first")
-        return
-
-    occupancy = GateOccupancy(bcn)      #calcula l’estat de totes les portes
-
-    text = "TERMINAL | AREA | GATE | STATUS\n"
-    text += "-" * 70 + "\n"
-    #recorre cada porta i mostra si està lliure o ocupada
-    for terminal, area, gate, occupied, aircraft_id in occupancy:
-        status = "Occupied by " + aircraft_id if occupied else "Free"
-        text += f"{terminal} | {area} | {gate} | {status}\n"
-
-    show_text_in_panel(text)
+    DrawPhysicalGateMap(bcn, "00:00 initial state", night_failed + day_failed)
 
 
 def ExportGateAssignmentsButton():
@@ -1454,6 +1551,29 @@ entry_lat.grid(row=1, column=1, pady=3)
 ttk.Label(input_frame, text="Longitude:", style="Text.TLabel").grid(row=2, column=0, sticky="e")
 entry_lon = ttk.Entry(input_frame, width=18)
 entry_lon.grid(row=2, column=1, pady=3)
+
+
+
+
+# EXAMEN -------------------
+
+
+ttk.Label(col1, text="Gate Search", style="Section.TLabel").pack(pady=10)
+
+gate_frame = Frame(col1, bg="#ECEFF1")
+gate_frame.pack(pady=5)
+
+ttk.Label(gate_frame, text="Gate Identifier:", style="Text.TLabel").grid(row=0, column=0)
+entry_gate = ttk.Entry(gate_frame, width=12)
+entry_gate.grid(row=0, column=1, padx=5)
+
+
+create_button(col1, "Search Gate", SearchGateButton).pack(pady=5, fill=X)
+
+
+# FIN EXAMEN ---------------
+
+
 
 create_button(col1, "Load Airports", load_airports).pack(pady=5, fill=X)
 create_button(col1, "Add Airport", add_airport).pack(pady=5, fill=X)
